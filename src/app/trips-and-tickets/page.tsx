@@ -1,6 +1,6 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/fixed/Navbar";
 import CustomCursor from "@/components/dynamic/CustomerCursor";
 
 export default function Home() {
