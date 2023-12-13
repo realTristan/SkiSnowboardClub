@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap");
+
 body {
   background-color: rgb(231, 240, 255);
   overflow-x: hidden;
@@ -10,4 +12,10 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Custom selection highlight color*/
+::selection {
+  background-color: rgb(214, 214, 214);
+  color: rgb(0, 0, 0);
 }
