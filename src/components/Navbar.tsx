@@ -28,6 +28,12 @@ export default function Navbar() {
       >
         CONTACT
       </Link>
+      <Link
+        href="/login"
+        className="btn cursor-pointer px-5 py-3 text-sm font-normal tracking-widest text-white duration-300 ease-in-out hover:scale-110"
+      >
+        ACOUNT
+      </Link>
     </nav>
   );
 }
