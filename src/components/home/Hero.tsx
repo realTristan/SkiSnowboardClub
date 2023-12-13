@@ -16,7 +16,7 @@ export default function Hero(): JSX.Element {
         target="_blank"
         className="btn btn group mt-7 flex flex-row items-center justify-center gap-2 rounded-none border border-white px-16 py-3 text-white duration-300 ease-in-out hover:bg-white hover:text-slate-900"
       >
-        <ExternalSVG className="duration-300 ease-in-out group-hover:fill-black" />{" "}
+        {/*<ExternalSVG className="duration-300 ease-in-out group-hover:fill-black" />{" "}*/}
         <p>Join us</p>
       </a>
     </div>
