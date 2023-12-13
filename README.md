@@ -1,5 +1,5 @@
 # Ski & Snowboard Club Website ![Stars](https://img.shields.io/github/stars/realTristan/SkiSnowboardClub?color=brightgreen) ![Watchers](https://img.shields.io/github/watchers/realTristan/SkiSnowboardClub?label=Watchers)
-<img width="1320" alt="Screenshot 2023-12-13 at 2 32 15 PM" src="https://github.com/realTristan/SkiSnowboardClub/assets/75189508/305954cf-9e5b-463a-a64b-fcf546384c10">
+<img width="1278" alt="Screenshot 2023-12-13 at 2 45 11 PM" src="https://github.com/realTristan/SkiSnowboardClub/assets/75189508/57857559-3dd1-4576-8f92-1dca0dda01db">
 
 # Todo
 - [ ] About section (use provided photos and put in a collage)
