@@ -19,3 +19,9 @@ export interface UserInfo {
   email: string;
   name: string;
 }
+
+export enum Permission {
+  POST_EVENT,
+  DELETE_EVENT,
+  ADMIN,
+}

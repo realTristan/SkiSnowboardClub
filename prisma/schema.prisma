@@ -24,4 +24,5 @@ model User {
   purchasedEventIds String[]
   email             String
   name              String
+  permissions       String[] // post_event, delete_event, admin
 }

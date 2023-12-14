@@ -10,9 +10,11 @@ import { useEffect } from "react";
 import SignOutButton from "./components/SignOutButton";
 import SignInButton from "./components/SignInButton";
 import EventCard from "./components/EventCard";
-import { ClubEvent } from "@/lib/types";
+import { ClubEvent, Permission } from "@/lib/types";
 import { testEvents } from "@/lib/constants";
 import LoadingCenter from "@/components/Loading";
+import { fetchUserPermissions } from "@/utils/fetchUserPermissions";
+import DashboardButton from "./components/DashboardButton";
 
 export default function AccountPage() {
   return (
@@ -49,6 +51,8 @@ function Main(): JSX.Element {
     return <InvalidSession />;
   }
 
+  const permissions: Permission[] = fetchUserPermissions();
+
   return (
     <main className="z-50 flex min-h-screen flex-col items-center justify-start p-40">
       <div className="flex flex-row items-center justify-center gap-4">
@@ -59,6 +63,7 @@ function Main(): JSX.Element {
           width={65}
           height={65}
         />
+
         <div className="flex flex-col">
           <p className="text-4xl font-black uppercase tracking-wider">
             {session.user.name}
@@ -69,16 +74,10 @@ function Main(): JSX.Element {
         </div>
 
         <SignOutButton />
+        <DashboardButton permissions={permissions} />
       </div>
 
-      <div className="mt-16 flex flex-col items-start justify-start gap-2">
-        <h1 className="mb-5 text-5xl font-thin">EVENTS</h1>
-        <div className="flex flex-wrap gap-7 lg:gap-12">
-          {testEvents.map((event: ClubEvent) => (
-            <EventCard key={event.id} event={event} />
-          ))}
-        </div>
-      </div>
+      <MyEvents />
     </main>
   );
 }
@@ -91,5 +90,18 @@ function InvalidSession(): JSX.Element {
       </p>
       <SignInButton />
     </main>
+  );
+}
+
+function MyEvents(): JSX.Element {
+  return (
+    <div className="mt-16 flex flex-col items-start justify-start gap-2">
+      <h1 className="mb-5 text-5xl font-thin">MY EVENTS</h1>
+      <div className="flex flex-wrap gap-7 lg:gap-12">
+        {testEvents.map((event: ClubEvent) => (
+          <EventCard key={event.id} event={event} />
+        ))}
+      </div>
+    </div>
   );
 }
