@@ -7,31 +7,9 @@ import { type ClubEvent } from "@/lib/types";
 import { base64encode } from "@/lib/crypto";
 import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
+import { testEvents } from "@/lib/constants";
 
 export default function Home() {
-  const testEvents: ClubEvent[] = [
-    {
-      title: "Quebec Trip",
-      description: "A super fun trip in Quebec!",
-      payment_url: "/",
-      id: base64encode(Math.random().toString()),
-      image: "/images/default-event-photo.png",
-      disabled: false,
-      date: 0,
-      attendees: [],
-    },
-    {
-      title: "Ski Trip",
-      description: "A super fun ski trip!",
-      payment_url: "/",
-      id: base64encode(Math.random().toString()),
-      image: "/images/default-event-photo.png",
-      disabled: true,
-      date: 0,
-      attendees: [],
-    },
-  ];
-
   return (
     <>
       <Navbar dark={true} />

@@ -4,9 +4,15 @@ import Navbar from "@/components/Navbar";
 import CustomCursor from "@/components/dynamic/CustomerCursor";
 import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
-import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
+import { SessionProvider, signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect } from "react";
+import SignOutButton from "./components/SignOutButton";
+import SignInButton from "./components/SignInButton";
+import EventCard from "./components/EventCard";
+import { ClubEvent } from "@/lib/types";
+import { testEvents } from "@/lib/constants";
+import LoadingCenter from "@/components/Loading";
 
 export default function AccountPage() {
   return (
@@ -35,6 +41,10 @@ function Main(): JSX.Element {
     }
   }, [status]);
 
+  if (status === "loading") {
+    return <LoadingCenter />;
+  }
+
   if (!session || !session.user) {
     return <InvalidSession />;
   }
@@ -50,16 +60,24 @@ function Main(): JSX.Element {
           height={65}
         />
         <div className="flex flex-col">
-          <p className="text-4xl font-extrabold">{session.user.name}</p>
-          <p className="ml-1 text-sm">{session.user.email}</p>
+          <p className="text-4xl font-black uppercase tracking-wider">
+            {session.user.name}
+          </p>
+          <p className="ml-1 text-sm font-light text-gray-500">
+            {session.user.email}
+          </p>
         </div>
 
-        <button
-          className="btn ml-10 border border-black px-10 py-3 duration-300 ease-in-out hover:bg-black hover:text-white"
-          onClick={() => signOut()}
-        >
-          Sign out
-        </button>
+        <SignOutButton />
+      </div>
+
+      <div className="mt-16 flex flex-col items-start justify-start gap-2">
+        <h1 className="mb-5 text-5xl font-thin">EVENTS</h1>
+        <div className="flex flex-wrap gap-7 lg:gap-12">
+          {testEvents.map((event: ClubEvent) => (
+            <EventCard key={event.id} event={event} />
+          ))}
+        </div>
       </div>
     </main>
   );
@@ -71,12 +89,7 @@ function InvalidSession(): JSX.Element {
       <p className="text-center text-5xl font-extrabold tracking-wide">
         Invalid session
       </p>
-      <button
-        className="btn border border-black px-10 py-3 duration-300 ease-in-out hover:bg-black hover:text-white"
-        onClick={() => signIn("google")}
-      >
-        Sign in
-      </button>
+      <SignInButton />
     </main>
   );
 }
