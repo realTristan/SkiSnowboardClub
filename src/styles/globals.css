@@ -5,7 +5,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap");
 
 body {
-  background-color: rgb(231, 240, 255);
+  background-color: white;
   overflow-x: hidden;
   overflow-y: scroll;
 }

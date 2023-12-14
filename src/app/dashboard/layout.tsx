@@ -8,7 +8,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Ski & Snowboard Club | Trips and Tickets",
+  title: "Ski & Snowboard Club",
   description: "Ski & Snowboard Club",
 };
 

@@ -1,4 +1,4 @@
-import ExternalSVG from "../svgs/External";
+import ExternalSVG from "../../components/svgs/External";
 
 export default function Hero(): JSX.Element {
   return (

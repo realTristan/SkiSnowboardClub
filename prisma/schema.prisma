@@ -1,0 +1,27 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("SUPABASE_URL")
+  directUrl = env("SUPERBASE_DIRECT_URL")
+}
+
+model Event {
+  id          String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  title       String
+  description String
+  payment_url String
+  image       String
+  disabled    Boolean
+  date        DateTime
+  attendees   String[] // JSON encoded user email and name
+  userId      Int?
+}
+
+model User {
+  id                Int      @unique @default(autoincrement())
+  secret            String
+  purchasedEventIds String[]
+  email             String
+  name              String
+}

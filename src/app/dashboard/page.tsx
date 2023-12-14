@@ -9,7 +9,9 @@ export default function Home() {
       <Navbar />
       <CustomCursor />
 
-      <main className="z-50 flex min-h-screen flex-col items-center justify-center p-24"></main>
+      <main className="z-50 flex min-h-screen flex-col items-center justify-center p-24">
+        <h1>Admin Dashboard</h1>
+      </main>
     </>
   );
 }

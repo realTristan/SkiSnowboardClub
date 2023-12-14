@@ -1,14 +1,13 @@
 "use client";
 
-import HeroFooter from "@/components/home/HeroFooter";
-import Navbar from "../components/fixed/Navbar";
+import HeroFooter from "@/app/components/HeroFooter";
+import Navbar from "../components/Navbar";
 import CustomCursor from "../components/dynamic/CustomerCursor";
 import Image from "next/image";
-import Hero from "@/components/home/Hero";
-import DarkBackground from "@/components/home/DarkBackground";
-import GuelphLogo from "@/components/fixed/GuelphLogo";
-import InstagramLogo from "@/components/fixed/InstagramLogo";
-import SocialMedia from "@/components/home/SocialMedia";
+import Hero from "@/app/components/Hero";
+import DarkBackground from "@/app/components/DarkBackground";
+import GuelphLogo from "@/components/logos/GuelphLogo";
+import SocialMediaLogos from "@/components/logos/SocialMediaLogos";
 
 export default function Home() {
   return (
@@ -18,7 +17,7 @@ export default function Home() {
       <GuelphLogo className="fixed right-7 top-7 z-50 hidden lg:block" />
 
       <Image
-        src="/images/bg-3.png"
+        src="/images/hero-background.png"
         alt="hero"
         layout="fill"
         objectFit="cover"
@@ -33,7 +32,7 @@ export default function Home() {
         <Hero />
       </main>
 
-      <SocialMedia />
+      <SocialMediaLogos />
       <HeroFooter />
     </>
   );
