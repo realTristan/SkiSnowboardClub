@@ -26,7 +26,7 @@ export default function UpdateEvent(props: {
 
   return (
     <form
-      className="flex w-full flex-col space-y-5"
+      className="flex h-fit w-full flex-col space-y-4"
       onSubmit={async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 

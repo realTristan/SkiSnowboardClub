@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Response } from "@/lib/responses";
 import { hasPermissions } from "@/utils/permissions";
-import { ClubEventInfo, Permission } from "@/lib/types";
+import { ClubEventCreationData, Permission } from "@/lib/types";
 import { Prisma } from "@/lib/prisma";
 import { genId } from "@/lib/crypto";
 
@@ -22,15 +22,15 @@ export async function GET(req: NextRequest) {
  */
 export async function POST(req: NextRequest) {
   // Get the request body parameters
-  const { title, description, date, location, price, available } =
+  const { title, description, date, location, available, price } =
     await req.json();
   if (
     !title ||
     !description ||
     !location ||
     date === undefined ||
-    price === undefined ||
-    available === undefined
+    available === undefined ||
+    price === undefined
   ) {
     return NextResponse.json(Response.InvalidBody, { status: 400 });
   }
@@ -53,13 +53,13 @@ export async function POST(req: NextRequest) {
 
   // Create the event
   const id: string = await genId();
-  const eventInfoObject: ClubEventInfo = {
+  const eventInfoObject: ClubEventCreationData = {
     title,
     description,
     date,
     location,
-    price,
     available,
+    price,
   };
 
   return Prisma.createEvent(id, eventInfoObject)

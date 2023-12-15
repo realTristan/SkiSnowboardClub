@@ -7,7 +7,7 @@ export default function EventCard(props: { event: ClubEvent }): JSX.Element {
   const eventDisabled = new Date(event.date).getTime() < new Date().getTime();
 
   return (
-    <div className="relative flex h-[32rem] w-80 flex-col items-start justify-start gap-1 border border-black bg-white p-7 duration-300 ease-in-out hover:scale-105">
+    <div className="relative flex h-fit w-96 flex-col items-start justify-start gap-1 border border-black bg-white p-7 duration-300 ease-in-out hover:scale-105">
       <Image
         src={event.image}
         alt="..."
@@ -27,7 +27,7 @@ export default function EventCard(props: { event: ClubEvent }): JSX.Element {
         }}
         className={cn(
           eventDisabled ? "" : "btn",
-          "absolute bottom-7 left-7 border border-black px-10 py-3 text-sm duration-300 ease-in-out enabled:hover:bg-black enabled:hover:text-white disabled:opacity-50",
+          "mt-4 border border-black px-10 py-3 text-sm duration-300 ease-in-out enabled:hover:bg-black enabled:hover:text-white disabled:opacity-50",
         )}
       >
         {eventDisabled ? "Unavailable" : `Register - $${event.price}`}

@@ -70,16 +70,8 @@ export async function PUT(req: NextRequest, { params }: any) {
   }
 
   // Get the request body parameters
-  const { title, description, date, location, price, available } =
-    await req.json();
-  if (
-    !title ||
-    !description ||
-    !location ||
-    date === undefined ||
-    price === undefined ||
-    available === undefined
-  ) {
+  const { title, description, date, location } = await req.json();
+  if (!title || !description || !location || date === undefined) {
     return NextResponse.json(Response.InvalidBody, { status: 400 });
   }
 
@@ -105,16 +97,11 @@ export async function PUT(req: NextRequest, { params }: any) {
     description,
     date,
     location,
-    price,
-    available,
   };
 
   return Prisma.updateEvent(params.id, eventInfoObject)
-    .then((_) => {
-      return NextResponse.json(
-        { event: { id: params.id, eventInfoObject }, ...Response.Success },
-        { status: 200 },
-      );
+    .then((event) => {
+      return NextResponse.json({ event, ...Response.Success }, { status: 200 });
     })
     .catch((_) => {
       return NextResponse.json(Response.InternalError, { status: 500 });

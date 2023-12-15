@@ -1,6 +1,10 @@
 import { PrismaClient } from "@prisma/client";
-import { ClubEvent, ClubEventInfo, Permission, type User } from "@/lib/types";
-import { genId } from "./crypto";
+import {
+  ClubEventInfo,
+  type ClubEvent,
+  type User,
+  ClubEventCreationData,
+} from "@/lib/types";
 
 export class Prisma extends PrismaClient {
   constructor() {
@@ -233,7 +237,7 @@ export class Prisma extends PrismaClient {
    */
   public static readonly createEvent = async (
     id: string,
-    event: ClubEventInfo,
+    event: ClubEventCreationData,
   ): Promise<ClubEvent> => {
     return await Prisma.create("event", {
       data: {

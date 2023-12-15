@@ -2,6 +2,8 @@ export interface ClubEvent extends ClubEventInfo {
   payment_url: string;
   id: string;
   image: string;
+  available: number;
+  price: number;
 }
 
 export interface ClubEventInfo {
@@ -9,6 +11,9 @@ export interface ClubEventInfo {
   description: string;
   location: string;
   date: string;
+}
+
+export interface ClubEventCreationData extends ClubEventInfo {
   available: number;
   price: number;
 }
