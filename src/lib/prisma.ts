@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { Permission, type User } from "@/lib/types";
+import { ClubEvent, ClubEventInfo, Permission, type User } from "@/lib/types";
 
 export class Prisma extends PrismaClient {
   constructor() {
@@ -96,16 +96,12 @@ export class Prisma extends PrismaClient {
    */
   public static readonly getUser = async (
     userSecret: string,
-  ): Promise<User> => {
+  ): Promise<User | null> => {
     const user: User | null = await Prisma.findOne("user", {
       where: {
         secret: userSecret,
       },
     });
-
-    if (!user) {
-      throw new Error("User not found");
-    }
 
     return user;
   };
@@ -131,11 +127,13 @@ export class Prisma extends PrismaClient {
    * Create a new user in the database
    * @param name The user's name
    * @param email The user's email
+   * @param image The user's image
    * @param secret The user's secret
    */
   public static readonly createUser = async (
     name: string,
     email: string,
+    image: string,
     secret: string,
   ): Promise<User> => {
     return await Prisma.create("user", {
@@ -143,8 +141,86 @@ export class Prisma extends PrismaClient {
         name,
         email,
         secret,
+        image,
         purchasedEventIds: [],
         permissions: [0],
+      },
+    });
+  };
+
+  /**
+   * Update the user's name
+   * @param userSecret The user's secret
+   * @param name The user's new name
+   * @returns The updated user
+   */
+  public static readonly updateUserName = async (
+    userSecret: string,
+    name: string,
+  ): Promise<User> => {
+    return await Prisma.update("user", {
+      where: {
+        secret: userSecret,
+      },
+      data: {
+        name,
+      },
+    });
+  };
+
+  /**
+   * Update the user's image (avatar)
+   * @param userSecret The user's secret
+   * @param avatar The user's new avatar
+   * @returns The updated user
+   */
+  public static readonly updateUserImage = async (
+    userSecret: string,
+    avatar: string,
+  ): Promise<User> => {
+    return await Prisma.update("user", {
+      where: {
+        secret: userSecret,
+      },
+      data: {
+        avatar,
+      },
+    });
+  };
+
+  /**
+   * Update an event's data
+   * @param event The event to update
+   * @returns The updated event
+   */
+  public static readonly updateEvent = async (
+    id: string,
+    event: ClubEventInfo,
+  ): Promise<ClubEvent> => {
+    return await Prisma.update("event", {
+      where: {
+        id: id,
+      },
+      data: {
+        title: event.title,
+        description: event.description,
+        date: event.date,
+        location: event.location,
+      },
+    });
+  };
+
+  /**
+   * Delete an event
+   * @param id The event's ID
+   * @returns The deleted event
+   */
+  public static readonly deleteEvent = async (
+    id: string,
+  ): Promise<ClubEvent> => {
+    return await Prisma.delete("event", {
+      where: {
+        id: id,
       },
     });
   };

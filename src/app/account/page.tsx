@@ -6,15 +6,14 @@ import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import { SessionProvider, signIn, useSession } from "next-auth/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import SignOutButton from "./components/SignOutButton";
-import SignInButton from "./components/SignInButton";
+import { useEffect } from "react";
+import SignOutButton from "@/components/SignOutButton";
+import SignInButton from "@/components/SignInButton";
 import EventCard from "./components/EventCard";
-import { ClubEvent, Permission } from "@/lib/types";
+import { ClubEvent } from "@/lib/types";
 import { testEvents } from "@/lib/constants";
 import LoadingCenter from "@/components/Loading";
 import DashboardButton from "./components/DashboardButton";
-import { Prisma } from "@/lib/prisma";
 
 export default function AccountPage() {
   return (

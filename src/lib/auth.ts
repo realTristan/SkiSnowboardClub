@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { sha256 } from "./crypto";
-import { Prisma } from "./prisma";
 
 export const handler = NextAuth({
   providers: [
@@ -29,6 +28,7 @@ export const handler = NextAuth({
 
       const email: string | null = session.user.email;
       const name: string | null = session.user.name;
+      const image: string = session.user.image || "/images/default-pfp.png";
       const secret: string | null = email
         ? await sha256(email + bearerSecret)
         : null;
@@ -37,22 +37,39 @@ export const handler = NextAuth({
         email,
         name,
         secret,
-        image: session.user.image,
+        image,
         purchasedEventIds: [],
         permissions: [],
       };
 
-      // If the user doesn't already exist in the database, add them
+      // Verify the user is updated in the database
       if (secret && email && name) {
-        const user = await Prisma.getUser(secret);
+        // Make a PUT request to /api/auth/account
+        const res = await import("@/app/api/auth/account/route");
+        const response = await res.PUT({
+          // @ts-ignore
+          headers: {
+            get: (name: string) => {
+              return (
+                {
+                  Authorization: secret,
+                }[name] || null
+              );
+            },
+          },
+          json: async () => ({
+            name,
+            email,
+            image,
+          }),
+        });
 
-        if (!user) {
-          await Prisma.createUser(name, email, secret);
-          return session;
+        if (response.ok) {
+          const json = await response.json();
+
+          session.user.permissions = json.user.permissions;
+          session.user.purchasedEventIds = json.user.purchasedEventIds;
         }
-
-        session.user.permissions = user.permissions;
-        session.user.purchasedEventIds = user.purchasedEventIds;
       }
 
       return session;

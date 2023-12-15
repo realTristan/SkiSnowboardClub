@@ -4,7 +4,7 @@ export default function DashboardButton(): JSX.Element {
   return (
     <Link
       href="/dashboard"
-      className="btn border border-black px-10 py-3 text-sm duration-300 ease-in-out enabled:hover:bg-black enabled:hover:text-white"
+      className="btn border border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white enabled:hover:text-white"
     >
       Dashboard
     </Link>

@@ -4,6 +4,7 @@ import Image from "next/image";
 
 export default function EventCard(props: { event: ClubEvent }): JSX.Element {
   const event: ClubEvent = props.event;
+  const eventDisabled = event.date < Date.now();
 
   return (
     <div className="relative flex h-[30.5rem] w-80 flex-col items-start justify-start gap-1 border border-black bg-white p-7 duration-300 ease-in-out hover:scale-105">
@@ -19,16 +20,16 @@ export default function EventCard(props: { event: ClubEvent }): JSX.Element {
       <p className="text-xs">{new Date(event.date).toDateString()}</p>
       <p className="text-xs">{event.location}</p>
       <button
-        disabled={event.disabled}
+        disabled={eventDisabled}
         onClick={() => {
           window.location.href = event.payment_url;
         }}
         className={cn(
-          !event.disabled ? "btn" : "",
+          eventDisabled ? "" : "btn",
           "absolute bottom-7 left-7 border border-black px-10 py-3 text-sm duration-300 ease-in-out enabled:hover:bg-black enabled:hover:text-white disabled:opacity-50",
         )}
       >
-        {event.disabled ? "Unavailable" : "Register"}
+        {eventDisabled ? "Unavailable" : "Register"}
       </button>
     </div>
   );

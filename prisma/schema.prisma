@@ -16,11 +16,9 @@ model Event {
   description String
   payment_url String
   image       String
-  disabled    Boolean
   date        DateTime
   location    String
   attendees   String[] // JSON encoded user email and name
-  userId      Int?
 }
 
 model User {
@@ -31,7 +29,8 @@ model User {
   purchasedEventIds String[]
   email             String
   name              String
-  permissions       Int[] // DEFAULT = 0, POST_EVENT = 1, DELETE_EVENT = 2, ADMIN = 3
+  image             String
+  permissions       Int[] // DEFAULT = 0, POST_EVENT = 1, EDIT_EVENT = 2, DELETE_EVENT = 3, ADMIN = 4
 }
 
 // npx prisma migrate dev --name init
