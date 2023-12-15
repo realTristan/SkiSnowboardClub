@@ -14,7 +14,7 @@ export default function DashboardButton(props: {
       }}
       className={cn(
         !isDisabled ? "btn" : "",
-        "absolute bottom-7 left-7 border border-black px-10 py-3 text-sm duration-300 ease-in-out enabled:hover:bg-black enabled:hover:text-white disabled:opacity-50",
+        "border border-black px-10 py-3 text-sm duration-300 ease-in-out enabled:hover:bg-black enabled:hover:text-white disabled:opacity-50",
       )}
     >
       Dashboard

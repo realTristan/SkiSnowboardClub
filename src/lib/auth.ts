@@ -1,8 +1,9 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { sha256 } from "./crypto";
+import { Prisma } from "./prisma";
 
-export const authOptions = NextAuth({
+export const handler = NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -27,20 +28,24 @@ export const authOptions = NextAuth({
       }
 
       const email: string | null = session.user.email;
+      const name: string | null = session.user.name;
       const secret: string | null = email
         ? await sha256(email + bearerSecret)
         : null;
 
       session.user = {
         email,
-        image: session.user.image,
-        name: session.user.name,
+        name,
         secret,
+        image: session.user.image,
       };
+
+      // If the user doesn't already exist in the database, add them
+      if (secret && email && name) {
+        Prisma.createUser(name, email, secret);
+      }
 
       return session;
     },
   },
 });
-
-export default authOptions;

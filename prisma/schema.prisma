@@ -27,3 +27,5 @@ model User {
   name              String
   permissions       String[] // post_event, delete_event, admin
 }
+
+// npx prisma migrate dev --name init

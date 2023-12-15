@@ -14,6 +14,7 @@ export interface User extends UserInfo {
   id: number;
   secret: string;
   purchasedEventIds: string[];
+  permissions: Permission[];
 }
 
 export interface UserInfo {

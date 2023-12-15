@@ -30,6 +30,13 @@ export default function AccountPage() {
       <SessionProvider>
         <Main />
       </SessionProvider>
+
+      <div className="fixed -bottom-8 left-1/2 mb-10 -translate-x-1/2 transform bg-white px-7 py-2">
+        <p className="text-center text-xs font-light text-black">
+          Your receipt (sent to you by email) is proof of purchase. Please have
+          it with you at the event.
+        </p>
+      </div>
     </>
   );
 }
@@ -77,7 +84,13 @@ function Main(): JSX.Element {
         <DashboardButton permissions={permissions} />
       </div>
 
-      <MyEvents />
+      <div className="mt-16 flex flex-col items-start justify-start gap-2">
+        <div className="flex flex-wrap gap-7 lg:gap-12">
+          {testEvents.map((event: ClubEvent) => (
+            <EventCard key={event.id} event={event} />
+          ))}
+        </div>
+      </div>
     </main>
   );
 }
@@ -90,18 +103,5 @@ function InvalidSession(): JSX.Element {
       </p>
       <SignInButton />
     </main>
-  );
-}
-
-function MyEvents(): JSX.Element {
-  return (
-    <div className="mt-16 flex flex-col items-start justify-start gap-2">
-      <h1 className="mb-5 text-5xl font-thin">MY EVENTS</h1>
-      <div className="flex flex-wrap gap-7 lg:gap-12">
-        {testEvents.map((event: ClubEvent) => (
-          <EventCard key={event.id} event={event} />
-        ))}
-      </div>
-    </div>
   );
 }
