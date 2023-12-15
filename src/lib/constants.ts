@@ -9,8 +9,9 @@ export const testEvents: ClubEvent[] = [
     id: base64encode(Math.random().toString()),
     image: "/images/default-event-photo.png",
     disabled: false,
-    date: 0,
+    date: Date.now(),
     attendees: [],
+    location: "The University of Guelph",
   },
   {
     title: "Ski Trip",
@@ -19,7 +20,8 @@ export const testEvents: ClubEvent[] = [
     id: base64encode(Math.random().toString()),
     image: "/images/default-event-photo.png",
     disabled: true,
-    date: 0,
+    date: Date.now(),
     attendees: [],
+    location: "The University of Guelph",
   },
 ];

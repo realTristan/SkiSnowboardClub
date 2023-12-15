@@ -6,6 +6,7 @@ export interface ClubEvent {
   image: string;
   disabled: boolean;
   date: number;
+  location: string;
   attendees: UserInfo[]; // The info is stored in the database as a JSON strong
 }
 
