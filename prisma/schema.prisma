@@ -1,11 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider  = "postgresql"
   url       = env("SUPABASE_URL")
-  directUrl = env("SUPERBASE_DIRECT_URL")
+  directUrl = env("SUPABASE_DIRECT_URL")
 }
 
 model Event {
-  id          String   @unique
+  id          String   @id @unique @default(uuid())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   title       String
@@ -20,12 +24,14 @@ model Event {
 }
 
 model User {
-  id                Int      @unique @default(autoincrement())
+  id                Int      @id @unique @default(autoincrement())
+  registeredAt      DateTime @default(now())
+  updatedAt         DateTime @updatedAt
   secret            String
   purchasedEventIds String[]
   email             String
   name              String
-  permissions       String[] // post_event, delete_event, admin
+  permissions       Int[] // DEFAULT = 0, POST_EVENT = 1, DELETE_EVENT = 2, ADMIN = 3
 }
 
 // npx prisma migrate dev --name init

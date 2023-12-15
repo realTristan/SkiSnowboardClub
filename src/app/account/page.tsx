@@ -6,15 +6,15 @@ import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import { SessionProvider, signIn, useSession } from "next-auth/react";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SignOutButton from "./components/SignOutButton";
 import SignInButton from "./components/SignInButton";
 import EventCard from "./components/EventCard";
 import { ClubEvent, Permission } from "@/lib/types";
 import { testEvents } from "@/lib/constants";
 import LoadingCenter from "@/components/Loading";
-import { fetchUserPermissions } from "@/utils/fetchUserPermissions";
 import DashboardButton from "./components/DashboardButton";
+import { Prisma } from "@/lib/prisma";
 
 export default function AccountPage() {
   return (
@@ -58,8 +58,6 @@ function Main(): JSX.Element {
     return <InvalidSession />;
   }
 
-  const permissions: Permission[] = fetchUserPermissions();
-
   return (
     <main className="z-50 flex min-h-screen flex-col items-center justify-start p-40">
       <div className="flex flex-row items-center justify-center gap-4">
@@ -81,7 +79,7 @@ function Main(): JSX.Element {
         </div>
 
         <SignOutButton />
-        <DashboardButton permissions={permissions} />
+        <DashboardButton />
       </div>
 
       <div className="mt-16 flex flex-col items-start justify-start gap-2">

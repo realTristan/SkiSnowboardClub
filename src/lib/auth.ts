@@ -38,11 +38,21 @@ export const handler = NextAuth({
         name,
         secret,
         image: session.user.image,
+        purchasedEventIds: [],
+        permissions: [],
       };
 
       // If the user doesn't already exist in the database, add them
       if (secret && email && name) {
-        Prisma.createUser(name, email, secret);
+        const user = await Prisma.getUser(secret);
+
+        if (!user) {
+          await Prisma.createUser(name, email, secret);
+          return session;
+        }
+
+        session.user.permissions = user.permissions;
+        session.user.purchasedEventIds = user.purchasedEventIds;
       }
 
       return session;

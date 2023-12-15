@@ -9,7 +9,7 @@ import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import { testEvents } from "@/lib/constants";
 
-export default function Home() {
+export default function TripsAndTicketsPage() {
   return (
     <>
       <Navbar dark={true} />

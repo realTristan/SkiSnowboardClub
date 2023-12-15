@@ -23,6 +23,7 @@ export interface UserInfo {
 }
 
 export enum Permission {
+  DEFAULT,
   POST_EVENT,
   DELETE_EVENT,
   ADMIN,

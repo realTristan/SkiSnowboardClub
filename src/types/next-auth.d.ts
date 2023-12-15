@@ -1,3 +1,4 @@
+import { Permission } from "@/lib/types";
 import "next-auth";
 
 declare module "next-auth" {
@@ -10,6 +11,8 @@ declare module "next-auth" {
       name: string | null;
       email: string | null;
       image: string | null;
+      purchasedEventIds: string[];
+      permissions: Permission[];
     };
   }
 }

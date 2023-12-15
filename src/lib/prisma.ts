@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { type User } from "./types";
+import { Permission, type User } from "@/lib/types";
 
 export class Prisma extends PrismaClient {
   constructor() {
@@ -90,11 +90,32 @@ export class Prisma extends PrismaClient {
   };
 
   /**
+   * Fetch the user data from the database
+   * @param userSecret The user's secret
+   * @returns The user's data
+   */
+  public static readonly getUser = async (
+    userSecret: string,
+  ): Promise<User> => {
+    const user: User | null = await Prisma.findOne("user", {
+      where: {
+        secret: userSecret,
+      },
+    });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    return user;
+  };
+
+  /**
    * Check whether the user is valid based on their user secret
    * @param userSecret The user secret
    * @returns Whether the user exists
    */
-  public static readonly userValid = async (
+  public static readonly userExists = async (
     userSecret: string,
   ): Promise<boolean> => {
     const user: User | null = await Prisma.findOne("user", {
@@ -117,23 +138,15 @@ export class Prisma extends PrismaClient {
     email: string,
     secret: string,
   ): Promise<User> => {
-    const userAlreadyExists = await Prisma.userValid(secret);
-
-    if (userAlreadyExists) {
-      throw new Error("User already exists");
-    }
-
-    const user: User = await Prisma.create("user", {
+    return await Prisma.create("user", {
       data: {
         name,
         email,
         secret,
         purchasedEventIds: [],
-        permissions: [],
+        permissions: [0],
       },
     });
-
-    return user;
   };
 }
 

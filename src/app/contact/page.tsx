@@ -3,7 +3,7 @@
 import Navbar from "@/components/Navbar";
 import CustomCursor from "@/components/dynamic/CustomerCursor";
 
-export default function Home() {
+export default function ContactPage() {
   return (
     <>
       <Navbar />
