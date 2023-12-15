@@ -9,19 +9,12 @@ import Image from "next/image";
 import { SessionProvider, signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import SignOutButton from "../../components/SignOutButton";
-import { testEvents } from "@/lib/constants";
-import { ClubEvent, Permission } from "@/lib/types";
+import { ClubEvent, Status } from "@/lib/types";
 import EventCard from "./components/EventCard";
-import SignInButton from "@/components/SignInButton";
-import { Session } from "next-auth";
-
-// Check if the requesting user has only the DEFAULT permission
-function canAccessPage(session: Session): boolean {
-  for (const permission of session.user.permissions) {
-    if (permission !== Permission.DEFAULT) return true;
-  }
-  return false;
-}
+import Link from "next/link";
+import { canAccessDashboard } from "@/utils/permissions";
+import NoPermissions from "./components/NoPermissions";
+import InvalidSession from "@/components/InvalidSession";
 
 export default function DashboardPage() {
   return (
@@ -43,12 +36,22 @@ export default function DashboardPage() {
 
 function Main(): JSX.Element {
   const { data: session, status } = useSession();
+  const [events, setEvents] = useState<ClubEvent[]>([]);
+  const [fetchStatus, setFetchStatus] = useState<Status>(Status.LOADING);
 
   useEffect(() => {
     if (status === "unauthenticated") {
       signIn("google");
       return;
     }
+
+    fetch("/api/events")
+      .then((res) => res.json())
+      .then((data) => {
+        setEvents(data.events);
+        setFetchStatus(Status.SUCCESS);
+      })
+      .catch((_) => setFetchStatus(Status.ERROR));
   }, [status]);
 
   if (status === "loading") {
@@ -59,7 +62,7 @@ function Main(): JSX.Element {
     return <InvalidSession />;
   }
 
-  if (!canAccessPage(session)) {
+  if (!canAccessDashboard(session.user.permissions)) {
     return <NoPermissions />;
   }
 
@@ -86,40 +89,29 @@ function Main(): JSX.Element {
         <SignOutButton />
       </div>
 
-      <div className="mt-16 flex flex-col items-start justify-start gap-2">
-        <div className="flex flex-wrap gap-7 lg:gap-12">
-          {testEvents.map((event: ClubEvent) => (
-            <EventCard
-              key={event.id}
-              event={event}
-              userSecret={session?.user?.secret || ""}
-              permissions={session.user.permissions}
-            />
-          ))}
+      <div className="mt-16 flex flex-col items-start justify-start gap-5">
+        <Link
+          href="/dashboard/events/new"
+          className="btn border border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white"
+        >
+          Create event
+        </Link>
+
+        <div className="flex flex-wrap gap-7">
+          {fetchStatus === Status.LOADING ? (
+            <LoadingCenter />
+          ) : (
+            events.map((event: ClubEvent) => (
+              <EventCard
+                key={event.id}
+                event={event}
+                userSecret={session?.user?.secret || ""}
+                permissions={session.user.permissions}
+              />
+            ))
+          )}
         </div>
       </div>
-    </main>
-  );
-}
-
-function InvalidSession(): JSX.Element {
-  return (
-    <main className="z-50 flex min-h-screen flex-col items-center justify-center gap-4 p-24">
-      <p className="text-center text-5xl font-extrabold tracking-wide">
-        Invalid session
-      </p>
-      <SignInButton />
-    </main>
-  );
-}
-
-function NoPermissions(): JSX.Element {
-  return (
-    <main className="z-50 flex min-h-screen flex-col items-center justify-center gap-4 p-24">
-      <p className="mb-4 text-center text-5xl font-extrabold tracking-wide">
-        Invalid permissions
-      </p>
-      <SignInButton />
     </main>
   );
 }

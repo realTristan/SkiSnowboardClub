@@ -1,8 +1,8 @@
-import { ClubEvent, Permission } from "@/lib/types";
+import { ClubEvent, Permission, Status } from "@/lib/types";
 import Image from "next/image";
 import UpdateEvent from "./UpdateEvent";
 import { Dispatch, SetStateAction, useState } from "react";
-import { hasPermissions } from "@/utils/hasPermissions";
+import { hasPermissions } from "@/utils/permissions";
 
 export default function EventCard(props: {
   event: ClubEvent;
@@ -12,9 +12,13 @@ export default function EventCard(props: {
   const [updatingEvent, setUpdatingEvent] = useState(false);
 
   return (
-    <div className="relative flex h-[35rem] w-96 flex-col items-start justify-start gap-1 border border-black bg-white p-7 duration-300 ease-in-out hover:scale-105">
+    <div className="relative flex h-[35rem] w-96 flex-col items-start justify-start gap-1 border border-black bg-white p-7 duration-300 ease-in-out">
       {updatingEvent ? (
-        <UpdateEvent userSecret={props.userSecret} event={props.event} />
+        <UpdateEvent
+          setUpdatingEvent={setUpdatingEvent}
+          userSecret={props.userSecret}
+          event={props.event}
+        />
       ) : (
         <EventInfo
           event={props.event}
@@ -66,7 +70,12 @@ function EventInfo(props: EventInfoProps): JSX.Element {
           Edit
         </button>
         <button
-          onClick={() => deleteEvent(event.id, props.userSecret)}
+          onClick={async () => {
+            const res = await deleteEvent(event.id, props.userSecret);
+            if (res.ok) {
+              window.location.reload();
+            }
+          }}
           disabled={!canDeleteEvent}
           className="btn group mt-7 flex flex-row items-center justify-center gap-2 rounded-none border border-black px-10 py-3 text-sm text-black duration-300 ease-in-out hover:bg-black hover:text-white disabled:opacity-50"
         >
@@ -77,8 +86,8 @@ function EventInfo(props: EventInfoProps): JSX.Element {
   );
 }
 
-function deleteEvent(eventId: string, userSecret: string): void {
-  fetch(`/api/events/${eventId}`, {
+async function deleteEvent(eventId: string, userSecret: string) {
+  return await fetch(`/api/events/id/${eventId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

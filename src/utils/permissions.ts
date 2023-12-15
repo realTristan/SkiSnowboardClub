@@ -9,3 +9,10 @@ export function hasPermissions(
     permissions.includes(Permission.ADMIN)
   );
 }
+
+export function canAccessDashboard(permissions: Permission[]) {
+  for (const permission of permissions) {
+    if (permission !== Permission.DEFAULT) return true;
+  }
+  return false;
+}

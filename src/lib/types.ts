@@ -32,3 +32,10 @@ export enum Permission {
   DELETE_EVENT,
   ADMIN,
 }
+
+export enum Status {
+  IDLE,
+  SUCCESS,
+  ERROR,
+  LOADING,
+}

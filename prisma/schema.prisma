@@ -16,9 +16,8 @@ model Event {
   description String
   payment_url String
   image       String
-  date        DateTime
+  date        Int
   location    String
-  attendees   String[] // JSON encoded user email and name
 }
 
 model User {

@@ -4,10 +4,10 @@ import Image from "next/image";
 
 export default function EventCard(props: { event: ClubEvent }): JSX.Element {
   const event: ClubEvent = props.event;
-  const eventDisabled = event.date < Date.now();
+  const eventDisabled = event.date < new Date().getTime();
 
   return (
-    <div className="relative flex h-[30.5rem] w-80 flex-col items-start justify-start gap-1 border border-black bg-white p-7 duration-300 ease-in-out hover:scale-105">
+    <div className="relative flex h-[31.5rem] w-80 flex-col items-start justify-start gap-1 border border-black bg-white p-7 duration-300 ease-in-out hover:scale-105">
       <Image
         src={event.image}
         alt="..."

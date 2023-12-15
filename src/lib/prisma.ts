@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { ClubEvent, ClubEventInfo, Permission, type User } from "@/lib/types";
+import { genId } from "./crypto";
 
 export class Prisma extends PrismaClient {
   constructor() {
@@ -223,6 +224,70 @@ export class Prisma extends PrismaClient {
         id: id,
       },
     });
+  };
+
+  /**
+   * Create a new event
+   * @param event The event to create
+   * @returns The created event
+   */
+  public static readonly createEvent = async (
+    id: string,
+    event: ClubEventInfo,
+  ): Promise<ClubEvent> => {
+    return await Prisma.create("event", {
+      data: {
+        title: event.title,
+        description: event.description,
+        date: event.date,
+        location: event.location,
+        payment_url: "/",
+        image: "/images/default-event-photo.png",
+        attendees: [],
+        id,
+      },
+    });
+  };
+
+  /**
+   * Get all the events
+   * @returns All the events
+   */
+  public static readonly getEvents = async (): Promise<ClubEvent[]> => {
+    return await Prisma.findMany("event", {
+      orderBy: {
+        date: "asc",
+      },
+    });
+  };
+
+  /**
+   * Get all of the events that the userSecret has purchased
+   * @param userSecret The user's secret
+   * @returns The events that the user has purchased
+   */
+  public static readonly getPurchasedEvents = async (
+    userSecret: string,
+  ): Promise<ClubEvent[]> => {
+    const user: User | null = await Prisma.findOne("user", {
+      where: {
+        secret: userSecret,
+      },
+    });
+
+    if (!user) {
+      return [];
+    }
+
+    const events: ClubEvent[] = await Prisma.findMany("event", {
+      where: {
+        id: {
+          in: user.purchasedEventIds,
+        },
+      },
+    });
+
+    return events;
   };
 }
 

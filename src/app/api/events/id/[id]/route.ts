@@ -2,28 +2,23 @@ import { Response } from "@/lib/responses";
 import { NextRequest, NextResponse } from "next/server";
 import { Prisma } from "@/lib/prisma";
 import { Permission, type ClubEventInfo } from "@/lib/types";
-import { hasPermissions } from "@/utils/hasPermissions";
-
-interface NextParams {
-  id: string;
-}
+import { hasPermissions } from "@/utils/permissions";
 
 /**
  * Get an event
  * @param req The request object
  * @returns The response object
  */
-export async function GET(req: NextRequest, { id }: NextParams) {
-  return NextResponse.json(Response.Success, { status: 200 });
-}
+export async function GET(req: NextRequest, { params }: any) {
+  // Check the event ID from the URL query
+  if (!params.id || typeof params.id !== "string") {
+    return NextResponse.json(Response.InvalidQuery, { status: 400 });
+  }
 
-/**
- * Create an event
- * @param req The request object
- * @returns The response object
- */
-export async function POST(req: NextRequest, { id }: NextParams) {
-  return NextResponse.json(Response.Success, { status: 200 });
+  return NextResponse.json(
+    { ...Response.Success, id: params.id },
+    { status: 200 },
+  );
 }
 
 /**
@@ -31,10 +26,10 @@ export async function POST(req: NextRequest, { id }: NextParams) {
  * @param req The request object
  * @returns The response object
  */
-export async function DELETE(req: NextRequest, { id }: NextParams) {
+export async function DELETE(req: NextRequest, { params }: any) {
   // Check the event ID from the URL query
-  if (!id || typeof id !== "string") {
-    return NextResponse.json(Response.InvalidQuery, { status: 405 });
+  if (!params.id || typeof params.id !== "string") {
+    return NextResponse.json(Response.InvalidQuery, { status: 400 });
   }
 
   // Get the user's bearer token from the headers
@@ -54,7 +49,7 @@ export async function DELETE(req: NextRequest, { id }: NextParams) {
   }
 
   // Delete the event
-  return Prisma.deleteEvent(id)
+  return Prisma.deleteEvent(params.id)
     .then((_) => {
       return NextResponse.json(Response.Success, { status: 200 });
     })
@@ -68,16 +63,16 @@ export async function DELETE(req: NextRequest, { id }: NextParams) {
  * @param req The request object
  * @returns The response object
  */
-export async function PUT(req: NextRequest, { id }: NextParams) {
+export async function PUT(req: NextRequest, { params }: any) {
   // Check the event ID from the URL query
-  if (!id || typeof id !== "string") {
-    return NextResponse.json(Response.InvalidQuery, { status: 405 });
+  if (!params.id || typeof params.id !== "string") {
+    return NextResponse.json(Response.InvalidQuery, { status: 400 });
   }
 
   // Get the title, description, date, location from the request body
   const { title, description, date, location } = await req.json();
   if (!title || !description || !date || !location) {
-    return NextResponse.json(Response.InvalidBody, { status: 405 });
+    return NextResponse.json(Response.InvalidBody, { status: 400 });
   }
 
   // Get the user's bearer token from the headers
@@ -104,10 +99,10 @@ export async function PUT(req: NextRequest, { id }: NextParams) {
     location,
   };
 
-  return Prisma.updateEvent(id, eventInfoObject)
+  return Prisma.updateEvent(params.id, eventInfoObject)
     .then((_) => {
       return NextResponse.json(
-        { event: eventInfoObject, ...Response.Success },
+        { event: { id: params.id, eventInfoObject }, ...Response.Success },
         { status: 200 },
       );
     })
