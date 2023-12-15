@@ -16,8 +16,10 @@ model Event {
   description String
   payment_url String
   image       String
-  date        Int
+  date        String
   location    String
+  available   Int
+  price       Int
 }
 
 model User {

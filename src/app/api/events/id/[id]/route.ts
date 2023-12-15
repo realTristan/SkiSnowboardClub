@@ -69,9 +69,17 @@ export async function PUT(req: NextRequest, { params }: any) {
     return NextResponse.json(Response.InvalidQuery, { status: 400 });
   }
 
-  // Get the title, description, date, location from the request body
-  const { title, description, date, location } = await req.json();
-  if (!title || !description || !date || !location) {
+  // Get the request body parameters
+  const { title, description, date, location, price, available } =
+    await req.json();
+  if (
+    !title ||
+    !description ||
+    !location ||
+    date === undefined ||
+    price === undefined ||
+    available === undefined
+  ) {
     return NextResponse.json(Response.InvalidBody, { status: 400 });
   }
 
@@ -97,6 +105,8 @@ export async function PUT(req: NextRequest, { params }: any) {
     description,
     date,
     location,
+    price,
+    available,
   };
 
   return Prisma.updateEvent(params.id, eventInfoObject)

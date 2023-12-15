@@ -95,16 +95,7 @@ export default function UpdateEvent(props: {
           Date
         </label>
         <input
-          onChange={(e) => {
-            // Create a Date object
-            const date = new Date(e.target.value);
-
-            // Get the time value in milliseconds and convert it to seconds
-            const seconds = date.getTime() / 1000;
-
-            // Set the date state
-            setDate(seconds);
-          }}
+          onChange={(e) => setDate(e.target.value)}
           type="date"
           className="w-full border border-gray-300 px-5 py-3 text-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-black"
           defaultValue={event.date}

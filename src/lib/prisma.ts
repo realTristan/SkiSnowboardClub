@@ -241,9 +241,10 @@ export class Prisma extends PrismaClient {
         description: event.description,
         date: event.date,
         location: event.location,
+        available: event.available,
+        price: event.price,
         payment_url: "/",
         image: "/images/default-event-photo.png",
-        attendees: [],
         id,
       },
     });
@@ -284,6 +285,9 @@ export class Prisma extends PrismaClient {
         id: {
           in: user.purchasedEventIds,
         },
+      },
+      orderBy: {
+        date: "asc",
       },
     });
 

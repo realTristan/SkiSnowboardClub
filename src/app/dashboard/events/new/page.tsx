@@ -33,10 +33,13 @@ export default function DashboardNewEventage() {
 }
 
 function Main(): JSX.Element {
-  const [date, setDate] = useState(new Date().getTime() / 1000);
+  const [date, setDate] = useState(new Date().toDateString());
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
+  const [price, setPrice] = useState(0);
+  const [available, setAvailable] = useState(0);
+
   const { data: session, status } = useSession();
 
   useEffect(() => {
@@ -80,6 +83,8 @@ function Main(): JSX.Element {
             description,
             date,
             location,
+            price,
+            available,
           };
 
           await createEvent(session.user.secret || "", event);
@@ -107,17 +112,8 @@ function Main(): JSX.Element {
           <span className="text-sm text-black">Event Date</span>
           <input
             type="date"
-            onChange={(e) => {
-              // Create a Date object
-              const date = new Date(e.target.value);
-
-              // Get the time value in milliseconds and convert it to seconds
-              const seconds = date.getTime() / 1000;
-
-              // Set the date state
-              setDate(seconds);
-            }}
             className="border border-black p-3 text-sm focus:outline-black"
+            onChange={(e) => setDate(e.target.value)}
           />
         </label>
 
@@ -127,6 +123,28 @@ function Main(): JSX.Element {
             type="text"
             maxLength={40}
             onChange={(e) => setLocation(e.target.value)}
+            className="border border-black p-3 text-sm focus:outline-black"
+          />
+        </label>
+        <label className="flex flex-col gap-1">
+          <span className="text-sm text-black">
+            Event Price (cannot change after)
+          </span>
+          <input
+            type="number"
+            maxLength={40}
+            onChange={(e) => setPrice(parseInt(e.target.value))}
+            className="border border-black p-3 text-sm focus:outline-black"
+          />
+        </label>
+        <label className="flex flex-col gap-1">
+          <span className="text-sm text-black">
+            Available Tickets (cannot change after)
+          </span>
+          <input
+            type="number"
+            maxLength={40}
+            onChange={(e) => setAvailable(parseInt(e.target.value))}
             className="border border-black p-3 text-sm focus:outline-black"
           />
         </label>

@@ -21,9 +21,17 @@ export async function GET(req: NextRequest) {
  * @returns The response object
  */
 export async function POST(req: NextRequest) {
-  // Get the title, description, date, location from the request body
-  const { title, description, date, location } = await req.json();
-  if (!title || !description || !date || !location) {
+  // Get the request body parameters
+  const { title, description, date, location, price, available } =
+    await req.json();
+  if (
+    !title ||
+    !description ||
+    !location ||
+    date === undefined ||
+    price === undefined ||
+    available === undefined
+  ) {
     return NextResponse.json(Response.InvalidBody, { status: 400 });
   }
 
@@ -45,12 +53,13 @@ export async function POST(req: NextRequest) {
 
   // Create the event
   const id: string = await genId();
-  const dateInSeconds: number = new Date(date).getTime() / 1000;
   const eventInfoObject: ClubEventInfo = {
     title,
     description,
-    date: dateInSeconds,
+    date,
     location,
+    price,
+    available,
   };
 
   return Prisma.createEvent(id, eventInfoObject)

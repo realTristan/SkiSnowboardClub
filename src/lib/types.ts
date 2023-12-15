@@ -2,14 +2,15 @@ export interface ClubEvent extends ClubEventInfo {
   payment_url: string;
   id: string;
   image: string;
-  attendees: UserInfo[]; // The info is stored in the database as a JSON strong
 }
 
 export interface ClubEventInfo {
   title: string;
   description: string;
   location: string;
-  date: number;
+  date: string;
+  available: number;
+  price: number;
 }
 
 export interface User extends UserInfo {

@@ -7,9 +7,10 @@ CREATE TABLE "Event" (
     "description" TEXT NOT NULL,
     "payment_url" TEXT NOT NULL,
     "image" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
+    "date" TEXT NOT NULL,
     "location" TEXT NOT NULL,
-    "attendees" TEXT[],
+    "available" INTEGER NOT NULL,
+    "price" INTEGER NOT NULL,
 
     CONSTRAINT "Event_pkey" PRIMARY KEY ("id")
 );
