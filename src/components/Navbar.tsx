@@ -124,7 +124,7 @@ function MobileMenuBars(props: {
     return (
       <span
         className={cn(
-          "h-1.5 rounded-full",
+          "h-0.5 rounded-full",
           open
             ? dark
               ? "bg-white"
@@ -142,17 +142,23 @@ function MobileMenuBars(props: {
     <div
       onClick={() => setOpen(!open)}
       className={cn(
-        "fixed right-8 top-8 flex cursor-pointer flex-col items-end justify-end space-y-1 p-3",
+        "group fixed right-8 top-8 flex cursor-pointer flex-col items-end justify-end space-y-2.5 p-3",
         className,
       )}
     >
       <Bar
-        className={open ? "w-12 translate-y-3.5 rotate-45 transform" : "w-12"}
+        className={
+          open
+            ? "w-10 translate-y-3.5 rotate-45 transform duration-300 ease-in-out group-hover:-rotate-45"
+            : "w-10"
+        }
       />
       <Bar className={open ? "opacity-0" : "w-10"} />
       <Bar
         className={
-          open ? "w-12 -translate-y-[7px] -rotate-45 transform" : "w-8"
+          open
+            ? "w-10 -translate-y-[10px] -rotate-45 transform duration-300 ease-in-out group-hover:rotate-45"
+            : "w-10"
         }
       />
     </div>
