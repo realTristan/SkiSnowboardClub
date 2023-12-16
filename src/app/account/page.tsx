@@ -13,6 +13,7 @@ import { ClubEvent } from "@/lib/types";
 import LoadingCenter from "@/components/Loading";
 import DashboardButton from "./components/DashboardButton";
 import InvalidSession from "@/components/InvalidSession";
+import { getPurchasedEvents } from "./utils/getPurchasedEvents";
 
 export default function AccountPage() {
   return (
@@ -65,32 +66,31 @@ function Main(): JSX.Element {
   }
 
   return (
-    <main className="z-50 flex min-h-screen flex-col items-center justify-start p-40">
-      <div className="flex flex-row items-center justify-center gap-4">
-        <Image
-          src={session?.user?.image!}
-          alt="..."
-          className="rounded-full"
-          width={65}
-          height={65}
-        />
+    <main className="z-50 flex min-h-screen flex-col items-center justify-center">
+      <div className="mt-16 flex flex-col items-start justify-start">
+        <div className="flex flex-row items-center justify-center gap-4">
+          <Image
+            src={session?.user?.image!}
+            alt="..."
+            className="rounded-full"
+            width={65}
+            height={65}
+          />
 
-        <div className="flex flex-col">
-          <p className="text-4xl font-black uppercase tracking-wider">
-            {session.user.name}
-          </p>
-          <p className="ml-1 text-sm font-light text-gray-500">
-            {session.user.email}
-          </p>
+          <div className="flex flex-col">
+            <p className="text-4xl font-black uppercase tracking-wider">
+              {session.user.name}
+            </p>
+            <p className="ml-1 text-sm font-light text-gray-500">
+              {session.user.email}
+            </p>
+          </div>
+
+          <SignOutButton />
+          <DashboardButton />
         </div>
 
-        <SignOutButton />
-        <DashboardButton />
-      </div>
-
-      <div className="mt-16 flex flex-col items-start justify-start gap-2">
-        <div className="flex flex-wrap gap-7 lg:gap-12">
-          {events.length === 0 && <NothingYet />}
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-7 lg:gap-12">
           {events.length > 0 &&
             events.map((event: ClubEvent) => (
               <EventCard key={event.id} event={event} />
@@ -98,33 +98,5 @@ function Main(): JSX.Element {
         </div>
       </div>
     </main>
-  );
-}
-
-async function getPurchasedEvents(userSecret: string): Promise<ClubEvent[]> {
-  return await fetch("/api/events/user", {
-    method: "GET",
-    headers: { Authorization: userSecret },
-  })
-    .then((res) => res.json())
-    .then((data) => (data.events as ClubEvent[]) || []);
-}
-
-function NothingYet(): JSX.Element {
-  return (
-    <div className="mt-24 flex flex-col items-center justify-center gap-3">
-      <p className="text-center text-5xl font-extrabold tracking-wide">
-        Nothing here yet
-      </p>
-      <p className="text-center text-base font-light">
-        Register for an event to see it here
-      </p>
-      <a
-        href="/trips-and-tickets"
-        className="btn mt-2 border border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white"
-      >
-        Register
-      </a>
-    </div>
   );
 }

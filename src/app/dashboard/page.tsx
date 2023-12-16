@@ -67,41 +67,41 @@ function Main(): JSX.Element {
   }
 
   return (
-    <main className="z-50 flex min-h-screen flex-col items-center justify-start p-40">
-      <div className="flex flex-row items-center justify-center gap-4">
-        <Image
-          src={session?.user?.image!}
-          alt="..."
-          className="rounded-full"
-          width={65}
-          height={65}
-        />
+    <main className="z-50 flex min-h-screen flex-col items-center justify-center p-4">
+      <div className="mt-36 flex flex-col items-start justify-start">
+        <div className="flex flex-row items-center justify-center gap-4">
+          <Image
+            src={session?.user?.image!}
+            alt="..."
+            className="rounded-full"
+            width={65}
+            height={65}
+          />
 
-        <div className="flex flex-col">
-          <p className="text-4xl font-black uppercase tracking-wider">
-            {session.user.name}
-          </p>
-          <p className="ml-1 text-sm font-light text-gray-500">
-            {session.user.email}
-          </p>
-        </div>
+          <div className="flex flex-col">
+            <p className="text-4xl font-black uppercase tracking-wider">
+              {session.user.name}
+            </p>
+            <p className="ml-1 text-sm font-light text-gray-500">
+              {session.user.email}
+            </p>
+          </div>
 
-        <SignOutButton />
-      </div>
-
-      <div className="mt-16 flex flex-col items-start justify-start gap-5">
-        <div className="flex flex-row gap-2">
-          <Link
-            href="/dashboard/events/new"
-            className="btn border border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white"
-          >
-            Create event
-          </Link>
+          <SignOutButton />
           <Link
             href="/dashboard/manage-users"
             className="btn border border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white"
           >
             Manage users
+          </Link>
+        </div>
+
+        <div className="mb-4 mt-12 flex flex-row gap-2">
+          <Link
+            href="/dashboard/events/new"
+            className="btn border border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white"
+          >
+            Create event
           </Link>
         </div>
 

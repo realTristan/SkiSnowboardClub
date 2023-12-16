@@ -288,7 +288,7 @@ export class Prisma extends PrismaClient {
   public static readonly getEvents = async (): Promise<ClubEvent[]> => {
     return await Prisma.findMany("event", {
       orderBy: {
-        date: "asc",
+        date: "desc",
       },
     });
   };
@@ -318,7 +318,7 @@ export class Prisma extends PrismaClient {
         },
       },
       orderBy: {
-        date: "asc",
+        date: "desc",
       },
     });
 

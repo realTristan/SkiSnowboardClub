@@ -34,8 +34,8 @@ export default function TripsAndTicketsPage() {
       />
 
       <main className="z-50 flex min-h-screen flex-wrap items-center justify-center gap-7 p-24 pt-40 lg:gap-12">
-        {status === Status.ERROR && <LoadingCenter />}
-        {events.length === 0 && <NothingYet />}
+        {status === Status.LOADING && <LoadingCenter />}
+        {status !== Status.LOADING && events.length === 0 && <NothingYet />}
         {events.length > 0 &&
           events.map((event) => <EventCard key={event.id} event={event} />)}
       </main>

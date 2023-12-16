@@ -30,7 +30,7 @@ export default function EventCard(props: EventCardProps): JSX.Element {
   const [updatingEvent, setUpdatingEvent] = useState(false);
 
   return (
-    <div className="relative flex h-fit w-96 flex-col items-start justify-start gap-1 border border-black bg-white px-7 pb-5 pt-7 duration-300 ease-in-out">
+    <div className="relative flex h-fit w-fit flex-col items-start justify-start gap-1 border border-black bg-white px-7 pb-5 pt-7 duration-300 ease-in-out">
       {updatingEvent ? (
         <UpdateEvent
           setUpdatingEvent={setUpdatingEvent}
@@ -42,16 +42,18 @@ export default function EventCard(props: EventCardProps): JSX.Element {
           <Image
             src={event.image}
             alt="..."
-            width={400}
-            height={400}
+            width={300}
+            height={300}
             className="rounded-none"
           />
           <h2 className="mt-4 text-3xl font-extrabold">{event.title}</h2>
           <p className="text-sm ">{event.description}</p>
           <p className="text-xs">{new Date(event.date).toDateString()}</p>
           <p className="text-xs">{event.location}</p>
-          <p className="text-xs">Available Tickets: {event.available}</p>
-          <p className="text-xs">Cost per ticket: ${event.price}</p>
+          <p className="text-xs">
+            Available Tickets: {event.available} - Cost per ticket: $
+            {event.price}
+          </p>
 
           <div className="mt-4 flex flex-row gap-2">
             <button
