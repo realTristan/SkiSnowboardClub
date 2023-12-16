@@ -42,8 +42,8 @@ export default function EventCard(props: EventCardProps): JSX.Element {
           <Image
             src={event.image}
             alt="..."
-            width={300}
-            height={300}
+            width={400}
+            height={400}
             className="rounded-none"
           />
           <h2 className="mt-4 text-3xl font-extrabold">{event.title}</h2>

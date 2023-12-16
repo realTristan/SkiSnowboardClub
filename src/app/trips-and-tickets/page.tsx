@@ -26,14 +26,14 @@ export default function TripsAndTicketsPage() {
 
   return (
     <>
-      <Navbar dark={true} />
+      <Navbar dark={true} centered={false} className="bg-white" />
       <CustomCursor />
       <GuelphLogo
         dark={true}
         className="fixed right-7 top-7 z-50 hidden lg:block"
       />
 
-      <main className="z-50 flex min-h-screen flex-wrap items-center justify-center gap-7 p-24 pt-40 lg:gap-12">
+      <main className="z-50 flex min-h-screen flex-wrap items-start justify-start gap-7 px-16 pb-20 pt-40 lg:gap-12">
         {status === Status.LOADING && <LoadingCenter />}
         {status !== Status.LOADING && events.length === 0 && <NothingYet />}
         {events.length > 0 &&

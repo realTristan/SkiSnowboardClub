@@ -6,15 +6,22 @@ import Link from "next/link";
  * @param props Navbar props
  * @returns JSX.Element
  */
-export default function Navbar(props: { dark?: boolean }): JSX.Element {
+export default function Navbar(props: {
+  centered?: boolean;
+  className?: string;
+  dark?: boolean;
+}): JSX.Element {
   const lightClassName: string = "border-white/30 text-white";
-  const darkClassName: string = "border-black/30 text-black";
+  const darkClassName: string = "border-black text-black";
+  const centered = "transform left-1/2 -translate-x-1/2";
 
   return (
     <nav
       className={cn(
-        "fixed left-1/2 top-10 z-40 flex w-max -translate-x-1/2 transform flex-row items-center justify-center space-x-7 border px-12 py-2.5 backdrop-blur-2xl",
+        "fixed left-10 top-10 z-40 flex w-max flex-row items-center justify-center space-x-7 border px-12 py-2.5 backdrop-blur-2xl",
         props.dark ? darkClassName : lightClassName,
+        props.centered ? centered : "",
+        props.className,
       )}
     >
       <Link

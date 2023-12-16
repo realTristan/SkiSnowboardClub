@@ -64,7 +64,7 @@ function Main(): JSX.Element {
   }
 
   return (
-    <main className="z-50 flex min-h-screen flex-col items-start justify-start gap-5 p-40">
+    <main className="z-50 flex min-h-screen flex-col items-start justify-start gap-5 px-16 pb-20 pt-40">
       <div className="mb-4 flex flex-row items-center justify-center gap-4">
         <Image
           src={session?.user?.image!}

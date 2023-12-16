@@ -1,12 +1,12 @@
 import { signOut } from "next-auth/react";
+import Button from "./Button";
 
-export default function SignOutButton(): JSX.Element {
+export default function SignOutButton(props: {
+  className?: string;
+}): JSX.Element {
   return (
-    <button
-      className="btn ml-10 border border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white"
-      onClick={() => signOut()}
-    >
+    <Button className={props.className} onClick={() => signOut()}>
       Sign out
-    </button>
+    </Button>
   );
 }

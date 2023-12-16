@@ -21,7 +21,7 @@ import PermissionCheckbox from "./components/PermissionsCheckbox";
 export default function DashboardPage() {
   return (
     <>
-      <Navbar dark={true} />
+      <Navbar dark={true} centered={false} className="bg-white" />
       <CustomCursor />
       <SocialMedia dark={true} />
       <GuelphLogo
@@ -74,7 +74,7 @@ function Main(): JSX.Element {
   }
 
   return (
-    <main className="z-50 flex min-h-screen flex-col items-start justify-start gap-7 p-40">
+    <main className="z-50 flex min-h-screen flex-col items-start justify-start gap-7 px-16 pb-20 pt-40">
       <h1 className="text-5xl font-extrabold">Manage Users</h1>
       <SearchInput setSearch={setSearch} />
 

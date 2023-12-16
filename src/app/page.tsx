@@ -11,7 +11,7 @@ import SocialMediaLogos from "@/components/logos/SocialMediaLogos";
 export default function Home() {
   return (
     <>
-      <Navbar />
+      <Navbar centered={true} />
       <CustomCursor />
       <GuelphLogo className="fixed right-7 top-7 z-50 hidden lg:block" />
 

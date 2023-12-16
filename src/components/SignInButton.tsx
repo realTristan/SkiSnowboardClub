@@ -1,12 +1,10 @@
 import { signIn } from "next-auth/react";
+import Button from "./Button";
 
-export default function SignInButton(): JSX.Element {
+export default function SignInButton(props: {
+  className?: string;
+}): JSX.Element {
   return (
-    <button
-      className="btn border border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white"
-      onClick={() => signIn("google")}
-    >
-      Sign in
-    </button>
+    <Button className={props.className} onClick={() => signIn("google")} />
   );
 }

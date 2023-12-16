@@ -14,11 +14,12 @@ import LoadingCenter from "@/components/Loading";
 import DashboardButton from "./components/DashboardButton";
 import InvalidSession from "@/components/InvalidSession";
 import { getPurchasedEvents } from "./utils/getPurchasedEvents";
+import UserHeader from "./components/UserHeader";
 
 export default function AccountPage() {
   return (
     <>
-      <Navbar dark={true} />
+      <Navbar dark={true} centered={false} className="bg-white" />
       <CustomCursor />
       <SocialMedia dark={true} />
       <GuelphLogo
@@ -66,36 +67,19 @@ function Main(): JSX.Element {
   }
 
   return (
-    <main className="z-50 flex min-h-screen flex-col items-center justify-center">
-      <div className="mt-16 flex flex-col items-start justify-start">
-        <div className="flex flex-row items-center justify-center gap-4">
-          <Image
-            src={session?.user?.image!}
-            alt="..."
-            className="rounded-full"
-            width={65}
-            height={65}
-          />
+    <main className="z-50 flex min-h-screen flex-col items-start justify-start px-16 pb-20 pt-40">
+      <UserHeader user={session.user} />
 
-          <div className="flex flex-col">
-            <p className="text-4xl font-black uppercase tracking-wider">
-              {session.user.name}
-            </p>
-            <p className="ml-1 text-sm font-light text-gray-500">
-              {session.user.email}
-            </p>
-          </div>
+      <div className="my-8 flex flex-row gap-2">
+        <SignOutButton />
+        <DashboardButton />
+      </div>
 
-          <SignOutButton />
-          <DashboardButton />
-        </div>
-
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-7 lg:gap-12">
-          {events.length > 0 &&
-            events.map((event: ClubEvent) => (
-              <EventCard key={event.id} event={event} />
-            ))}
-        </div>
+      <div className="flex flex-wrap items-center justify-center gap-7 lg:gap-12">
+        {events.length > 0 &&
+          events.map((event: ClubEvent) => (
+            <EventCard key={event.id} event={event} />
+          ))}
       </div>
     </main>
   );

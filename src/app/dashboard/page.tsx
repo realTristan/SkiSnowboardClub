@@ -6,20 +6,23 @@ import CustomCursor from "@/components/dynamic/CustomerCursor";
 import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import Image from "next/image";
-import { SessionProvider, signIn, useSession } from "next-auth/react";
+import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import SignOutButton from "../../components/SignOutButton";
 import { type ClubEvent, Status } from "@/lib/types";
 import EventCard from "./components/EventCard";
 import Link from "next/link";
 import { canAccessDashboard } from "@/utils/permissions";
 import NoPermissions from "./components/NoPermissions";
 import InvalidSession from "@/components/InvalidSession";
+import SignOutButton from "@/components/SignOutButton";
+import ManageUsersButton from "./components/ManageUsersButton";
+import CreateEventButton from "./components/CreateEventButton";
+import UserHeader from "./components/UserHeader";
 
 export default function DashboardPage() {
   return (
     <>
-      <Navbar dark={true} />
+      <Navbar dark={true} centered={false} className="bg-white" />
       <CustomCursor />
       <SocialMedia dark={true} />
       <GuelphLogo
@@ -54,7 +57,7 @@ function Main(): JSX.Element {
       .catch((_) => setFetchStatus(Status.ERROR));
   }, [status]);
 
-  if (status === "loading") {
+  if (status === "loading" || fetchStatus === Status.LOADING) {
     return <LoadingCenter />;
   }
 
@@ -67,58 +70,25 @@ function Main(): JSX.Element {
   }
 
   return (
-    <main className="z-50 flex min-h-screen flex-col items-center justify-center p-4">
-      <div className="mt-36 flex flex-col items-start justify-start">
-        <div className="flex flex-row items-center justify-center gap-4">
-          <Image
-            src={session?.user?.image!}
-            alt="..."
-            className="rounded-full"
-            width={65}
-            height={65}
-          />
+    <main className="z-50 flex min-h-screen flex-col items-start justify-start px-16 pb-20 pt-40">
+      <UserHeader user={session.user} />
 
-          <div className="flex flex-col">
-            <p className="text-4xl font-black uppercase tracking-wider">
-              {session.user.name}
-            </p>
-            <p className="ml-1 text-sm font-light text-gray-500">
-              {session.user.email}
-            </p>
-          </div>
+      <div className="my-8 flex flex-row gap-2">
+        <SignOutButton />
+        <ManageUsersButton />
+        <CreateEventButton />
+      </div>
 
-          <SignOutButton />
-          <Link
-            href="/dashboard/manage-users"
-            className="btn border border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white"
-          >
-            Manage users
-          </Link>
-        </div>
-
-        <div className="mb-4 mt-12 flex flex-row gap-2">
-          <Link
-            href="/dashboard/events/new"
-            className="btn border border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white"
-          >
-            Create event
-          </Link>
-        </div>
-
-        <div className="flex flex-wrap gap-7">
-          {fetchStatus === Status.LOADING ? (
-            <LoadingCenter />
-          ) : (
-            events.map((event: ClubEvent) => (
-              <EventCard
-                key={event.id}
-                event={event}
-                userSecret={session?.user?.secret || ""}
-                permissions={session.user.permissions}
-              />
-            ))
-          )}
-        </div>
+      <div className="flex flex-wrap gap-7">
+        {fetchStatus === Status.SUCCESS &&
+          events.map((event: ClubEvent) => (
+            <EventCard
+              key={event.id}
+              event={event}
+              userSecret={session?.user?.secret || ""}
+              permissions={session.user.permissions}
+            />
+          ))}
       </div>
     </main>
   );

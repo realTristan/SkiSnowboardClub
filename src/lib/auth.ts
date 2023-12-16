@@ -29,11 +29,13 @@ export const handler = NextAuth({
       const email: string | null = session.user.email;
       const name: string | null = session.user.name;
       const image: string = session.user.image || "/images/default-pfp.png";
+      const id: string = session.user.id;
       const secret: string | null = email
         ? await sha256(email + bearerSecret)
         : null;
 
       session.user = {
+        id,
         email,
         name,
         secret,
