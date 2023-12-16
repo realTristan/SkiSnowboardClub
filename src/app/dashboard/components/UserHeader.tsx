@@ -1,7 +1,6 @@
-import { User } from "next-auth";
 import Image from "next/image";
 
-export default function UserHeader(props: { user: User }): JSX.Element {
+export default function UserHeader(props: { user: any }): JSX.Element {
   return (
     <div className="flex flex-row items-center justify-center gap-4">
       <Image

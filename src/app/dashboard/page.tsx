@@ -6,7 +6,7 @@ import CustomCursor from "@/components/dynamic/CustomerCursor";
 import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import Image from "next/image";
-import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
+import { SessionProvider, signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { type ClubEvent, Status } from "@/lib/types";
 import EventCard from "./components/EventCard";

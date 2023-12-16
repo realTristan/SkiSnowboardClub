@@ -155,6 +155,7 @@ function Main(): JSX.Element {
                       user={user}
                       users={users}
                       setUsers={setUsers}
+                      disabled={user.id === session.user.id}
                     >
                       Admin
                     </PermissionCheckbox>

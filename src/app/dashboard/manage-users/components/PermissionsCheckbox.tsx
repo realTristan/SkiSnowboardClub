@@ -8,6 +8,7 @@ interface PermissionCheckboxProps {
   user: User;
   users: User[];
   setUsers: Dispatch<SetStateAction<User[]>>;
+  disabled?: boolean;
 }
 export default function PermissionCheckbox(
   props: PropsWithChildren<PermissionCheckboxProps>,
@@ -17,6 +18,8 @@ export default function PermissionCheckbox(
   return (
     <Checkbox
       size="lg"
+      isDisabled={props.disabled}
+      className={props.disabled ? "opacity-50" : ""}
       defaultSelected={user.permissions.includes(permission)}
       onChange={(e) => {
         const newPermissions = e.target.checked
