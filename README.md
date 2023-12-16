@@ -1,4 +1,4 @@
-# Ski & Snowboard Club Website ![Stars](https://img.shields.io/github/stars/realTristan/SkiSnowboardClub?color=brightgreen) ![Watchers](https://img.shields.io/github/watchers/realTristan/SkiSnowboardClub?label=Watchers)
+# Ski & Snowboard Club ![Stars](https://img.shields.io/github/stars/realTristan/SkiSnowboardClub?color=brightgreen) ![Watchers](https://img.shields.io/github/watchers/realTristan/SkiSnowboardClub?label=Watchers)
 
 <img width="1338" alt="Screenshot 2023-12-13 at 3 10 39 PM" src="https://github.com/realTristan/SkiSnowboardClub/assets/75189508/07763b10-ec63-4bce-9f19-00fab35f4dda">
 
@@ -7,14 +7,9 @@
 - [ ] About section (use provided photos and put in a collage)
 - [ ] Contact section (Email)
 
-- [ ] The admins should be able to set users permissions (show a list of users and a dropdown with the permissions) (have own page for this)
-- [ ] The admins should be able to remove users permissions
-- [ ] The admins should be able to create new events.
-- [ ] The admins should be able to set a price for events. (Cannot change)
-- [ ] The admins should be able to delete events.
 - [ ] The admins should be able to see attendees for the events.
-- [ ] The users should be able to see events and purchase a ticket using stripe after logging in.
-- [ ] The user should be able to see events that they've purchased tickets for.
+- [ ] The users should be able to see events
+- [ ] The users should be able to purchase a ticket using stripe after logging in.
 
 # License
 

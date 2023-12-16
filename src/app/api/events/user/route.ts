@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
   }
 
   // Get the event
-  return Prisma.getPurchasedEvents(secret)
+  return await Prisma.getPurchasedEvents(secret)
     .then((events) => {
       return NextResponse.json(
         { events, ...Response.Success },

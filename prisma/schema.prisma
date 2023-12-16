@@ -23,7 +23,7 @@ model Event {
 }
 
 model User {
-  id                Int      @id @unique @default(autoincrement())
+  id                String   @id @unique @default(uuid())
   registeredAt      DateTime @default(now())
   updatedAt         DateTime @updatedAt
   secret            String

@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import {
-  ClubEventInfo,
+  type ClubEventInfo,
   type ClubEvent,
   type User,
-  ClubEventCreationData,
+  type ClubEventCreationData,
 } from "@/lib/types";
 
 export class Prisma extends PrismaClient {
@@ -112,6 +112,14 @@ export class Prisma extends PrismaClient {
   };
 
   /**
+   * Fetch all of the users from the database
+   * @returns The user's data
+   */
+  public static readonly getUsers = async (): Promise<(User | null)[]> => {
+    return await Prisma.findMany("user", {}); // exclude the user secret
+  };
+
+  /**
    * Check whether the user is valid based on their user secret
    * @param userSecret The user secret
    * @returns Whether the user exists
@@ -136,6 +144,7 @@ export class Prisma extends PrismaClient {
    * @param secret The user's secret
    */
   public static readonly createUser = async (
+    id: string,
     name: string,
     email: string,
     image: string,
@@ -143,6 +152,7 @@ export class Prisma extends PrismaClient {
   ): Promise<User> => {
     return await Prisma.create("user", {
       data: {
+        id,
         name,
         email,
         secret,
@@ -150,6 +160,23 @@ export class Prisma extends PrismaClient {
         purchasedEventIds: [],
         permissions: [0],
       },
+    });
+  };
+
+  /**
+   * Update the user's permissions
+   * @param adminSecret The admin's secret
+   * @returns The updated user
+   */
+  public static readonly updateUser = async (
+    userId: string,
+    data: User,
+  ): Promise<User> => {
+    return await Prisma.update("user", {
+      where: {
+        id: userId,
+      },
+      data,
     });
   };
 

@@ -107,7 +107,7 @@ async function getPurchasedEvents(userSecret: string): Promise<ClubEvent[]> {
     headers: { Authorization: userSecret },
   })
     .then((res) => res.json())
-    .then((data) => data.events as ClubEvent[]);
+    .then((data) => (data.events as ClubEvent[]) || []);
 }
 
 function NothingYet(): JSX.Element {

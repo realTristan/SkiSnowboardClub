@@ -45,7 +45,7 @@ export const handler = NextAuth({
       // Verify the user is updated in the database
       if (secret && email && name) {
         // Make a PUT request to /api/auth/account
-        const res = await import("@/app/api/auth/account/route");
+        const res = await import("@/app/api/users/route");
         const response = await res.PUT({
           // @ts-ignore
           headers: {

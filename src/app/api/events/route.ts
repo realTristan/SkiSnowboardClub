@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
     price,
   };
 
-  return Prisma.createEvent(id, eventInfoObject)
+  return await Prisma.createEvent(id, eventInfoObject)
     .then((event) => {
       return NextResponse.json(
         { event: { ...event, id }, ...Response.Success },
@@ -70,7 +70,6 @@ export async function POST(req: NextRequest) {
       );
     })
     .catch((err) => {
-      console.log(err);
       return NextResponse.json(Response.InternalError, { status: 500 });
     });
 }

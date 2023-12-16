@@ -19,7 +19,7 @@ export interface ClubEventCreationData extends ClubEventInfo {
 }
 
 export interface User extends UserInfo {
-  id: number;
+  id: string;
   secret: string;
   image: string;
   purchasedEventIds: string[];

@@ -8,6 +8,7 @@ import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import { useEffect, useState } from "react";
 import LoadingCenter from "@/components/Loading";
+import NothingYet from "./components/NothingYet";
 
 export default function TripsAndTicketsPage() {
   const [events, setEvents] = useState<ClubEvent[]>([]);
@@ -41,18 +42,5 @@ export default function TripsAndTicketsPage() {
 
       <SocialMedia dark={true} />
     </>
-  );
-}
-
-function NothingYet(): JSX.Element {
-  return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <p className="text-center text-5xl font-extrabold tracking-wide">
-        Nothing here yet
-      </p>
-      <p className="text-center text-lg font-light">
-        Check back later for more events
-      </p>
-    </div>
   );
 }

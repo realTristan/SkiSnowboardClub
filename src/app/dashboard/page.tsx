@@ -9,7 +9,7 @@ import Image from "next/image";
 import { SessionProvider, signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import SignOutButton from "../../components/SignOutButton";
-import { ClubEvent, Status } from "@/lib/types";
+import { type ClubEvent, Status } from "@/lib/types";
 import EventCard from "./components/EventCard";
 import Link from "next/link";
 import { canAccessDashboard } from "@/utils/permissions";
@@ -90,12 +90,20 @@ function Main(): JSX.Element {
       </div>
 
       <div className="mt-16 flex flex-col items-start justify-start gap-5">
-        <Link
-          href="/dashboard/events/new"
-          className="btn border border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white"
-        >
-          Create event
-        </Link>
+        <div className="flex flex-row gap-2">
+          <Link
+            href="/dashboard/events/new"
+            className="btn border border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white"
+          >
+            Create event
+          </Link>
+          <Link
+            href="/dashboard/manage-users"
+            className="btn border border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white"
+          >
+            Manage users
+          </Link>
+        </div>
 
         <div className="flex flex-wrap gap-7">
           {fetchStatus === Status.LOADING ? (

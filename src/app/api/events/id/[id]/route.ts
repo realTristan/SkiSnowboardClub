@@ -99,7 +99,7 @@ export async function PUT(req: NextRequest, { params }: any) {
     location,
   };
 
-  return Prisma.updateEvent(params.id, eventInfoObject)
+  return await Prisma.updateEvent(params.id, eventInfoObject)
     .then((event) => {
       return NextResponse.json({ event, ...Response.Success }, { status: 200 });
     })
