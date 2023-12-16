@@ -6,7 +6,7 @@ import CustomCursor from "@/components/dynamic/CustomerCursor";
 import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import { SessionProvider, signIn, useSession } from "next-auth/react";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Permission, Status, type User } from "@/lib/types";
 import { canAccessDashboard } from "@/utils/permissions";
 import InvalidSession from "@/components/InvalidSession";
@@ -16,6 +16,7 @@ import { updateUserPermissions } from "./utils/updateUserPermissions";
 import { updatePermissionsArray } from "./utils/updatePermissionsArray";
 import SearchInput from "./components/SearchInput";
 import { Checkbox, NextUIProvider } from "@nextui-org/react";
+import PermissionCheckbox from "./components/PermissionsCheckbox";
 
 export default function DashboardPage() {
   return (
@@ -42,9 +43,8 @@ function Main(): JSX.Element {
   const [users, setUsers] = useState<User[]>([]);
   const [fetchStatus, setFetchStatus] = useState<Status>(Status.LOADING);
   const [search, setSearch] = useState<string>("");
-  const [showUserPermissions, setShowUserPermissions] = useState<User>();
+  const [editingUser, setEditingUser] = useState<User>();
   const [userUpdateStatus, setUserUpdateStatus] = useState<Status>(Status.IDLE);
-  const [permissions, setPermissions] = useState<Permission[]>([]);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -96,17 +96,14 @@ function Main(): JSX.Element {
             // Set the update status to loading
             setUserUpdateStatus(Status.LOADING);
 
-            await updateUserPermissions(secret, user, permissions).then(
+            await updateUserPermissions(secret, user, user.permissions).then(
               (res) => {
                 if (!res.ok) {
                   setUserUpdateStatus(Status.ERROR);
-                  return;
+                } else {
+                  setEditingUser(undefined);
+                  setUserUpdateStatus(Status.IDLE);
                 }
-
-                setShowUserPermissions(undefined);
-                setUserUpdateStatus(Status.IDLE);
-
-                setUsers(updatePermissionsArray(users, user.id, permissions));
               },
             );
           };
@@ -134,13 +131,13 @@ function Main(): JSX.Element {
                 <button
                   disabled={userUpdateStatus === Status.LOADING}
                   onClick={() => {
-                    showUserPermissions && showUserPermissions.id === user.id
-                      ? setShowUserPermissions(undefined)
-                      : setShowUserPermissions(user);
+                    editingUser && editingUser.id === user.id
+                      ? setEditingUser(undefined)
+                      : setEditingUser(user);
                   }}
                   className="btn border border-black px-10 py-3 text-sm text-black duration-300 ease-in-out enabled:hover:bg-black enabled:hover:text-white disabled:opacity-50"
                 >
-                  {showUserPermissions && showUserPermissions.id === user.id ? (
+                  {editingUser && editingUser.id === user.id ? (
                     <p>Cancel</p>
                   ) : (
                     <p>Edit</p>
@@ -149,106 +146,42 @@ function Main(): JSX.Element {
               </div>
 
               {/* The checkboxes for permissions (nextui) */}
-              {showUserPermissions?.id === user.id && (
+              {editingUser?.id === user.id && (
                 <div className="mt-4 flex w-full flex-row items-center justify-between">
                   {/* Checkboxes */}
                   <div className="ml-2 flex flex-row items-center justify-center gap-4">
-                    <Checkbox
-                      size="lg"
-                      defaultSelected={user.permissions.includes(
-                        Permission.ADMIN,
-                      )}
-                      onChange={() => {
-                        if (permissions.includes(Permission.ADMIN)) {
-                          setPermissions(
-                            permissions.filter(
-                              (permission) => permission !== Permission.ADMIN,
-                            ),
-                          );
-                          return;
-                        } else {
-                          setPermissions([...permissions, Permission.ADMIN]);
-                          return;
-                        }
-                      }}
+                    <PermissionCheckbox
+                      permission={Permission.ADMIN}
+                      user={user}
+                      users={users}
+                      setUsers={setUsers}
                     >
                       Admin
-                    </Checkbox>
-                    <Checkbox
-                      size="lg"
-                      defaultSelected={user.permissions.includes(
-                        Permission.POST_EVENT,
-                      )}
-                      onChange={() => {
-                        if (permissions.includes(Permission.POST_EVENT)) {
-                          setPermissions(
-                            permissions.filter(
-                              (permission) =>
-                                permission !== Permission.POST_EVENT,
-                            ),
-                          );
-                          return;
-                        } else {
-                          setPermissions([
-                            ...permissions,
-                            Permission.POST_EVENT,
-                          ]);
-                          return;
-                        }
-                      }}
+                    </PermissionCheckbox>
+                    <PermissionCheckbox
+                      permission={Permission.POST_EVENT}
+                      user={user}
+                      users={users}
+                      setUsers={setUsers}
                     >
                       Post Events
-                    </Checkbox>
-                    <Checkbox
-                      size="lg"
-                      defaultSelected={user.permissions.includes(
-                        Permission.EDIT_EVENT,
-                      )}
-                      onChange={() => {
-                        if (permissions.includes(Permission.EDIT_EVENT)) {
-                          setPermissions(
-                            permissions.filter(
-                              (permission) =>
-                                permission !== Permission.EDIT_EVENT,
-                            ),
-                          );
-                          return;
-                        } else {
-                          setPermissions([
-                            ...permissions,
-                            Permission.EDIT_EVENT,
-                          ]);
-                          return;
-                        }
-                      }}
+                    </PermissionCheckbox>
+                    <PermissionCheckbox
+                      permission={Permission.EDIT_EVENT}
+                      user={user}
+                      users={users}
+                      setUsers={setUsers}
                     >
                       Edit Events
-                    </Checkbox>
-                    <Checkbox
-                      size="lg"
-                      defaultSelected={user.permissions.includes(
-                        Permission.DELETE_EVENT,
-                      )}
-                      onChange={() => {
-                        if (permissions.includes(Permission.DELETE_EVENT)) {
-                          setPermissions(
-                            permissions.filter(
-                              (permission) =>
-                                permission !== Permission.DELETE_EVENT,
-                            ),
-                          );
-                          return;
-                        } else {
-                          setPermissions([
-                            ...permissions,
-                            Permission.DELETE_EVENT,
-                          ]);
-                          return;
-                        }
-                      }}
+                    </PermissionCheckbox>
+                    <PermissionCheckbox
+                      permission={Permission.DELETE_EVENT}
+                      user={user}
+                      users={users}
+                      setUsers={setUsers}
                     >
                       Delete Events
-                    </Checkbox>
+                    </PermissionCheckbox>
                   </div>
 
                   {/* Save changes button */}

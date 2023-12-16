@@ -30,7 +30,7 @@ export default function EventCard(props: EventCardProps): JSX.Element {
   const [updatingEvent, setUpdatingEvent] = useState(false);
 
   return (
-    <div className="relative flex h-fit w-fit flex-col items-start justify-start gap-1 border border-black bg-white px-7 pb-5 pt-7 duration-300 ease-in-out">
+    <div className="relative flex h-fit w-96 flex-col items-start justify-start gap-1 border border-black bg-white px-7 pb-5 pt-7 duration-300 ease-in-out">
       {updatingEvent ? (
         <UpdateEvent
           setUpdatingEvent={setUpdatingEvent}
