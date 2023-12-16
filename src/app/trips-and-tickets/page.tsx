@@ -30,7 +30,7 @@ export default function TripsAndTicketsPage() {
       <CustomCursor />
       <GuelphLogo
         dark={true}
-        className="fixed right-7 top-7 z-50 hidden lg:block"
+        className="fixed left-6 top-6 z-50 lg:left-auto lg:right-10 lg:top-10"
       />
 
       <main className="z-50 flex min-h-screen flex-wrap items-start justify-start gap-7 px-16 pb-20 pt-40 lg:gap-12">

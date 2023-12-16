@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <Navbar centered={true} />
       <CustomCursor />
-      <GuelphLogo className="fixed right-7 top-7 z-50 hidden lg:block" />
+      <GuelphLogo className="fixed left-7 top-7 z-50 block lg:hidden xl:left-auto xl:right-7 xl:block" />
 
       <Image
         src="/images/hero-background.png"

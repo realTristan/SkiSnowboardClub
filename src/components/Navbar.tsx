@@ -1,5 +1,12 @@
 import { cn } from "@/utils/cn";
 import Link from "next/link";
+import { Dispatch, SetStateAction, useState } from "react";
+
+interface NavbarProps {
+  centered?: boolean;
+  className?: string;
+  dark?: boolean;
+}
 
 /**
  * Navbar component
@@ -11,6 +18,27 @@ export default function Navbar(props: {
   className?: string;
   dark?: boolean;
 }): JSX.Element {
+  return (
+    <>
+      <DefaultNavbar
+        centered={props.centered}
+        className={cn("hidden flex-auto lg:flex", props.className)}
+        dark={props.dark}
+      />
+      <MobileNavbar
+        className={cn("lg:hidden", props.className)}
+        dark={props.dark}
+      />
+    </>
+  );
+}
+
+/**
+ * Default navbar component
+ * @param props Navbar props
+ * @returns JSX.Element
+ */
+function DefaultNavbar(props: NavbarProps): JSX.Element {
   const lightClassName: string = "border-white/30 text-white";
   const darkClassName: string = "border-black text-black";
   const centered = "transform left-1/2 -translate-x-1/2";
@@ -55,5 +83,144 @@ export default function Navbar(props: {
         ACOUNT
       </Link>
     </nav>
+  );
+}
+
+/**
+ * Mobile navbar component
+ * @param props Navbar props
+ * @returns JSX.Element
+ */
+function MobileNavbar(props: NavbarProps): JSX.Element {
+  const [open, setOpen] = useState<boolean>(false);
+
+  return (
+    <div className={cn("flex flex-col", props.className)}>
+      <MobileMenuBars
+        dark={props.dark}
+        open={open}
+        setOpen={setOpen}
+        className="z-[70]"
+      />
+      {open && <MobileMenuDropDown dark={props.dark} className="z-[60]" />}
+    </div>
+  );
+}
+
+/**
+ * Menu bars component
+ * @param props Menu bars props
+ * @returns JSX.Element
+ */
+function MobileMenuBars(props: {
+  className?: string;
+  dark?: boolean;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}): JSX.Element {
+  const { open, dark, className, setOpen } = props;
+
+  function Bar(props: { className?: string }): JSX.Element {
+    return (
+      <span
+        className={cn(
+          "h-1.5 rounded-full",
+          open
+            ? dark
+              ? "bg-white"
+              : "bg-black"
+            : dark
+              ? "bg-black"
+              : "bg-white",
+          props.className,
+        )}
+      ></span>
+    );
+  }
+
+  return (
+    <div
+      onClick={() => setOpen(!open)}
+      className={cn(
+        "fixed right-8 top-8 flex cursor-pointer flex-col items-end justify-end space-y-1 p-3",
+        className,
+      )}
+    >
+      <Bar
+        className={open ? "w-12 translate-y-3.5 rotate-45 transform" : "w-12"}
+      />
+      <Bar className={open ? "opacity-0" : "w-10"} />
+      <Bar
+        className={
+          open ? "w-12 -translate-y-[7px] -rotate-45 transform" : "w-8"
+        }
+      />
+    </div>
+  );
+}
+
+/**
+ * Mobile menu dropdown component
+ * @param props Mobile menu dropdown props
+ * @returns JSX.Element
+ */
+function MobileMenuDropDown(props: {
+  className?: string;
+  dark?: boolean;
+}): JSX.Element {
+  return (
+    <div
+      className={cn(
+        "fixed left-0 top-0 flex h-auto w-screen flex-col px-4 py-8",
+        props.className,
+        props.dark ? "bg-black" : "bg-white",
+      )}
+    >
+      <Link
+        href="/#"
+        className={cn(
+          "btn w-full transform cursor-pointer px-5 py-3 text-sm font-normal tracking-widest duration-300 ease-in-out hover:translate-x-4",
+          props.dark ? "text-white" : "text-black",
+        )}
+      >
+        HOME
+      </Link>
+      <Link
+        href="/trips-and-tickets"
+        className={cn(
+          "btn w-full transform cursor-pointer px-5 py-3 text-sm font-normal tracking-widest duration-300 ease-in-out hover:translate-x-4",
+          props.dark ? "text-white" : "text-black",
+        )}
+      >
+        TRIPS AND TICKETS
+      </Link>
+      <Link
+        href="/about-us"
+        className={cn(
+          "btn w-full transform cursor-pointer px-5 py-3 text-sm font-normal tracking-widest duration-300 ease-in-out hover:translate-x-4",
+          props.dark ? "text-white" : "text-black",
+        )}
+      >
+        ABOUT US
+      </Link>
+      <Link
+        href="/contact"
+        className={cn(
+          "btn w-full transform cursor-pointer px-5 py-3 text-sm font-normal tracking-widest duration-300 ease-in-out hover:translate-x-4",
+          props.dark ? "text-white" : "text-black",
+        )}
+      >
+        CONTACT
+      </Link>
+      <Link
+        href="/account"
+        className={cn(
+          "btn w-full transform cursor-pointer px-5 py-3 text-sm font-normal tracking-widest duration-300 ease-in-out hover:translate-x-4",
+          props.dark ? "text-white" : "text-black",
+        )}
+      >
+        ACOUNT
+      </Link>
+    </div>
   );
 }

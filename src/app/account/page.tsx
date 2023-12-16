@@ -24,7 +24,7 @@ export default function AccountPage() {
       <SocialMedia dark={true} />
       <GuelphLogo
         dark={true}
-        className="fixed right-7 top-7 z-50 hidden lg:block"
+        className="fixed left-6 top-6 z-50 lg:left-auto lg:right-10 lg:top-10"
       />
 
       <SessionProvider>
