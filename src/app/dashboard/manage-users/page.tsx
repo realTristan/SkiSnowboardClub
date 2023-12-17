@@ -17,6 +17,7 @@ import { updatePermissionsArray } from "./utils/updatePermissionsArray";
 import SearchInput from "./components/SearchInput";
 import { Checkbox, NextUIProvider } from "@nextui-org/react";
 import PermissionCheckbox from "./components/PermissionsCheckbox";
+import UserInfo from "./components/UserInfo";
 
 export default function DashboardPage() {
   return (
@@ -85,6 +86,9 @@ function Main(): JSX.Element {
             return <></>;
           }
 
+          // Constants
+          const editingCurrentUser = editingUser && editingUser.id === user.id;
+
           /**
            * When the user clicks the save changes button
            * @returns void
@@ -114,34 +118,18 @@ function Main(): JSX.Element {
               className="flex w-full flex-col items-start justify-start gap-2 border border-black p-3"
             >
               <div className="flex w-full flex-row items-center justify-between">
-                <div className="flex flex-row items-center justify-center gap-4">
-                  <Image
-                    src={user.image}
-                    alt="..."
-                    className="rounded-full"
-                    width={50}
-                    height={50}
-                  />
+                <UserInfo user={user} />
 
-                  <div className="flex flex-col items-start justify-start">
-                    <h1 className="">{user.name}</h1>
-                    <p className="text-sm text-gray-500">{user.email}</p>
-                  </div>
-                </div>
                 <button
                   disabled={userUpdateStatus === Status.LOADING}
                   onClick={() => {
-                    editingUser && editingUser.id === user.id
+                    editingCurrentUser
                       ? setEditingUser(undefined)
                       : setEditingUser(user);
                   }}
                   className="btn border border-black px-10 py-3 text-sm text-black duration-300 ease-in-out enabled:hover:bg-black enabled:hover:text-white disabled:opacity-50"
                 >
-                  {editingUser && editingUser.id === user.id ? (
-                    <p>Cancel</p>
-                  ) : (
-                    <p>Edit</p>
-                  )}
+                  {editingCurrentUser ? "Cancel" : "Edit"}
                 </button>
               </div>
 
