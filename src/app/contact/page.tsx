@@ -8,7 +8,7 @@ import SocialMedia from "@/components/logos/SocialMediaLogos";
 import ExternalSVG from "@/components/svgs/External";
 
 export default function ContactPage() {
-  const contactEmail: string = "heytristaann@gmail.com";
+  const contactEmail: string = "skiandboard@uoguelph.ca";
 
   return (
     <>
