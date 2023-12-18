@@ -11,24 +11,21 @@ interface ButtonProps {
 export default function Button(
   props: PropsWithChildren<ButtonProps>,
 ): JSX.Element {
+  const defaultClassname =
+    "btn border flex flex-col justify-center items-center border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white";
+
   return props.link ? (
     <Link
       href={props.href || "#"}
       onClick={(e) => props.onClick && props.onClick(e)}
-      className={cn(
-        props.className,
-        "btn border border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white",
-      )}
+      className={cn(props.className, defaultClassname)}
     >
       {props.children}
     </Link>
   ) : (
     <button
       onClick={(e) => props.onClick && props.onClick(e)}
-      className={cn(
-        props.className,
-        "btn border border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white",
-      )}
+      className={cn(props.className, defaultClassname)}
     >
       {props.children}
     </button>
