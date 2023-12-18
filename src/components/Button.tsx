@@ -12,7 +12,7 @@ export default function Button(
   props: PropsWithChildren<ButtonProps>,
 ): JSX.Element {
   const defaultClassname =
-    "btn border flex flex-col justify-center items-center border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white";
+    "btn border flex flex-row gap-2 justify-center items-center border-black px-10 py-3 text-sm duration-300 ease-in-out hover:bg-black hover:text-white";
 
   return props.link ? (
     <Link
