@@ -5,11 +5,8 @@
 # Todo
 
 - [ ] About section (use provided photos and put in a collage)
-- [ ] Contact section (Email)
-
-- [ ] The admins should be able to see attendees for the events.
-- [ ] The users should be able to see events
-- [ ] The users should be able to purchase a ticket using stripe after logging in.
+- [ ] The admins should be able to see event attendees.
+- [ ] The users should be able to purchase a ticket using Stripe after logging in.
 
 # License
 
