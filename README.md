@@ -17,7 +17,7 @@
 - Have an "are you sure" for deleting an event and an users request
 - Send an email to the user if their request was deleted
 - Have an option to remind the user and it will send them an email
-
+- Have an option to send a "success" email
 
 Look online for email builder
 
