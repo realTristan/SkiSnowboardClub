@@ -14,6 +14,13 @@
    - If yes, the software should add the event to the users card
    - If no, the admin should be able to delete the purchase request (and see how long it was made)
 
+- Have an "are you sure" for deleting an event and an users request
+- Send an email to the user if their request was deleted
+- Have an option to remind the user and it will send them an email
+
+
+Look online for email builder
+
 # License
 
 MIT License
