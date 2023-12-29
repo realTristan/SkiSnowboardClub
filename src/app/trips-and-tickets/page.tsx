@@ -2,13 +2,13 @@
 
 import Navbar from "@/components/Navbar";
 import CustomCursor from "@/components/dynamic/CustomerCursor";
-import EventCard from "./components/EventCard";
+import EventCard from "./_components/EventCard";
 import { Status, type ClubEvent } from "@/lib/types";
 import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import { useEffect, useState } from "react";
 import LoadingCenter from "@/components/Loading";
-import NothingYet from "./components/NothingYet";
+import EmptyEvents from "./_components/EmptyEvents";
 
 export default function TripsAndTicketsPage() {
   const [events, setEvents] = useState<ClubEvent[]>([]);
@@ -35,7 +35,7 @@ export default function TripsAndTicketsPage() {
 
       <main className="z-50 flex min-h-screen flex-wrap items-start justify-start gap-7 px-16 pb-20 pt-40 lg:gap-12">
         {status === Status.LOADING && <LoadingCenter />}
-        {status !== Status.LOADING && events.length === 0 && <NothingYet />}
+        {status !== Status.LOADING && events.length === 0 && <EmptyEvents />}
         {events.length > 0 &&
           events.map((event) => <EventCard key={event.id} event={event} />)}
       </main>

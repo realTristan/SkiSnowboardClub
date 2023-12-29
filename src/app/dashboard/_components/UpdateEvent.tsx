@@ -1,3 +1,4 @@
+import Button from "@/components/Button";
 import { LoadingRelative } from "@/components/Loading";
 import { ClubEvent, Status } from "@/lib/types";
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
@@ -101,18 +102,12 @@ export default function UpdateEvent(props: {
           defaultValue={event.date}
         />
       </div>
-      <button
-        type="submit"
-        className="btn w-full border border-transparent bg-black px-5 py-3 text-sm text-white duration-300 ease-in-out hover:border-black hover:bg-white hover:text-black"
-      >
+      <Button dark={true} type="submit">
         Update
-      </button>
-      <button
-        onClick={() => props.setUpdatingEvent(false)}
-        className="btn w-full border border-transparent bg-black px-5 py-3 text-sm text-white duration-300 ease-in-out hover:border-black hover:bg-white hover:text-black"
-      >
+      </Button>
+      <Button onClick={() => props.setUpdatingEvent(false)} dark={true}>
         Cancel
-      </button>
+      </Button>
 
       <p className="text-sm text-red-500">
         {updateStatus === Status.ERROR

@@ -8,14 +8,14 @@ import SocialMedia from "@/components/logos/SocialMediaLogos";
 import { SessionProvider, signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { type ClubEvent, Status } from "@/lib/types";
-import EventCard from "./components/EventCard";
+import EventCard from "./_components/EventCard";
 import { canAccessDashboard } from "@/utils/permissions";
-import NoPermissions from "./components/NoPermissions";
+import NoPermissions from "./_components/InvalidPermissions";
 import InvalidSession from "@/components/InvalidSession";
 import SignOutButton from "@/components/SignOutButton";
-import ManageUsersButton from "./components/ManageUsersButton";
-import CreateEventButton from "./components/CreateEventButton";
-import UserHeader from "./components/UserHeader";
+import ManageUsersButton from "./_components/buttons/ManageUsersButton";
+import CreateEventButton from "./_components/buttons/CreateEventButton";
+import UserHeader from "./_components/UserHeader";
 
 export default function DashboardPage() {
   return (

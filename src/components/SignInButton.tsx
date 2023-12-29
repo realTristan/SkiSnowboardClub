@@ -5,6 +5,8 @@ export default function SignInButton(props: {
   className?: string;
 }): JSX.Element {
   return (
-    <Button className={props.className} onClick={() => signIn("google")} />
+    <Button className={props.className} onClick={() => signIn("google")}>
+      Sign in
+    </Button>
   );
 }

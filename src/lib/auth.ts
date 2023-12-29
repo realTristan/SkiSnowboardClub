@@ -38,7 +38,6 @@ export const handler = NextAuth({
         name,
         secret,
         image,
-        purchasedEventIds: [],
         permissions: [],
       };
 
@@ -68,7 +67,6 @@ export const handler = NextAuth({
           const json = await response.json();
 
           session.user.permissions = json.user.permissions;
-          session.user.purchasedEventIds = json.user.purchasedEventIds;
           session.user.id = json.user.id;
         }
       }

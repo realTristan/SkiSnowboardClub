@@ -7,17 +7,18 @@ import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import { SessionProvider, signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { Permission, Status, type User } from "@/lib/types";
+import { Permission, Status } from "@/lib/types";
 import { canAccessDashboard } from "@/utils/permissions";
 import InvalidSession from "@/components/InvalidSession";
-import NoPermissions from "../components/NoPermissions";
-import Image from "next/image";
-import { updateUserPermissions } from "./utils/updateUserPermissions";
-import { updatePermissionsArray } from "./utils/updatePermissionsArray";
-import SearchInput from "./components/SearchInput";
-import { Checkbox, NextUIProvider } from "@nextui-org/react";
-import PermissionCheckbox from "./components/PermissionsCheckbox";
-import UserInfo from "./components/UserInfo";
+import NoPermissions from "../_components/InvalidPermissions";
+import { updateUserPermissions } from "./_utils/updateUserPermissions";
+import SearchInput from "./_components/SearchInput";
+import { NextUIProvider } from "@nextui-org/react";
+import PermissionCheckbox from "./_components/PermissionsCheckbox";
+import UserInfo from "./_components/UserInfo";
+import Link from "next/link";
+import { User } from "next-auth";
+import Button from "@/components/Button";
 
 export default function DashboardPage() {
   return (
@@ -77,12 +78,18 @@ function Main(): JSX.Element {
   return (
     <main className="z-50 flex min-h-screen flex-col items-start justify-start gap-7 px-16 pb-20 pt-40">
       <h1 className="text-5xl font-extrabold">Manage Users</h1>
+      <Link
+        href="/dashboard"
+        className="btn text-sm underline hover:text-blue-500"
+      >
+        Back to dashboard
+      </Link>
       <SearchInput setSearch={setSearch} />
 
       {fetchStatus === Status.LOADING && <LoadingCenter />}
       {fetchStatus === Status.SUCCESS &&
         users.map((user) => {
-          if (!user.name.includes(search) && !user.email.includes(search)) {
+          if (!user.name?.includes(search) && !user.email?.includes(search)) {
             return <></>;
           }
 
@@ -120,17 +127,16 @@ function Main(): JSX.Element {
               <div className="flex w-full flex-row items-center justify-between">
                 <UserInfo user={user} />
 
-                <button
+                <Button
                   disabled={userUpdateStatus === Status.LOADING}
                   onClick={() => {
                     editingCurrentUser
                       ? setEditingUser(undefined)
                       : setEditingUser(user);
                   }}
-                  className="btn border border-black px-10 py-3 text-sm text-black duration-300 ease-in-out enabled:hover:bg-black enabled:hover:text-white disabled:opacity-50"
                 >
                   {editingCurrentUser ? "Cancel" : "Edit"}
-                </button>
+                </Button>
               </div>
 
               {/* The checkboxes for permissions (nextui) */}
@@ -174,16 +180,15 @@ function Main(): JSX.Element {
                   </div>
 
                   {/* Save changes button */}
-                  <button
+                  <Button
                     disabled={userUpdateStatus === Status.LOADING}
-                    className="btn group flex flex-col items-center justify-center gap-2 rounded-none border border-black px-10 py-3 text-sm text-black duration-300 ease-in-out enabled:hover:bg-black enabled:hover:text-white disabled:opacity-50"
                     onClick={async () => await onSaveChangesClick()}
                   >
                     {userUpdateStatus === Status.IDLE && <p>Save changes</p>}
                     {userUpdateStatus === Status.LOADING && (
                       <LoadingRelative className="h-5 w-5" />
                     )}
-                  </button>
+                  </Button>
                 </div>
               )}
             </div>

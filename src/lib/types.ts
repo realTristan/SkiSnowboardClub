@@ -1,9 +1,9 @@
 export interface ClubEvent extends ClubEventInfo {
-  payment_url: string;
   id: string;
   image: string;
   available: number;
   price: number;
+  formUrl: string;
 }
 
 export interface ClubEventInfo {
@@ -11,24 +11,6 @@ export interface ClubEventInfo {
   description: string;
   location: string;
   date: string;
-}
-
-export interface ClubEventCreationData extends ClubEventInfo {
-  available: number;
-  price: number;
-}
-
-export interface User extends UserInfo {
-  id: string;
-  secret: string;
-  image: string;
-  purchasedEventIds: string[];
-  permissions: Permission[];
-}
-
-export interface UserInfo {
-  email: string;
-  name: string;
 }
 
 export enum Permission {

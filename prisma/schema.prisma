@@ -14,7 +14,7 @@ model Event {
   updatedAt   DateTime @updatedAt
   title       String
   description String
-  payment_url String
+  formUrl     String
   image       String
   date        String
   location    String
@@ -23,15 +23,14 @@ model Event {
 }
 
 model User {
-  id                String   @id @unique @default(uuid())
-  registeredAt      DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  secret            String
-  purchasedEventIds String[]
-  email             String
-  name              String
-  image             String
-  permissions       Int[] // DEFAULT = 0, POST_EVENT = 1, EDIT_EVENT = 2, DELETE_EVENT = 3, ADMIN = 4
+  id           String   @id @unique @default(uuid())
+  registeredAt DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  secret       String
+  email        String
+  name         String
+  image        String
+  permissions  Int[] // DEFAULT = 0, POST_EVENT = 1, EDIT_EVENT = 2, DELETE_EVENT = 3, ADMIN = 4
 }
 
 // npx prisma migrate dev --name init

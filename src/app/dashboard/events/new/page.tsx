@@ -8,11 +8,12 @@ import SocialMedia from "@/components/logos/SocialMediaLogos";
 import { SessionProvider, signIn, useSession } from "next-auth/react";
 import { FormEvent, useEffect, useState } from "react";
 import { canAccessDashboard } from "@/utils/permissions";
-import NoPermissions from "../../components/NoPermissions";
+import InvalidPermissions from "../../_components/InvalidPermissions";
 import InvalidSession from "@/components/InvalidSession";
 import Image from "next/image";
 import { ClubEventInfo, Status } from "@/lib/types";
 import { useRouter } from "next/navigation";
+import Button from "@/components/Button";
 
 export default function DashboardNewEventage() {
   return (
@@ -39,6 +40,7 @@ function Main(): JSX.Element {
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState(0);
   const [available, setAvailable] = useState(0);
+  const [formUrl, setFormUrl] = useState("");
   const [creationStatus, setCreationStatus] = useState<Status>(Status.IDLE);
 
   const { data: session, status } = useSession();
@@ -60,7 +62,7 @@ function Main(): JSX.Element {
   }
 
   if (!canAccessDashboard(session.user.permissions)) {
-    return <NoPermissions />;
+    return <InvalidPermissions />;
   }
 
   return (
@@ -92,6 +94,7 @@ function Main(): JSX.Element {
               location,
               price,
               available,
+              formUrl,
             };
 
             await createEvent(session.user.secret || "", event).then((res) => {
@@ -160,21 +163,23 @@ function Main(): JSX.Element {
               className="border border-black p-3 text-sm focus:outline-black"
             />
           </label>
-          <button
-            type="submit"
-            className="btn border border-black bg-black p-3 text-sm text-white duration-300 ease-in-out hover:bg-white hover:text-black"
-          >
+          <label className="flex flex-col gap-1">
+            <span className="text-sm text-black">Microsoft Form URL</span>
+            <input
+              type="text"
+              className="border border-black p-3 text-sm focus:outline-black"
+              onChange={(e) => setFormUrl(e.target.value)}
+            />
+          </label>
+          <Button dark={true} type="submit">
             Create Event
-          </button>
-          <a
-            href="/dashboard"
-            className="btn border border-black bg-black p-3 text-center text-sm text-white duration-300 ease-in-out hover:bg-white hover:text-black"
-          >
+          </Button>
+          <Button href="/dashboard" dark={true}>
             Cancel
-          </a>
+          </Button>
           <p className="text-sm text-red-500">
             {creationStatus === Status.ERROR
-              ? "An error occurred while updating the event"
+              ? "An error occurred while updating the event - make sure that all fields are filled out correctly."
               : ""}
           </p>
         </form>

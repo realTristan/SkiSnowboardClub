@@ -4,22 +4,10 @@
 
 # Todo
 
-- [ ] About section (use provided photos and put in a collage)
-
-- [ ] The admins should be able to make a form for the user to fill out
-- The software should save the form in local cache as they are editing it
-- The user should be able to fill out the form
-- The software should notify that an user has filled out the form
-- The software should ask whether the users e-transferred the money
-   - If yes, the software should add the event to the users card
-   - If no, the admin should be able to delete the purchase request (and see how long it was made)
-
-- Have an "are you sure" for deleting an event and an users request
-- Send an email to the user if their request was deleted
-- Have an option to remind the user and it will send them an email
-- Have an option to send a "success" email
-
-Look online for email builder
+- [ ] Login with email and password
+- [ ] Forgot your password button (send email with outlook SMTP)
+- [ ] Create an account form
+- [ ] Add the above to the auth-nextjs-template
 
 # License
 

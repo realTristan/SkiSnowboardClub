@@ -1,4 +1,5 @@
-import { type Permission, type User } from "@/lib/types";
+import { type Permission } from "@/lib/types";
+import { User } from "next-auth";
 
 /**
  * Update the permissions for an user in the array

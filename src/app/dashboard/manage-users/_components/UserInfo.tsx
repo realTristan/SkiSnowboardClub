@@ -1,4 +1,4 @@
-import { User } from "@/lib/types";
+import { User } from "next-auth";
 import Image from "next/image";
 
 export default function UserInfo(props: { user: User }): JSX.Element {
@@ -7,7 +7,7 @@ export default function UserInfo(props: { user: User }): JSX.Element {
   return (
     <div className="flex flex-row items-center justify-center gap-4">
       <Image
-        src={user.image}
+        src={user.image || "/images/default-pfp.png"}
         alt="..."
         className="rounded-full"
         width={50}
