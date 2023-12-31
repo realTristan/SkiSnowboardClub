@@ -9,6 +9,7 @@ import SocialMedia from "@/components/logos/SocialMediaLogos";
 import { useEffect, useState } from "react";
 import LoadingCenter from "@/components/Loading";
 import EmptyEvents from "./_components/EmptyEvents";
+import MainWrapper from "@/components/MainWrapper";
 
 export default function TripsAndTicketsPage() {
   const [events, setEvents] = useState<ClubEvent[]>([]);
@@ -24,6 +25,14 @@ export default function TripsAndTicketsPage() {
       .catch((_) => setStatus(Status.ERROR));
   }, []);
 
+  if (status === Status.LOADING) {
+    return <LoadingCenter />;
+  }
+  
+  if (events.length === 0) {
+    return <EmptyEvents />;
+  }
+
   return (
     <>
       <Navbar dark={true} centered={false} className="bg-white" />
@@ -33,12 +42,9 @@ export default function TripsAndTicketsPage() {
         className="fixed left-6 top-6 z-50 lg:left-auto lg:right-10 lg:top-10"
       />
 
-      <main className="z-50 flex min-h-screen flex-wrap items-start justify-start gap-7 px-16 pb-20 pt-40 lg:gap-12">
-        {status === Status.LOADING && <LoadingCenter />}
-        {status !== Status.LOADING && events.length === 0 && <EmptyEvents />}
-        {events.length > 0 &&
-          events.map((event) => <EventCard key={event.id} event={event} />)}
-      </main>
+      <MainWrapper className="gap-7 px-16 pb-20 pt-40 lg:gap-12">
+        {events.map((event) => <EventCard key={event.id} event={event} />)}
+      </MainWrapper>
 
       <SocialMedia dark={true} />
     </>
