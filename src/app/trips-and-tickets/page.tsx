@@ -1,9 +1,9 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar/Navbar";
 import CustomCursor from "@/components/dynamic/CustomerCursor";
 import EventCard from "./_components/EventCard";
-import { Status, type ClubEvent } from "@/lib/types";
+import { Status, type ClubEvent } from "@/types/types";
 import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import { useEffect, useState } from "react";

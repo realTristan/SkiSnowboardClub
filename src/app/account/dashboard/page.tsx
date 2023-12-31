@@ -1,21 +1,21 @@
 "use client";
 
 import LoadingCenter from "@/components/Loading";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar/Navbar";
 import CustomCursor from "@/components/dynamic/CustomerCursor";
 import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import { SessionProvider, signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { type ClubEvent, Status } from "@/lib/types";
+import { type ClubEvent, Status } from "@/types/types";
 import EventCard from "./_components/EventCard";
-import { canAccessDashboard } from "@/utils/permissions";
-import NoPermissions from "./_components/InvalidPermissions";
+import { canAccessDashboard } from "@/lib/utils/permissions";
+import InvalidPermissions from "@/components/InvalidPermissions";
 import InvalidSession from "@/components/InvalidSession";
-import SignOutButton from "@/components/SignOutButton";
-import ManageUsersButton from "./_components/buttons/ManageUsersButton";
-import CreateEventButton from "./_components/buttons/CreateEventButton";
+import SignOutButton from "@/components/buttons/SignOutButton";
 import UserHeader from "./_components/UserHeader";
+import MainWrapper from "@/components/MainWrapper";
+import Button from "@/components/buttons/Button";
 
 export default function DashboardPage() {
   return (
@@ -59,22 +59,22 @@ function Main(): JSX.Element {
     return <LoadingCenter />;
   }
 
-  if (!session || !session.user) {
+  if (status === "unauthenticated" || !session) {
     return <InvalidSession />;
   }
 
   if (!canAccessDashboard(session.user.permissions)) {
-    return <NoPermissions />;
+    return <InvalidPermissions />;
   }
 
   return (
-    <main className="z-50 flex min-h-screen flex-col items-start justify-start px-16 pb-20 pt-40">
+    <MainWrapper className="items-start justify-start px-16 pb-20 pt-40">
       <UserHeader user={session.user} />
 
       <div className="my-8 flex flex-row gap-2">
         <SignOutButton />
-        <ManageUsersButton />
-        <CreateEventButton />
+        <Button href="/account/dashboard/manage-users">Manage users</Button>
+        <Button href="/account/dashboard/events/new">Create event</Button>
       </div>
 
       <div className="flex flex-wrap gap-7">
@@ -88,6 +88,6 @@ function Main(): JSX.Element {
             />
           ))}
       </div>
-    </main>
+    </MainWrapper>
   );
 }

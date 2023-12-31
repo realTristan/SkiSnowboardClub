@@ -1,8 +1,8 @@
 import { Prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { Response } from "@/lib/responses";
-import { Permission } from "@/lib/types";
-import { hasPermissions } from "@/utils/permissions";
+import { Permission } from "@/types/types";
+import { hasPermissions } from "@/lib/utils/permissions";
 import { genId } from "@/lib/crypto";
 
 /**

@@ -1,9 +1,10 @@
-import { ClubEvent, Permission, Status } from "@/lib/types";
+import { ClubEvent, Permission, Status } from "@/types/types";
 import Image from "next/image";
 import UpdateEvent from "./UpdateEvent";
 import { Dispatch, SetStateAction, useState } from "react";
-import { hasPermissions } from "@/utils/permissions";
+import { hasPermissions } from "@/lib/utils/permissions";
 import { LoadingRelative } from "@/components/Loading";
+import ErrorMessage from "@/components/ErrorMessage";
 
 async function deleteEvent(eventId: string, userSecret: string) {
   return await fetch(`/api/events/id/${eventId}`, {
@@ -84,11 +85,12 @@ export default function EventCard(props: EventCardProps): JSX.Element {
               )}
             </button>
           </div>
-          <p className="mt-2 text-sm text-red-500">
-            {deletionStatus === Status.ERROR
-              ? "An error occurred while deleting the event"
-              : ""}
-          </p>
+          
+          {deletionStatus === Status.ERROR && (
+            <ErrorMessage>
+              An error occurred while deleting the event
+            </ErrorMessage>
+          )}
         </>
       )}
     </div>

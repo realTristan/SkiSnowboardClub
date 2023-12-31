@@ -1,12 +1,15 @@
 import { signIn } from "next-auth/react";
 import Button from "./Button";
+import GoogleSvg from "../svgs/Google";
 
-export default function SignInButton(props: {
+interface SignInButtonProps {
   className?: string;
-}): JSX.Element {
+}
+export default function SignInButton(props: SignInButtonProps): JSX.Element {
   return (
     <Button className={props.className} onClick={() => signIn("google")}>
-      Sign in
+      <GoogleSvg/>
+      <p>Sign in</p>
     </Button>
   );
 }

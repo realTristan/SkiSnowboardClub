@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/components/Button";
-import Navbar from "@/components/Navbar";
+import Button from "@/components/buttons/Button";
+import Navbar from "@/components/Navbar/Navbar";
 import CustomCursor from "@/components/dynamic/CustomerCursor";
 import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";

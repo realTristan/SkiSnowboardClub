@@ -1,18 +1,19 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar/Navbar";
 import CustomCursor from "@/components/dynamic/CustomerCursor";
 import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import { SessionProvider, signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";
-import SignOutButton from "@/components/SignOutButton";
+import SignOutButton from "@/components/buttons/SignOutButton";
 import LoadingCenter from "@/components/Loading";
 import DashboardButton from "./_components/DashboardButton";
 import InvalidSession from "@/components/InvalidSession";
 import UserHeader from "./_components/UserHeader";
+import MainWrapper from "@/components/MainWrapper";
 
-export default function AccountPage() {
+export default function AccountPage(): JSX.Element {
   return (
     <>
       <Navbar dark={true} centered={false} className="bg-white" />
@@ -36,7 +37,6 @@ function Main(): JSX.Element {
   useEffect(() => {
     if (status === "unauthenticated") {
       signIn("google");
-      return;
     }
   }, [status, session]);
 
@@ -44,18 +44,18 @@ function Main(): JSX.Element {
     return <LoadingCenter />;
   }
 
-  if (!session || !session.user) {
+  if (status === "unauthenticated" || !session) {
     return <InvalidSession />;
   }
 
   return (
-    <main className="z-50 flex min-h-screen flex-col items-start justify-start px-16 pb-20 pt-40">
+    <MainWrapper className="items-start justify-start px-16 pb-20 pt-40">
       <UserHeader user={session.user} />
 
       <div className="my-8 flex flex-row gap-2">
         <SignOutButton />
         <DashboardButton />
       </div>
-    </main>
+    </MainWrapper>
   );
 }

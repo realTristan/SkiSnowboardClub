@@ -1,12 +1,13 @@
-import SignInButton from "@/components/SignInButton";
+import MainWrapper from "@/components/MainWrapper";
+import SignInButton from "@/components/buttons/SignInButton";
 
 export default function InvalidPermissions(): JSX.Element {
   return (
-    <main className="z-50 flex min-h-screen flex-col items-center justify-center gap-4 p-24">
+    <MainWrapper className="gap-4 p-24">
       <p className="mb-4 text-center text-5xl font-extrabold tracking-wide">
         Invalid permissions
       </p>
       <SignInButton />
-    </main>
+    </MainWrapper>
   );
 }

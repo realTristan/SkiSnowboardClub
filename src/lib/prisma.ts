@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { type ClubEventInfo, type ClubEvent } from "@/lib/types";
+import { type ClubEventInfo, type ClubEvent } from "@/types/types";
 import { User } from "next-auth";
 
 export class Prisma extends PrismaClient {

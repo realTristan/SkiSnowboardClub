@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Response } from "@/lib/responses";
-import { hasPermissions } from "@/utils/permissions";
-import { ClubEvent, Permission } from "@/lib/types";
+import { hasPermissions } from "@/lib/utils/permissions";
+import { ClubEvent, Permission } from "@/types/types";
 import { Prisma } from "@/lib/prisma";
 import { genId } from "@/lib/crypto";
 
