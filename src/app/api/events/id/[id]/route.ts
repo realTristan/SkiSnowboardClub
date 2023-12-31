@@ -1,8 +1,8 @@
 import { Response } from "@/lib/responses";
 import { NextRequest, NextResponse } from "next/server";
 import { Prisma } from "@/lib/prisma";
-import { Permission, type ClubEventInfo } from "@/lib/types";
-import { hasPermissions } from "@/utils/permissions";
+import { Permission, type ClubEventInfo } from "@/types/types";
+import { hasPermissions } from "@/lib/utils/permissions";
 
 /**
  * Get an event

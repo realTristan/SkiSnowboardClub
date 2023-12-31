@@ -1,10 +1,12 @@
 "use client";
 
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbar/Navbar";
 import CustomCursor from "../components/dynamic/CustomerCursor";
 import Image from "next/image";
 import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMediaLogos from "@/components/logos/SocialMediaLogos";
+import DarkOverlay from "@/components/DarkOverlay";
+import MainWrapper from "@/components/MainWrapper";
 
 export default function Home() {
   return (
@@ -15,21 +17,18 @@ export default function Home() {
       <SocialMediaLogos />
 
       <Image
+        alt="..."
         src="/images/hero-background.png"
-        alt="hero"
         layout="fill"
-        objectFit="cover"
-        className="-z-50"
+        className="-z-50 object-center object-cover h-max w-full"
         quality={100}
         priority
       />
-
-      {/* Dark overlay */}
-      <div className="absolute inset-0 -z-10 bg-slate-900 opacity-[85%]"></div>
+      <DarkOverlay />
 
       {/* Main */}
-      <main className="z-50 flex min-h-screen flex-col items-center justify-center p-10 md:p-24">
-        <h1 className="text-center font-tangerine text-5xl font-black text-white sm:text-6xl md:text-7xl lg:text-8xl">
+      <MainWrapper className="p-10 md:p-24">
+        <h1 className="text-center font-tangerine text-7xl font-black text-white sm:text-8xl lg:text-9xl">
           Conquer the slopes
         </h1>
 
@@ -44,7 +43,7 @@ export default function Home() {
         >
           <p>Join us</p>
         </a>
-      </main>
+      </MainWrapper>
 
       <p className="absolute bottom-0 left-1/2 mb-10 -translate-x-1/2 transform animate-pulse text-center text-base font-light text-white">
         See trips and tickets for our upcoming events!

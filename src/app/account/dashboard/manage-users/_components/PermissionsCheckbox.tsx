@@ -1,7 +1,7 @@
-import { Permission } from "@/lib/types";
+import { Permission } from "@/types/types";
 import { Checkbox } from "@nextui-org/react";
 import { Dispatch, SetStateAction, PropsWithChildren } from "react";
-import { updatePermissionsArray } from "../_utils/updatePermissionsArray";
+import { updatePermissionsArray } from "../_utils/permissions";
 import { User } from "next-auth";
 
 interface PermissionCheckboxProps {

@@ -1,4 +1,4 @@
-import { cn } from "@/utils/cn";
+import { cn } from "@/lib/utils/cn";
 import FacebookSVG from "../svgs/Facebook";
 
 export default function FacebookLogo(props: {

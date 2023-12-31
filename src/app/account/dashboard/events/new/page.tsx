@@ -1,19 +1,20 @@
 "use client";
 
 import LoadingCenter from "@/components/Loading";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar/Navbar";
 import CustomCursor from "@/components/dynamic/CustomerCursor";
 import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import { SessionProvider, signIn, useSession } from "next-auth/react";
 import { FormEvent, useEffect, useState } from "react";
-import { canAccessDashboard } from "@/utils/permissions";
-import InvalidPermissions from "../../_components/InvalidPermissions";
+import { canAccessDashboard } from "@/lib/utils/permissions";
+import InvalidPermissions from "../../../../../components/InvalidPermissions";
 import InvalidSession from "@/components/InvalidSession";
 import Image from "next/image";
-import { ClubEventInfo, Status } from "@/lib/types";
+import { ClubEventInfo, Status } from "@/types/types";
 import { useRouter } from "next/navigation";
-import Button from "@/components/Button";
+import Button from "@/components/buttons/Button";
+import ErrorMessage from "@/components/ErrorMessage";
 
 export default function DashboardNewEventage() {
   return (
@@ -57,7 +58,7 @@ function Main(): JSX.Element {
     return <LoadingCenter />;
   }
 
-  if (!session || !session.user) {
+  if (status === "unauthenticated" || !session) {
     return <InvalidSession />;
   }
 
@@ -99,7 +100,8 @@ function Main(): JSX.Element {
 
             await createEvent(session.user.secret || "", event).then((res) => {
               if (res.ok) {
-                router.push("/dashboard");
+                setCreationStatus(Status.SUCCESS);
+                router.push("/account/dashboard");
               } else {
                 setCreationStatus(Status.ERROR);
               }
@@ -174,14 +176,15 @@ function Main(): JSX.Element {
           <Button dark={true} type="submit">
             Create Event
           </Button>
-          <Button href="/dashboard" dark={true}>
+          <Button href="/account/dashboard" dark={true}>
             Cancel
           </Button>
-          <p className="text-sm text-red-500">
-            {creationStatus === Status.ERROR
-              ? "An error occurred while updating the event - make sure that all fields are filled out correctly."
-              : ""}
-          </p>
+
+          {creationStatus === Status.ERROR && (
+            <ErrorMessage>
+              An error occurred while updating the event - make sure that all fields are filled out correctly.
+            </ErrorMessage>
+          )}
         </form>
       )}
     </main>

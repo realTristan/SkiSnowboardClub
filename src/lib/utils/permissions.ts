@@ -1,4 +1,4 @@
-import { Permission } from "@/lib/types";
+import { Permission } from "@/types/types";
 
 /**
  * Get whether the user has the required permissions

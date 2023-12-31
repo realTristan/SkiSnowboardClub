@@ -1,6 +1,7 @@
-import Button from "@/components/Button";
+import Button from "@/components/buttons/Button";
+import ErrorMessage from "@/components/ErrorMessage";
 import { LoadingRelative } from "@/components/Loading";
-import { ClubEvent, Status } from "@/lib/types";
+import { ClubEvent, Status } from "@/types/types";
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 
 export default function UpdateEvent(props: {
@@ -109,11 +110,11 @@ export default function UpdateEvent(props: {
         Cancel
       </Button>
 
-      <p className="text-sm text-red-500">
-        {updateStatus === Status.ERROR
-          ? "An error occurred while updating the event"
-          : ""}
-      </p>
+      {updateStatus === Status.ERROR && (
+        <ErrorMessage>
+          An error occurred while updating the event
+        </ErrorMessage>
+      )}
     </form>
   );
 }

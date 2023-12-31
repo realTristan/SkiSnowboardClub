@@ -1,5 +1,5 @@
-import { ClubEvent } from "@/lib/types";
-import { cn } from "@/utils/cn";
+import { ClubEvent } from "@/types/types";
+import { cn } from "@/lib/utils/cn";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
