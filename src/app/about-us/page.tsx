@@ -26,7 +26,7 @@ const  TEAM_MEMBERS = [
     name: "Tristan Simpson",
     role: "Software Engineer/Developer",
     image: "/images/default-pfp-white.png",
-    description: "I'm a 1st year student from Cambridge, ON. My favourite place to ski is Mont Tremblant, QC!",
+    description: "I'm a 1st year student from Cambridge, ON. My favourite place to snowboard is Mont Tremblant, QC!",
   },
 ];
 
