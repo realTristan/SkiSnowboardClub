@@ -18,7 +18,6 @@ model Event {
   image       String
   date        String
   location    String
-  available   Int
   price       Int
 }
 

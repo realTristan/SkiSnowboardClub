@@ -40,7 +40,6 @@ function Main(): JSX.Element {
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState(0);
-  const [available, setAvailable] = useState(0);
   const [formUrl, setFormUrl] = useState("");
   const [creationStatus, setCreationStatus] = useState<Status>(Status.IDLE);
 
@@ -94,7 +93,6 @@ function Main(): JSX.Element {
               date,
               location,
               price,
-              available,
               formUrl,
             };
 
@@ -155,17 +153,6 @@ function Main(): JSX.Element {
             />
           </label>
           <label className="flex flex-col gap-1">
-            <span className="text-sm text-black">
-              Available Tickets (cannot change after)
-            </span>
-            <input
-              type="number"
-              maxLength={40}
-              onChange={(e) => setAvailable(parseInt(e.target.value))}
-              className="border border-black p-3 text-sm focus:outline-black"
-            />
-          </label>
-          <label className="flex flex-col gap-1">
             <span className="text-sm text-black">Microsoft Form URL</span>
             <input
               type="text"
@@ -182,7 +169,8 @@ function Main(): JSX.Element {
 
           {creationStatus === Status.ERROR && (
             <ErrorMessage>
-              An error occurred while updating the event - make sure that all fields are filled out correctly.
+              An error occurred while updating the event - make sure that all
+              fields are filled out correctly.
             </ErrorMessage>
           )}
         </form>
