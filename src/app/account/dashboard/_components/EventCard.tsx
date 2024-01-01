@@ -1,7 +1,7 @@
 import { ClubEvent, Permission, Status } from "@/types/types";
 import Image from "next/image";
-import UpdateEvent from "./UpdateEvent";
-import { Dispatch, SetStateAction, useState } from "react";
+import UpdateEventCard from "./UpdateEventCard";
+import { useState } from "react";
 import { hasPermissions } from "@/lib/utils/permissions";
 import { LoadingRelative } from "@/components/Loading";
 import ErrorMessage from "@/components/ErrorMessage";
@@ -33,7 +33,7 @@ export default function EventCard(props: EventCardProps): JSX.Element {
   return (
     <div className="relative flex h-fit w-96 flex-col items-start justify-start gap-1 border border-black bg-white px-7 pb-5 pt-7 duration-300 ease-in-out">
       {updatingEvent ? (
-        <UpdateEvent
+        <UpdateEventCard
           setUpdatingEvent={setUpdatingEvent}
           userSecret={userSecret}
           event={event}
@@ -51,10 +51,6 @@ export default function EventCard(props: EventCardProps): JSX.Element {
           <p className="text-sm ">{event.description}</p>
           <p className="text-xs">{new Date(event.date).toDateString()}</p>
           <p className="text-xs">{event.location}</p>
-          <p className="text-xs">
-            Available Tickets: {event.available} - Cost per ticket: $
-            {event.price}
-          </p>
 
           <div className="mt-4 flex flex-row gap-2">
             <button
@@ -85,7 +81,7 @@ export default function EventCard(props: EventCardProps): JSX.Element {
               )}
             </button>
           </div>
-          
+
           {deletionStatus === Status.ERROR && (
             <ErrorMessage>
               An error occurred while deleting the event

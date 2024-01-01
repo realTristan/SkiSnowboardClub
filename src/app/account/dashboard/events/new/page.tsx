@@ -142,9 +142,7 @@ function Main(): JSX.Element {
             />
           </label>
           <label className="flex flex-col gap-1">
-            <span className="text-sm text-black">
-              Event Price (cannot change after)
-            </span>
+            <span className="text-sm text-black">Event Price</span>
             <input
               type="number"
               maxLength={40}

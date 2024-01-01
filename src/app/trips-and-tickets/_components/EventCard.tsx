@@ -22,7 +22,6 @@ export default function EventCard(props: { event: ClubEvent }): JSX.Element {
       <p className="text-sm">{event.description}</p>
       <p className="text-xs">{new Date(event.date).toDateString()}</p>
       <p className="text-xs">{event.location}</p>
-      <p className="text-xs">Available Tickets: {event.available}</p>
 
       <a
         aria-disabled={eventDisabled}

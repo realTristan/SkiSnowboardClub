@@ -9,7 +9,7 @@ import { hasPermissions } from "@/lib/utils/permissions";
  * @param req The request object
  * @returns The response object
  */
-export async function GET(req: NextRequest, { params }: any) {
+export async function GET({ params }: any) {
   // Check the event ID from the URL query
   if (!params.id || typeof params.id !== "string") {
     return NextResponse.json(Response.InvalidQuery, { status: 400 });
@@ -70,8 +70,14 @@ export async function PUT(req: NextRequest, { params }: any) {
   }
 
   // Get the request body parameters
-  const { title, description, date, location } = await req.json();
-  if (!title || !description || !location || date === undefined) {
+  const { title, description, date, location, price } = await req.json();
+  if (
+    !title ||
+    !description ||
+    !location ||
+    date === undefined ||
+    price === undefined
+  ) {
     return NextResponse.json(Response.InvalidBody, { status: 400 });
   }
 
@@ -97,6 +103,7 @@ export async function PUT(req: NextRequest, { params }: any) {
     description,
     date,
     location,
+    price,
   };
 
   return await Prisma.updateEvent(params.id, eventInfoObject)

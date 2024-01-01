@@ -1,8 +1,6 @@
 export interface ClubEvent extends ClubEventInfo {
   id: string;
   image: string;
-  available: number;
-  price: number;
   formUrl: string;
 }
 
@@ -11,6 +9,7 @@ export interface ClubEventInfo {
   description: string;
   location: string;
   date: string;
+  price: number;
 }
 
 export enum Permission {
