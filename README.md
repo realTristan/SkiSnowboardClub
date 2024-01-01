@@ -2,13 +2,6 @@
 
 <img width="1338" alt="Screenshot 2023-12-13 at 3 10 39 PM" src="https://github.com/realTristan/SkiSnowboardClub/assets/75189508/07763b10-ec63-4bce-9f19-00fab35f4dda">
 
-# Todo
-
-- [ ] Login with email and password
-- [ ] Forgot your password button (send email with outlook SMTP)
-- [ ] Create an account form
-- [ ] Add the above to the auth-nextjs-template
-
 # License
 
 MIT License
