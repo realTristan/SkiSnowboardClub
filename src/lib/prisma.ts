@@ -226,14 +226,9 @@ export class Prisma extends PrismaClient {
   ): Promise<ClubEvent> => {
     return await Prisma.update("event", {
       where: {
-        id: id,
+        id,
       },
-      data: {
-        title: event.title,
-        description: event.description,
-        date: event.date,
-        location: event.location,
-      },
+      data: event,
     });
   };
 
@@ -247,7 +242,7 @@ export class Prisma extends PrismaClient {
   ): Promise<ClubEvent> => {
     return await Prisma.delete("event", {
       where: {
-        id: id,
+        id,
       },
     });
   };
