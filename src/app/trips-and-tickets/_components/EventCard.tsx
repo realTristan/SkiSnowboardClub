@@ -1,12 +1,10 @@
-import { ClubEvent } from "@/types/types";
+import { type ClubEvent } from "@/types/types";
 import { cn } from "@/lib/utils/cn";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 export default function EventCard(props: { event: ClubEvent }): JSX.Element {
   const event: ClubEvent = props.event;
   const eventDisabled = new Date(event.date).getTime() < new Date().getTime();
-  const router = useRouter();
 
   return (
     <div className="relative flex h-fit w-96 flex-col items-start justify-start gap-1 border border-black bg-white p-7 duration-300 ease-in-out hover:scale-105">

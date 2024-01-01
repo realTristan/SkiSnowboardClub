@@ -1,5 +1,5 @@
 import { Response } from "@/lib/responses";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { Prisma } from "@/lib/prisma";
 import { Permission, type ClubEventInfo } from "@/types/types";
 import { hasPermissions } from "@/lib/utils/permissions";

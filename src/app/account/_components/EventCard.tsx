@@ -1,4 +1,4 @@
-import { ClubEvent } from "@/types/types";
+import { type ClubEvent } from "@/types/types";
 import Image from "next/image";
 
 export default function EventCard(props: { event: ClubEvent }): JSX.Element {

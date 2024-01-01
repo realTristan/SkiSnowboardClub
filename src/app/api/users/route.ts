@@ -1,5 +1,5 @@
 import { Prisma } from "@/lib/prisma";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { Response } from "@/lib/responses";
 import { Permission } from "@/types/types";
 import { hasPermissions } from "@/lib/utils/permissions";
@@ -10,12 +10,12 @@ import { genId } from "@/lib/crypto";
  * @param req The request object
  * @returns The response object
  */
-export async function GET(req: NextRequest) {
+export async function GET() {
   return await Prisma.getUsers()
     .then((users) => {
       return NextResponse.json({ users, ...Response.Success }, { status: 200 });
     })
-    .catch((err) => {
+    .catch(() => {
       return NextResponse.json(Response.InternalError, { status: 500 });
     });
 }
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
     .then((user) => {
       return NextResponse.json({ user, ...Response.Success }, { status: 200 });
     })
-    .catch((err) => {
+    .catch(() => {
       return NextResponse.json(Response.InternalError, { status: 500 });
     });
 }

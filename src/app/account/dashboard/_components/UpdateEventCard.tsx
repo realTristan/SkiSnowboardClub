@@ -1,8 +1,13 @@
 import Button from "@/components/buttons/Button";
 import ErrorMessage from "@/components/ErrorMessage";
 import { LoadingRelative } from "@/components/Loading";
-import { ClubEvent, Status } from "@/types/types";
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import { type ClubEvent, Status } from "@/types/types";
+import {
+  type Dispatch,
+  type FormEvent,
+  type SetStateAction,
+  useState,
+} from "react";
 
 export default function UpdateEventCard(props: {
   event: ClubEvent;

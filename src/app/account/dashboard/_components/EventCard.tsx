@@ -1,4 +1,4 @@
-import { ClubEvent, Permission, Status } from "@/types/types";
+import { type ClubEvent, Permission, Status } from "@/types/types";
 import Image from "next/image";
 import UpdateEventCard from "./UpdateEventCard";
 import { useState } from "react";

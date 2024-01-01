@@ -2,13 +2,13 @@ import { useEffect } from "react";
 
 export default function CustomCursor(): JSX.Element {
   useEffect(() => {
-    const cursor = document.querySelector(".cursor") as HTMLElement;
+    const cursor = document.querySelector(".cursor")! as HTMLElement;
     if (!cursor) return;
 
     const btns = document.querySelectorAll(".btn") as NodeListOf<HTMLElement>;
     btns.forEach((btn) => {
       // Mouse enter/move listener for button
-      btn.addEventListener("mousemove", (e) => {
+      btn.addEventListener("mousemove", () => {
         cursor.classList.add("scale-150");
         cursor.classList.add("bg-white");
       });

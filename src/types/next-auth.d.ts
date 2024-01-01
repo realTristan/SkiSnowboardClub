@@ -1,4 +1,4 @@
-import { Permission } from "@/types/types";
+import { type Permission } from "@/types/types";
 import "next-auth";
 
 declare module "next-auth" {
@@ -8,7 +8,7 @@ declare module "next-auth" {
   interface User {
     id: string;
     secret: string;
-    name: string ;
+    name: string;
     email: string;
     image: string;
     permissions: Permission[];

@@ -11,6 +11,7 @@
   "dependencies": {
     "@nextui-org/react": "^2.2.9",
     "@prisma/client": "^5.7.1",
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
     "clsx": "^2.0.0",
     "framer-motion": "^10.16.16",
     "next": "14.0.4",
