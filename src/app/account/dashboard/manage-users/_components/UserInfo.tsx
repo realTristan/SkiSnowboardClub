@@ -1,4 +1,4 @@
-import { User } from "next-auth";
+import { type User } from "next-auth";
 import Image from "next/image";
 
 export default function UserInfo(props: { user: User }): JSX.Element {

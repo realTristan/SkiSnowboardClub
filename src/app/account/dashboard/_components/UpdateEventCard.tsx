@@ -1,10 +1,15 @@
 import Button from "@/components/buttons/Button";
 import ErrorMessage from "@/components/ErrorMessage";
 import { LoadingRelative } from "@/components/Loading";
-import { ClubEvent, Status } from "@/types/types";
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import { type ClubEvent, Status } from "@/types/types";
+import {
+  type Dispatch,
+  type FormEvent,
+  type SetStateAction,
+  useState,
+} from "react";
 
-export default function UpdateEvent(props: {
+export default function UpdateEventCard(props: {
   event: ClubEvent;
   userSecret: string;
   className?: string;
@@ -16,6 +21,7 @@ export default function UpdateEvent(props: {
   const [description, setDescription] = useState(event.description);
   const [location, setLocation] = useState(event.location);
   const [date, setDate] = useState(event.date);
+  const [price, setPrice] = useState(event.price);
   const [updateStatus, setUpdateStatus] = useState<Status>(Status.IDLE);
 
   if (updateStatus === Status.LOADING) {
@@ -47,6 +53,7 @@ export default function UpdateEvent(props: {
             description,
             location,
             date,
+            price,
           }),
         }).then((res) => {
           if (res.ok) {
@@ -103,6 +110,17 @@ export default function UpdateEvent(props: {
           defaultValue={event.date}
         />
       </div>
+      <div className="flex flex-col space-y-1">
+        <label htmlFor="price" className="text-sm font-bold">
+          Price
+        </label>
+        <input
+          type="number"
+          onChange={(e) => setPrice(parseInt(e.target.value))}
+          className="w-full border border-gray-300 px-5 py-3 text-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-black"
+          defaultValue={event.price}
+        />
+      </div>
       <Button dark={true} type="submit">
         Update
       </Button>
@@ -111,9 +129,7 @@ export default function UpdateEvent(props: {
       </Button>
 
       {updateStatus === Status.ERROR && (
-        <ErrorMessage>
-          An error occurred while updating the event
-        </ErrorMessage>
+        <ErrorMessage>An error occurred while updating the event</ErrorMessage>
       )}
     </form>
   );

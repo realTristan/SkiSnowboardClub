@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils/cn";
-import Link from "next/link";
-import { PropsWithChildren } from "react";
+import { type PropsWithChildren } from "react";
 
 type ButtonType = "button" | "submit" | "reset";
 interface ButtonProps {

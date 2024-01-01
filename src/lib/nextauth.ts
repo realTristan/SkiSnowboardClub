@@ -1,13 +1,13 @@
-import NextAuth, { User } from "next-auth";
+import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { sha256 } from "./crypto";
-import { NextRequest } from "next/server";
+import { type NextRequest } from "next/server";
 
 export const handler = NextAuth({
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
   ],
 
@@ -22,12 +22,12 @@ export const handler = NextAuth({
       const email: string = session.user.email;
       const name: string = session.user.name;
       const image: string = session.user.image || "/images/default-pfp.png";
-      const secret: string = await sha256(email + bearerSecret)
+      const secret: string = await sha256(email + bearerSecret);
 
       // Verify the user is updated in the database by sending a PUT request to the backend
       const get = (name: string) => {
         return name === "Authorization" ? secret : "";
-      }
+      };
       const body = async () => ({
         name,
         email,
@@ -48,7 +48,7 @@ export const handler = NextAuth({
       }
 
       const json = await response.json();
-      session.user ={
+      session.user = {
         email,
         name,
         secret,
@@ -56,7 +56,7 @@ export const handler = NextAuth({
         permissions: json.user.permissions,
         id: json.user.id,
       };
-      
+
       return session;
     },
   },

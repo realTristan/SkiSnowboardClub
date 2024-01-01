@@ -1,5 +1,5 @@
 import { type Permission } from "@/types/types";
-import { User } from "next-auth";
+import { type User } from "next-auth";
 
 /**
  * Update the permissions for an user in the array
@@ -47,4 +47,3 @@ export async function updateUserPermissions(
     }),
   });
 }
-

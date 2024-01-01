@@ -6,12 +6,12 @@ import CustomCursor from "@/components/dynamic/CustomerCursor";
 import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import { SessionProvider, signIn, useSession } from "next-auth/react";
-import { FormEvent, useEffect, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import { canAccessDashboard } from "@/lib/utils/permissions";
 import InvalidPermissions from "../../../../../components/InvalidPermissions";
 import InvalidSession from "@/components/InvalidSession";
 import Image from "next/image";
-import { ClubEventInfo, Status } from "@/types/types";
+import { type ClubEventInfo, Status } from "@/types/types";
 import { useRouter } from "next/navigation";
 import Button from "@/components/buttons/Button";
 import ErrorMessage from "@/components/ErrorMessage";
@@ -142,9 +142,7 @@ function Main(): JSX.Element {
             />
           </label>
           <label className="flex flex-col gap-1">
-            <span className="text-sm text-black">
-              Event Price (cannot change after)
-            </span>
+            <span className="text-sm text-black">Event Price</span>
             <input
               type="number"
               maxLength={40}

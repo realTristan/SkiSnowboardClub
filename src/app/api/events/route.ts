@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { Response } from "@/lib/responses";
 import { hasPermissions } from "@/lib/utils/permissions";
-import { ClubEvent, Permission } from "@/types/types";
+import { type ClubEvent, Permission } from "@/types/types";
 import { Prisma } from "@/lib/prisma";
 import { genId } from "@/lib/crypto";
 
@@ -10,7 +10,7 @@ import { genId } from "@/lib/crypto";
  * @param req The request object
  * @returns The response object
  */
-export async function GET(req: NextRequest) {
+export async function GET() {
   const events = await Prisma.getEvents();
   return NextResponse.json({ events, ...Response.Success }, { status: 200 });
 }
@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
  */
 export async function POST(req: NextRequest) {
   // Get the request body parameters
-  const { title, description, date, location, available, price, formUrl } =
+  const { title, description, date, location, price, formUrl } =
     await req.json();
   if (
     !title ||
@@ -30,7 +30,6 @@ export async function POST(req: NextRequest) {
     !location ||
     !formUrl ||
     date === undefined ||
-    available === undefined ||
     price === undefined
   ) {
     return NextResponse.json(Response.InvalidBody, { status: 400 });
@@ -61,7 +60,6 @@ export async function POST(req: NextRequest) {
     description,
     date,
     location,
-    available,
     price,
     formUrl,
   };
@@ -73,7 +71,7 @@ export async function POST(req: NextRequest) {
         { status: 200 },
       );
     })
-    .catch((err) => {
+    .catch(() => {
       return NextResponse.json(Response.InternalError, { status: 500 });
     });
 }
