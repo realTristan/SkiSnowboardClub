@@ -22,8 +22,13 @@ const  TEAM_MEMBERS = [
     image: "/images/default-pfp-white.png",
     description: "I'm a 2nd year student from Elora, ON. My favourite place to ski is Whistler, BC!",
   },
+  {
+    name: "Tristan Simpson",
+    role: "Software Engineer/Developer",
+    image: "/images/default-pfp-white.png",
+    description: "I'm a 1st year student from Cambridge, ON. My favourite place to snowboard is Mont Tremblant, QC!",
+  },
 ];
-
 
 export default function AboutUsPage() {
   return (
