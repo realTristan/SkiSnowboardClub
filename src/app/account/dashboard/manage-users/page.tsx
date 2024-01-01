@@ -8,7 +8,7 @@ import SocialMedia from "@/components/logos/SocialMediaLogos";
 import { SessionProvider, signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { Permission, Status } from "@/types/types";
-import { canAccessDashboard } from "@/lib/utils/permissions";
+import { canAccessDashboard, hasPermissions } from "@/lib/utils/permissions";
 import InvalidSession from "@/components/InvalidSession";
 import InvalidPermissions from "@/components/InvalidPermissions";
 import SearchInput from "./_components/SearchInput";
@@ -73,7 +73,7 @@ function Main(): JSX.Element {
     return <InvalidSession />;
   }
 
-  if (!canAccessDashboard(session.user.permissions)) {
+  if (!hasPermissions(session.user.permissions, [Permission.ADMIN])) {
     return <InvalidPermissions />;
   }
 
@@ -190,11 +190,20 @@ function Main(): JSX.Element {
                   disabled={userUpdateStatus === Status.LOADING}
                   onClick={async () => await onSaveChangesClick()}
                 >
-                  {userUpdateStatus === Status.IDLE && <p>Save changes</p>}
-                  {userUpdateStatus === Status.LOADING && (
+                  {userUpdateStatus === Status.LOADING ? (
                     <LoadingRelative className="h-5 w-5" />
+                  ) : (
+                    <p>Save changes</p>
                   )}
                 </Button>
+
+                {/* Error message */}
+                {userUpdateStatus === Status.ERROR && (
+                  <ErrorMessage>
+                    An error occurred while updating the user&apos;s
+                    permissions.
+                  </ErrorMessage>
+                )}
               </div>
             )}
           </div>
