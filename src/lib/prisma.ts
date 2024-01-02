@@ -273,7 +273,7 @@ export class Prisma extends PrismaClient {
         id,
       },
     });
-  }
+  };
 
   /**
    * Get all the events

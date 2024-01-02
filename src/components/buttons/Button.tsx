@@ -27,7 +27,7 @@ export default function Button(
         }
       }}
       className={cn(
-        "btn flex flex-row items-center justify-center gap-2 border border-black px-10 py-3 text-left text-sm duration-300 ease-in-out disabled:opacity-50",
+        "btn flex flex-row items-center justify-center gap-2 border border-black px-5 py-3 text-center text-xs duration-300 ease-in-out disabled:opacity-50 xs:px-7 xs:text-sm sm:px-10",
         props.dark
           ? "bg-black text-white hover:bg-white hover:text-black"
           : "text-black hover:bg-black hover:text-white",

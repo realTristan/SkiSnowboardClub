@@ -18,7 +18,9 @@ interface UpdateEventCardProps {
   setUpdatingEvent: StateDispatch<boolean>;
 }
 
-export default function UpdateEventCard(props: UpdateEventCardProps): JSX.Element {
+export default function UpdateEventCard(
+  props: UpdateEventCardProps,
+): JSX.Element {
   const { event, user } = props;
 
   const [title, setTitle] = useState(event.title);
@@ -56,7 +58,7 @@ export default function UpdateEventCard(props: UpdateEventCardProps): JSX.Elemen
 
         if (imageRef.current?.files) {
           const image = imageRef.current.files[0];
-          
+
           if (image) {
             // Convert the image to base64
             const imageb64 = await new Promise<string>((resolve) => {
@@ -77,7 +79,7 @@ export default function UpdateEventCard(props: UpdateEventCardProps): JSX.Elemen
             Authorization: user.secret,
           },
           body: JSON.stringify({ event: _event }),
-        })
+        });
 
         if (!res.ok) {
           return setUpdateStatus(Status.ERROR);

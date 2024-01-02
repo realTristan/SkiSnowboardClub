@@ -28,7 +28,7 @@ export default function TripsAndTicketsPage() {
   if (status === Status.LOADING) {
     return <LoadingCenter />;
   }
-  
+
   if (events.length === 0) {
     return <EmptyEvents />;
   }
@@ -42,8 +42,10 @@ export default function TripsAndTicketsPage() {
         className="fixed left-6 top-6 z-50 lg:left-auto lg:right-10 lg:top-10"
       />
 
-      <MainWrapper className="gap-7 px-16 pb-20 pt-40 lg:gap-12 items-start justify-start flex-wrap">
-        {events.map((event) => <EventCard key={event.id} event={event} />)}
+      <MainWrapper className="flex-wrap gap-12 px-7 pb-20 pt-40 sm:items-start sm:justify-start sm:px-16">
+        {events.map((event) => (
+          <EventCard key={event.id} event={event} />
+        ))}
       </MainWrapper>
 
       <SocialMedia dark={true} />

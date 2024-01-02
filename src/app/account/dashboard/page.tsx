@@ -13,9 +13,9 @@ import { canAccessDashboard } from "@/lib/utils/permissions";
 import InvalidPermissions from "@/components/InvalidPermissions";
 import InvalidSession from "@/components/InvalidSession";
 import SignOutButton from "@/components/buttons/SignOutButton";
-import UserHeader from "./_components/UserHeader";
 import MainWrapper from "@/components/MainWrapper";
 import Button from "@/components/buttons/Button";
+import UserHead from "../_components/UserHead";
 
 export default function DashboardPage() {
   return (
@@ -39,7 +39,7 @@ function Main(): JSX.Element {
   const { data: session, status } = useSession();
   const [events, setEvents] = useState<ClubEvent[]>([]);
   const [fetchStatus, setFetchStatus] = useState<Status>(Status.LOADING);
-  
+
   useEffect(() => {
     if (status === "unauthenticated") {
       signIn("google");
@@ -68,16 +68,26 @@ function Main(): JSX.Element {
   }
 
   return (
-    <MainWrapper className="items-start justify-start px-16 pb-20 pt-40 flex-col">
-      <UserHeader user={session.user} />
+    <MainWrapper className="flex-col px-7 pb-20 pt-40 sm:items-start sm:justify-start sm:px-16">
+      <UserHead user={session.user} />
 
-      <div className="my-8 flex flex-row gap-2">
-        <SignOutButton />
-        <Button href="/account/dashboard/manage-users">Manage users</Button>
-        <Button href="/account/dashboard/events/new">Create event</Button>
+      <div className="my-8 flex w-full flex-wrap gap-2">
+        <SignOutButton className="w-full sm:w-auto" />
+        <Button
+          href="/account/dashboard/manage-users"
+          className="w-full sm:w-auto"
+        >
+          Manage users
+        </Button>
+        <Button
+          href="/account/dashboard/events/new"
+          className="w-full sm:w-auto"
+        >
+          Create event
+        </Button>
       </div>
 
-      <div className="flex flex-wrap gap-7">
+      <div className="flex w-full flex-wrap gap-7">
         {fetchStatus === Status.SUCCESS &&
           events.map((event: ClubEvent) => (
             <EventCard

@@ -8,7 +8,7 @@ interface SignInButtonProps {
 export default function SignInButton(props: SignInButtonProps): JSX.Element {
   return (
     <Button className={props.className} onClick={() => signIn("google")}>
-      <GoogleSvg/>
+      <GoogleSvg />
       <p>Sign in</p>
     </Button>
   );
