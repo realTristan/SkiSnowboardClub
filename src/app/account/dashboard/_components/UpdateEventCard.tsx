@@ -2,20 +2,24 @@ import Button from "@/components/buttons/Button";
 import ErrorMessage from "@/components/ErrorMessage";
 import { LoadingRelative } from "@/components/Loading";
 import { type ClubEvent, Status } from "@/types/types";
+import { type User } from "next-auth";
 import {
   type Dispatch,
   type FormEvent,
   type SetStateAction,
   useState,
+  useRef,
 } from "react";
 
-export default function UpdateEventCard(props: {
+type StateDispatch<T> = Dispatch<SetStateAction<T>>;
+interface UpdateEventCardProps {
   event: ClubEvent;
-  userSecret: string;
-  className?: string;
-  setUpdatingEvent: Dispatch<SetStateAction<boolean>>;
-}): JSX.Element {
-  const { event } = props;
+  user: User;
+  setUpdatingEvent: StateDispatch<boolean>;
+}
+
+export default function UpdateEventCard(props: UpdateEventCardProps): JSX.Element {
+  const { event, user } = props;
 
   const [title, setTitle] = useState(event.title);
   const [description, setDescription] = useState(event.description);
@@ -23,6 +27,7 @@ export default function UpdateEventCard(props: {
   const [date, setDate] = useState(event.date);
   const [price, setPrice] = useState(event.price);
   const [updateStatus, setUpdateStatus] = useState<Status>(Status.IDLE);
+  const imageRef = useRef<HTMLInputElement>(null);
 
   if (updateStatus === Status.LOADING) {
     return (
@@ -41,28 +46,45 @@ export default function UpdateEventCard(props: {
         // Set the status to loading
         setUpdateStatus(Status.LOADING);
 
+        const _event: ClubEvent = {
+          title,
+          description,
+          location,
+          date,
+          price,
+        } as ClubEvent;
+
+        if (imageRef.current?.files) {
+          const image = imageRef.current.files[0];
+          
+          if (image) {
+            // Convert the image to base64
+            const imageb64 = await new Promise<string>((resolve) => {
+              const reader = new FileReader();
+              reader.readAsDataURL(image);
+              reader.onload = () => resolve(reader.result as string);
+            });
+
+            _event.image = imageb64;
+          }
+        }
+
         // Send the request to the API
-        await fetch(`/api/events/id/${event.id}`, {
+        const res = await fetch(`/api/events/id/${event.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: props.userSecret,
+            Authorization: user.secret,
           },
-          body: JSON.stringify({
-            title,
-            description,
-            location,
-            date,
-            price,
-          }),
-        }).then((res) => {
-          if (res.ok) {
-            props.setUpdatingEvent(false);
-            window.location.reload();
-          } else {
-            setUpdateStatus(Status.ERROR);
-          }
-        });
+          body: JSON.stringify({ event: _event }),
+        })
+
+        if (!res.ok) {
+          return setUpdateStatus(Status.ERROR);
+        }
+
+        props.setUpdatingEvent(false);
+        window.location.reload();
       }}
     >
       <div className="flex flex-col space-y-1">
@@ -121,6 +143,17 @@ export default function UpdateEventCard(props: {
           defaultValue={event.price}
         />
       </div>
+      <div className="flex flex-col space-y-1">
+        <label htmlFor="image" className="text-sm font-bold">
+          Image
+        </label>
+        <input
+          type="file"
+          ref={imageRef}
+          className="w-full border border-gray-300 px-5 py-3 text-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-black"
+        />
+      </div>
+
       <Button dark={true} type="submit">
         Update
       </Button>

@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { type ClubEventInfo, type ClubEvent } from "@/types/types";
+import { type ClubEvent } from "@/types/types";
 import { type User } from "next-auth";
 
 export class Prisma extends PrismaClient {
@@ -222,7 +222,7 @@ export class Prisma extends PrismaClient {
    */
   public static readonly updateEvent = async (
     id: string,
-    event: ClubEventInfo,
+    event: ClubEvent,
   ): Promise<ClubEvent> => {
     return await Prisma.update("event", {
       where: {
@@ -259,6 +259,21 @@ export class Prisma extends PrismaClient {
       data: event,
     });
   };
+
+  /**
+   * Get an event
+   * @param id The event's ID
+   * @returns The event
+   */
+  public static readonly getEventById = async (
+    id: string,
+  ): Promise<ClubEvent | null> => {
+    return await Prisma.findOne("event", {
+      where: {
+        id,
+      },
+    });
+  }
 
   /**
    * Get all the events

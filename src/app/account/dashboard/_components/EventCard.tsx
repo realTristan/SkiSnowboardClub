@@ -5,6 +5,7 @@ import { useState } from "react";
 import { hasPermissions } from "@/lib/utils/permissions";
 import { LoadingRelative } from "@/components/Loading";
 import ErrorMessage from "@/components/ErrorMessage";
+import { type User } from "next-auth";
 
 async function deleteEvent(eventId: string, userSecret: string) {
   return await fetch(`/api/events/id/${eventId}`, {
@@ -18,11 +19,11 @@ async function deleteEvent(eventId: string, userSecret: string) {
 
 interface EventCardProps {
   event: ClubEvent;
-  userSecret: string;
+  user: User;
   permissions: Permission[];
 }
 export default function EventCard(props: EventCardProps): JSX.Element {
-  const { event, userSecret, permissions } = props;
+  const { event, user, permissions } = props;
 
   const canDeleteEvent = hasPermissions(permissions, [Permission.DELETE_EVENT]);
   const canEditEvent = hasPermissions(permissions, [Permission.EDIT_EVENT]);
@@ -35,7 +36,7 @@ export default function EventCard(props: EventCardProps): JSX.Element {
       {updatingEvent ? (
         <UpdateEventCard
           setUpdatingEvent={setUpdatingEvent}
-          userSecret={userSecret}
+          user={user}
           event={event}
         />
       ) : (
@@ -64,7 +65,7 @@ export default function EventCard(props: EventCardProps): JSX.Element {
               onClick={async () => {
                 setDeletionStatus(Status.LOADING);
 
-                const res = await deleteEvent(event.id, props.userSecret);
+                const res = await deleteEvent(event.id, props.user.secret);
                 if (res.ok) {
                   window.location.reload();
                 } else {
