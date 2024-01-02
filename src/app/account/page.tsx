@@ -49,7 +49,7 @@ function Main(): JSX.Element {
   }
 
   return (
-    <MainWrapper className="items-start justify-start px-16 pb-20 pt-40">
+    <MainWrapper className="items-start justify-start px-16 pb-20 pt-40 flex-col">
       <UserHeader user={session.user} />
 
       <div className="my-8 flex flex-row gap-2">

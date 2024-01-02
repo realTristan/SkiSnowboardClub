@@ -9,7 +9,7 @@ import MemberCard from "./_component/MemberCard";
 import ImageCollage from "./_component/ImageCollage";
 import DarkOverlay from "@/components/DarkOverlay";
 
-const  TEAM_MEMBERS = [
+const TEAM_MEMBERS = [
   {
     name: "Calin Good",
     role: "President",
@@ -41,7 +41,7 @@ export default function AboutUsPage() {
         className="fixed left-6 top-6 z-50 lg:left-auto lg:right-10 lg:top-10"
       />
 
-      <ImageCollage/>
+      <ImageCollage />
       <DarkOverlay className="bg-black" />
 
       {/*
@@ -56,18 +56,18 @@ export default function AboutUsPage() {
       />
       */}
 
-      <MainWrapper  className="gap-4 p-20 pt-32">
+      <MainWrapper className="gap-4 p-20 pt-32 flex-col">
         <div className="flex flex-row flex-wrap justify-center items-center gap-12">
-        {TEAM_MEMBERS.map((member) => (
-          <MemberCard
-            key={Math.random()}
-            name={member.name}
-            role={member.role}
-            image={member.image}
-            description={member.description}/>
-        ))}
+          {TEAM_MEMBERS.map((member) => (
+            <MemberCard
+              key={Math.random()}
+              name={member.name}
+              role={member.role}
+              image={member.image}
+              description={member.description} />
+          ))}
         </div>
-        
+
       </MainWrapper>
     </>
   );

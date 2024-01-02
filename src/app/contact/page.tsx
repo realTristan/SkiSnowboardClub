@@ -6,6 +6,7 @@ import CustomCursor from "@/components/dynamic/CustomerCursor";
 import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import ExternalSVG from "@/components/svgs/External";
+import MainWrapper from "@/components/MainWrapper";
 
 export default function ContactPage() {
   const contactEmail = "skiandboard@uoguelph.ca";
@@ -20,7 +21,7 @@ export default function ContactPage() {
         className="fixed left-6 top-6 z-50 lg:left-auto lg:right-10 lg:top-10"
       />
 
-      <main className="z-50 flex min-h-screen flex-col items-center justify-center p-24">
+      <MainWrapper className="p-24 flex-col">
         <h1 className="font-tangerine text-6xl font-bold sm:text-7xl lg:text-9xl">
           Contact Us
         </h1>
@@ -41,7 +42,7 @@ export default function ContactPage() {
           <ExternalSVG className="mb-px h-5 w-5 fill-black duration-300 ease-in-out group-hover:fill-white" />{" "}
           Message us via email
         </Button>
-      </main>
+      </MainWrapper>
     </>
   );
 }

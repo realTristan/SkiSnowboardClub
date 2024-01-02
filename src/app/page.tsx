@@ -26,8 +26,7 @@ export default function Home() {
       />
       <DarkOverlay />
 
-      {/* Main */}
-      <MainWrapper className="p-10 md:p-24">
+      <MainWrapper className="p-10 md:p-24 flex-col">
         <h1 className="text-center font-tangerine text-7xl font-black text-white sm:text-8xl lg:text-9xl">
           Conquer the slopes
         </h1>
