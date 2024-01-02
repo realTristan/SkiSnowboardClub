@@ -14,7 +14,7 @@ import InvalidPermissions from "@/components/InvalidPermissions";
 import SearchInput from "./_components/SearchInput";
 import { NextUIProvider } from "@nextui-org/react";
 import PermissionCheckbox from "./_components/PermissionsCheckbox";
-import UserInfo from "./_components/UserInfo";
+import Image from "next/image";
 import { type User } from "next-auth";
 import Button from "@/components/buttons/Button";
 import BackButton from "./_components/BackButton";
@@ -79,7 +79,7 @@ function Main(): JSX.Element {
 
   if (fetchStatus === Status.ERROR) {
     return (
-      <MainWrapper className="px-16 pb-20 pt-40 flex-col">
+      <MainWrapper className="flex-col px-16 pb-20 pt-40">
         <h1 className="text-5xl font-extrabold">Manage Users</h1>
         <BackButton />
         <SearchInput setSearch={setSearch} />
@@ -89,8 +89,8 @@ function Main(): JSX.Element {
   }
 
   return (
-    <MainWrapper className="items-start justify-start gap-7 px-16 pb-20 pt-40 flex-col">
-      <h1 className="text-5xl font-extrabold">Manage Users</h1>
+    <MainWrapper className="flex-col items-start justify-start gap-2 px-7 pb-20 pt-40 xs:gap-7 sm:px-16">
+      <h1 className="text-4xl font-extrabold xs:text-5xl">Manage Users</h1>
       <BackButton />
       <SearchInput setSearch={setSearch} />
 
@@ -131,7 +131,22 @@ function Main(): JSX.Element {
             className="flex w-full flex-col items-start justify-start gap-2 border border-black p-3"
           >
             <div className="flex w-full flex-row items-center justify-between">
-              <UserInfo user={user} />
+              <div className="flex flex-row items-center justify-center gap-4">
+                <Image
+                  src={user.image || "/images/default-pfp.png"}
+                  alt="..."
+                  className="rounded-full"
+                  width={50}
+                  height={50}
+                />
+
+                <div className="flex flex-col items-start justify-start">
+                  <h1 className="">{user.name}</h1>
+                  <p className="text-xs text-gray-500 xs:text-sm">
+                    {user.email}
+                  </p>
+                </div>
+              </div>
 
               <Button
                 disabled={userUpdateStatus === Status.LOADING}
@@ -147,9 +162,9 @@ function Main(): JSX.Element {
 
             {/* The checkboxes for permissions (nextui) */}
             {editingUser?.id === user.id && (
-              <div className="mt-4 flex w-full flex-row items-center justify-between">
+              <div className="mt-4 flex w-full flex-col items-start justify-start gap-4 xs:flex-row xs:items-center xs:justify-between xs:gap-0">
                 {/* Checkboxes */}
-                <div className="ml-2 flex flex-row items-center justify-center gap-4">
+                <div className="ml-2 flex flex-wrap items-start justify-start gap-4">
                   <PermissionCheckbox
                     permission={Permission.ADMIN}
                     user={user}

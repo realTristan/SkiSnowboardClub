@@ -8,25 +8,29 @@ import SocialMedia from "@/components/logos/SocialMediaLogos";
 import MemberCard from "./_component/MemberCard";
 import ImageCollage from "./_component/ImageCollage";
 import DarkOverlay from "@/components/DarkOverlay";
+import Image from "next/image";
 
 const TEAM_MEMBERS = [
   {
     name: "Calin Good",
     role: "President",
     image: "/images/team/calingood.png",
-    description: "I'm a 2nd year Biomedical Sciences from Waterloo, ON. My favourite place to ski is Revelstoke, BC!",
+    description:
+      "I'm a 2nd year Biomedical Sciences from Waterloo, ON. My favourite place to ski is Revelstoke, BC!",
   },
   {
     name: "Lindsay Bouwman",
     role: "Vice President/Event Planner",
     image: "/images/default-pfp-white.png",
-    description: "I'm a 2nd year student from Elora, ON. My favourite place to ski is Whistler, BC!",
+    description:
+      "I'm a 2nd year student from Elora, ON. My favourite place to ski is Whistler, BC!",
   },
   {
     name: "Tristan Simpson",
     role: "Software Engineer/Developer",
     image: "/images/default-pfp-white.png",
-    description: "I'm a 1st year student from Cambridge, ON. My favourite place to snowboard is Mont Tremblant, QC!",
+    description:
+      "I'm a 1st year student from Cambridge, ON. My favourite place to snowboard is Mont Tremblant, QC!",
   },
 ];
 
@@ -42,32 +46,30 @@ export default function AboutUsPage() {
       />
 
       <ImageCollage />
-      <DarkOverlay className="bg-black" />
+      <DarkOverlay className="hidden bg-black sm:flex" />
 
-      {/*
       <Image
-        src="/images/team-background-2.png"
+        src="/images/team-background.png"
         alt="..."
         layout="fill"
         objectFit="cover"
         objectPosition="center"
         quality={100}
-        className="fixed inset-0 -z-50 brightness-[.15]"
+        className="fixed inset-0 -z-50 brightness-[0.2] sm:hidden"
       />
-      */}
 
-      <MainWrapper className="gap-4 p-20 pt-32 flex-col">
-        <div className="flex flex-row flex-wrap justify-center items-center gap-12">
+      <MainWrapper className="flex-col gap-4 p-20 pt-32">
+        <div className="flex flex-row flex-wrap items-center justify-center gap-12">
           {TEAM_MEMBERS.map((member) => (
             <MemberCard
               key={Math.random()}
               name={member.name}
               role={member.role}
               image={member.image}
-              description={member.description} />
+              description={member.description}
+            />
           ))}
         </div>
-
       </MainWrapper>
     </>
   );

@@ -6,7 +6,6 @@ import { hasPermissions } from "@/lib/utils/permissions";
 import { LoadingRelative } from "@/components/Loading";
 import ErrorMessage from "@/components/ErrorMessage";
 import { type User } from "next-auth";
-import { cn } from "@/lib/utils/cn";
 
 async function deleteEvent(eventId: string, userSecret: string) {
   return await fetch(`/api/events/id/${eventId}`, {
@@ -55,11 +54,11 @@ export default function EventCard(props: EventCardProps): JSX.Element {
           <CheckmarkSvg />
         )}
       </button>
-    )
+    );
   }
 
   return (
-    <div className={cn("relative flex w-96 flex-col items-start justify-start gap-1 border border-black bg-white px-7 pb-5 pt-7 duration-300 ease-in-out", updatingEvent ? "h-fit" : "h-[40rem]")}>
+    <div className="relative flex h-fit w-full flex-col items-start justify-start gap-1 border border-black bg-white px-7 pb-5 pt-7 duration-300 ease-in-out sm:w-96">
       {updatingEvent ? (
         <UpdateEventCard
           setUpdatingEvent={setUpdatingEvent}
@@ -76,39 +75,40 @@ export default function EventCard(props: EventCardProps): JSX.Element {
             className="rounded-none"
           />
           <h2 className="mt-4 text-3xl font-extrabold">{event.title}</h2>
-          <p className="text-sm mb-4">{event.description}</p>
-          <div className="absolute bottom-7 left-7">
-            <p className="text-xs">{new Date(event.date).toDateString()}</p>
-            <p className="text-xs">{event.location}</p>
+          <p className="mb-4 text-sm">{event.description}</p>
+          <p className="text-xs">{new Date(event.date).toDateString()}</p>
+          <p className="text-xs">{event.location}</p>
 
-            <div className="mt-4 flex flex-row gap-2">
-              <button
-                onClick={() => setUpdatingEvent(true)}
-                disabled={!canEditEvent || deletionStatus === Status.LOADING}
-                className="btn group flex flex-row items-center justify-center gap-2 rounded-none border border-black px-10 py-3 text-sm text-black duration-300 ease-in-out enabled:hover:bg-black enabled:hover:text-white disabled:opacity-50"
-              >
-                Edit
-              </button>
-              {confirmDeleteEvent ? (
-                <div className="flex flex-row gap-2">
-                  <ConfirmDeleteEventButton />
-                  <button
-                    onClick={() => setConfirmDeleteEvent(false)}
-                    className="btn group flex flex-row items-center justify-center gap-2 rounded-none border border-black px-10 py-3 text-sm text-black duration-300 ease-in-out enabled:hover:bg-black enabled:hover:text-white disabled:opacity-50"
-                  >
-                    <XSvg />
-                  </button>
-                </div>
-              ) : (
+          <div className="mt-4 flex flex-row gap-2">
+            <button
+              onClick={() => setUpdatingEvent(true)}
+              disabled={!canEditEvent || deletionStatus === Status.LOADING}
+              className="btn group flex flex-row items-center justify-center gap-2 rounded-none border border-black px-10 py-3 text-sm text-black duration-300 ease-in-out enabled:hover:bg-black enabled:hover:text-white disabled:opacity-50"
+            >
+              Edit
+            </button>
+            {confirmDeleteEvent ? (
+              <div className="flex flex-row gap-2">
+                <ConfirmDeleteEventButton />
                 <button
-                  onClick={() => setConfirmDeleteEvent(true)}
-                  disabled={!canDeleteEvent || deletionStatus === Status.LOADING}
+                  disabled={
+                    !canDeleteEvent || deletionStatus === Status.LOADING
+                  }
+                  onClick={() => setConfirmDeleteEvent(false)}
                   className="btn group flex flex-row items-center justify-center gap-2 rounded-none border border-black px-10 py-3 text-sm text-black duration-300 ease-in-out enabled:hover:bg-black enabled:hover:text-white disabled:opacity-50"
                 >
-                  Delete
+                  <XSvg />
                 </button>
-              )}
-            </div>
+              </div>
+            ) : (
+              <button
+                onClick={() => setConfirmDeleteEvent(true)}
+                disabled={!canDeleteEvent || deletionStatus === Status.LOADING}
+                className="btn group flex flex-row items-center justify-center gap-2 rounded-none border border-black px-10 py-3 text-sm text-black duration-300 ease-in-out enabled:hover:bg-black enabled:hover:text-white disabled:opacity-50"
+              >
+                Delete
+              </button>
+            )}
           </div>
 
           {deletionStatus === Status.ERROR && (
@@ -121,7 +121,6 @@ export default function EventCard(props: EventCardProps): JSX.Element {
     </div>
   );
 }
-
 
 function CheckmarkSvg(): JSX.Element {
   return (

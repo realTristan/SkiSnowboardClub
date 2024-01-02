@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import { nextui } from "@nextui-org/react";
 
 /** @type {import('tailwindcss').Config} */
 const config: Config = {
@@ -11,6 +10,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: "480px",
+      },
       fontFamily: {
         tangerine: ["Tangerine", "cursive"],
       },

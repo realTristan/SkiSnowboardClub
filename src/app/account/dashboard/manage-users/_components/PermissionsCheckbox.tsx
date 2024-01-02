@@ -27,7 +27,6 @@ export default function PermissionCheckbox(
 
   return (
     <Checkbox
-      size="lg"
       isDisabled={props.disabled}
       className={props.disabled ? "opacity-50" : ""}
       defaultSelected={user.permissions.includes(permission)}

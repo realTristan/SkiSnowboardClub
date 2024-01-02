@@ -68,7 +68,7 @@ function Main(): JSX.Element {
   }
 
   return (
-    <MainWrapper className="flex-col items-start justify-start gap-5 px-16 pb-20 pt-40">
+    <MainWrapper className="flex-col items-start justify-start gap-5 px-7 pb-20 pt-40 sm:px-16">
       <div className="mb-4 flex flex-row items-center justify-center gap-4">
         <Image
           src={session?.user?.image!}
@@ -116,7 +116,7 @@ function Main(): JSX.Element {
             if (!res.ok) {
               return setCreationStatus(Status.ERROR);
             }
-            
+
             setCreationStatus(Status.SUCCESS);
             router.push("/account/dashboard");
           }}
@@ -170,7 +170,9 @@ function Main(): JSX.Element {
             />
           </label>
           <label className="flex flex-col gap-1">
-            <span className="text-sm text-black">Microsoft Form URL (required)</span>
+            <span className="text-sm text-black">
+              Microsoft Form URL (required)
+            </span>
             <input
               type="text"
               className="border border-black p-3 text-sm focus:outline-black"

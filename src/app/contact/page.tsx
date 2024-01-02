@@ -21,7 +21,7 @@ export default function ContactPage() {
         className="fixed left-6 top-6 z-50 lg:left-auto lg:right-10 lg:top-10"
       />
 
-      <MainWrapper className="p-24 flex-col">
+      <MainWrapper className="flex-col p-7 xs:p-12 sm:p-24">
         <h1 className="font-tangerine text-6xl font-bold sm:text-7xl lg:text-9xl">
           Contact Us
         </h1>

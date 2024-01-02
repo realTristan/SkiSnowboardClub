@@ -8,10 +8,10 @@ import { SessionProvider, signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";
 import SignOutButton from "@/components/buttons/SignOutButton";
 import LoadingCenter from "@/components/Loading";
-import DashboardButton from "./_components/DashboardButton";
 import InvalidSession from "@/components/InvalidSession";
-import UserHeader from "./_components/UserHeader";
 import MainWrapper from "@/components/MainWrapper";
+import Button from "@/components/buttons/Button";
+import UserHead from "./_components/UserHead";
 
 export default function AccountPage(): JSX.Element {
   return (
@@ -49,12 +49,12 @@ function Main(): JSX.Element {
   }
 
   return (
-    <MainWrapper className="items-start justify-start px-16 pb-20 pt-40 flex-col">
-      <UserHeader user={session.user} />
+    <MainWrapper className="flex-col items-start justify-start px-7 pb-20 pt-40 sm:px-16">
+      <UserHead user={session.user} />
 
       <div className="my-8 flex flex-row gap-2">
         <SignOutButton />
-        <DashboardButton />
+        <Button href="/account/dashboard">Dashboard</Button>
       </div>
     </MainWrapper>
   );

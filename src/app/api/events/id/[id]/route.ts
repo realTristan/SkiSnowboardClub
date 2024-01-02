@@ -3,7 +3,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { Prisma } from "@/lib/prisma";
 import { Permission } from "@/types/types";
 import { hasPermissions } from "@/lib/utils/permissions";
-import { del, put } from '@vercel/blob';
+import { del, put } from "@vercel/blob";
 import { genId } from "@/lib/crypto";
 import { imgb64ToFile } from "@/app/api/events/_utils/images";
 import { EVENT_DEFAULT_IMAGE } from "@/lib/constants";
@@ -26,10 +26,7 @@ export async function GET({ params }: any) {
     return NextResponse.json(Response.InvalidQuery, { status: 400 });
   }
 
-  return NextResponse.json(
-    { ...Response.Success, event },
-    { status: 200 },
-  );
+  return NextResponse.json({ ...Response.Success, event }, { status: 200 });
 }
 
 /**

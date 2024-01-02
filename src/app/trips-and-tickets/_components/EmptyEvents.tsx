@@ -10,8 +10,6 @@ import Navbar from "@/components/Navbar/Navbar";
  */
 export default function EmptyEvents(): JSX.Element {
   return (
-
-
     <>
       <Navbar dark={true} centered={false} className="bg-white" />
       <CustomCursor />
@@ -20,7 +18,7 @@ export default function EmptyEvents(): JSX.Element {
         className="fixed left-6 top-6 z-50 lg:left-auto lg:right-10 lg:top-10"
       />
 
-      <MainWrapper className="gap-4 p-20 flex-col">
+      <MainWrapper className="flex-col gap-4 p-20">
         <p className="text-center text-5xl font-extrabold tracking-wide">
           Nothing here yet
         </p>

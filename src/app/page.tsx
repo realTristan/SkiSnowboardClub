@@ -20,13 +20,13 @@ export default function Home() {
         alt="..."
         src="/images/hero-background.png"
         layout="fill"
-        className="-z-50 object-center object-cover h-max w-full"
+        className="-z-50 h-max w-full object-cover object-center"
         quality={100}
         priority
       />
       <DarkOverlay />
 
-      <MainWrapper className="p-10 md:p-24 flex-col">
+      <MainWrapper className="flex-col p-10 md:p-24">
         <h1 className="text-center font-tangerine text-7xl font-black text-white sm:text-8xl lg:text-9xl">
           Conquer the slopes
         </h1>
