@@ -5,9 +5,17 @@ import { type ClubEvent, Permission } from "@/types/types";
 import { Prisma } from "@/lib/prisma";
 import { genId } from "@/lib/crypto";
 import { put } from "@vercel/blob";
-import { imgb64ToFile } from "@/lib/utils/images";
+import { imgb64ToFile } from "@/app/api/events/_utils/images";
 import { EVENT_DEFAULT_IMAGE } from "@/lib/constants";
 import { isValidEventData } from "./_utils/checks";
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "5mb"
+    }
+  }
+}
 
 /**
  * Get all events

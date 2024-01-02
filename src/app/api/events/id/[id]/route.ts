@@ -5,7 +5,7 @@ import { Permission } from "@/types/types";
 import { hasPermissions } from "@/lib/utils/permissions";
 import { del, put } from '@vercel/blob';
 import { genId } from "@/lib/crypto";
-import { imgb64ToFile } from "@/lib/utils/images";
+import { imgb64ToFile } from "@/app/api/events/_utils/images";
 import { EVENT_DEFAULT_IMAGE } from "@/lib/constants";
 import { isValidEventData } from "../../_utils/checks";
 
