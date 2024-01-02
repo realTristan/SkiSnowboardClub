@@ -124,7 +124,7 @@ function Main(): JSX.Element {
             <span className="text-sm text-black">Event Title</span>
             <input
               type="text"
-              maxLength={15}
+              maxLength={50}
               onChange={(e) => setTitle(e.target.value)}
               className="border border-black p-3 text-sm focus:outline-black"
             />
@@ -132,7 +132,7 @@ function Main(): JSX.Element {
           <label className="flex flex-col gap-1">
             <span className="text-sm text-black">Event Description</span>
             <textarea
-              maxLength={50}
+              maxLength={100}
               onChange={(e) => setDescription(e.target.value)}
               className="border border-black p-3 text-sm focus:outline-black"
               rows={5}
@@ -143,14 +143,19 @@ function Main(): JSX.Element {
             <input
               type="date"
               className="border border-black p-3 text-sm focus:outline-black"
-              onChange={(e) => setDate(e.target.value)}
+              onChange={(e) => {
+                // Increase the date by 1 day (fix bug)
+                const date = new Date(e.target.value);
+                date.setDate(date.getDate() + 1);
+                setDate(date.toDateString());
+              }}
             />
           </label>
           <label className="flex flex-col gap-1">
             <span className="text-sm text-black">Event Location</span>
             <input
               type="text"
-              maxLength={40}
+              maxLength={100}
               onChange={(e) => setLocation(e.target.value)}
               className="border border-black p-3 text-sm focus:outline-black"
             />
@@ -159,7 +164,6 @@ function Main(): JSX.Element {
             <span className="text-sm text-black">Event Price (required)</span>
             <input
               type="number"
-              maxLength={40}
               onChange={(e) => setPrice(parseInt(e.target.value))}
               className="border border-black p-3 text-sm focus:outline-black"
             />
