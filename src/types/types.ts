@@ -1,10 +1,7 @@
-export interface ClubEvent extends ClubEventInfo {
+export interface ClubEvent {
   id: string;
   image: string;
   formUrl: string;
-}
-
-export interface ClubEventInfo {
   title: string;
   description: string;
   location: string;

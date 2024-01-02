@@ -13,7 +13,7 @@ const  TEAM_MEMBERS = [
   {
     name: "Calin Good",
     role: "President",
-    image: "/images/team/calin-good.png",
+    image: "/images/team/calingood.png",
     description: "I'm a 2nd year Biomedical Sciences from Waterloo, ON. My favourite place to ski is Revelstoke, BC!",
   },
   {

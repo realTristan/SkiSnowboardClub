@@ -83,7 +83,7 @@ function Main(): JSX.Element {
             <EventCard
               key={event.id}
               event={event}
-              userSecret={session?.user?.secret || ""}
+              user={session.user}
               permissions={session.user.permissions}
             />
           ))}
