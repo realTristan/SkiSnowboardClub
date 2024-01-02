@@ -10,7 +10,7 @@ export default function MainWrapper(
   return (
     <div
       className={cn(
-        "flex min-h-screen flex-col items-center justify-center",
+        "flex min-h-screen items-center w-screen min-w-full justify-center",
         props.className,
       )}
     >

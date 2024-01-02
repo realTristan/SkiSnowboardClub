@@ -15,6 +15,7 @@ import { Status, type ClubEvent } from "@/types/types";
 import { useRouter } from "next/navigation";
 import Button from "@/components/buttons/Button";
 import ErrorMessage from "@/components/ErrorMessage";
+import MainWrapper from "@/components/MainWrapper";
 
 export default function DashboardNewEventage() {
   return (
@@ -67,7 +68,7 @@ function Main(): JSX.Element {
   }
 
   return (
-    <main className="z-50 flex min-h-screen flex-col items-start justify-start gap-5 px-16 pb-20 pt-40">
+    <MainWrapper className="flex-col items-start justify-start gap-5 px-16 pb-20 pt-40">
       <div className="mb-4 flex flex-row items-center justify-center gap-4">
         <Image
           src={session?.user?.image!}
@@ -199,7 +200,7 @@ function Main(): JSX.Element {
           )}
         </form>
       )}
-    </main>
+    </MainWrapper>
   );
 }
 

@@ -79,7 +79,7 @@ function Main(): JSX.Element {
 
   if (fetchStatus === Status.ERROR) {
     return (
-      <MainWrapper className="px-16 pb-20 pt-40">
+      <MainWrapper className="px-16 pb-20 pt-40 flex-col">
         <h1 className="text-5xl font-extrabold">Manage Users</h1>
         <BackButton />
         <SearchInput setSearch={setSearch} />
@@ -89,7 +89,7 @@ function Main(): JSX.Element {
   }
 
   return (
-    <MainWrapper className="items-start justify-start gap-7 px-16 pb-20 pt-40">
+    <MainWrapper className="items-start justify-start gap-7 px-16 pb-20 pt-40 flex-col">
       <h1 className="text-5xl font-extrabold">Manage Users</h1>
       <BackButton />
       <SearchInput setSearch={setSearch} />

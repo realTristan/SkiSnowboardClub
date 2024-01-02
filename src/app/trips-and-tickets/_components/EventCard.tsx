@@ -7,7 +7,7 @@ export default function EventCard(props: { event: ClubEvent }): JSX.Element {
   const eventDisabled = new Date(event.date).getTime() < new Date().getTime();
 
   return (
-    <div className="relative flex h-fit w-96 flex-col items-start justify-start gap-1 border border-black bg-white p-7 duration-300 ease-in-out hover:scale-105">
+    <div className="relative flex h-[39rem] w-96 flex-col items-start justify-start gap-1 border border-black bg-white p-7 duration-300 ease-in-out hover:scale-105">
       <Image
         src={event.image}
         alt="..."
@@ -17,21 +17,22 @@ export default function EventCard(props: { event: ClubEvent }): JSX.Element {
       />
 
       <h2 className="mt-4 text-2xl font-extrabold uppercase">{event.title}</h2>
-      <p className="text-sm mb-4">{event.description}</p>
+      <p className="text-sm mb-2">{event.description}</p>
       <p className="text-xs">{new Date(event.date).toDateString()}</p>
       <p className="text-xs">{event.location}</p>
-
-      <a
-        aria-disabled={eventDisabled}
-        href={event.formUrl}
-        target="_blank"
-        className={cn(
-          eventDisabled ? "" : "btn hover:bg-black hover:text-white",
-          "mt-4 border border-black px-10 py-3 text-sm duration-300 ease-in-out aria-disabled:opacity-50",
-        )}
-      >
-        {eventDisabled ? "Unavailable" : `Register - $${event.price}`}
-      </a>
+      <div className="absolute bottom-7 left-7">
+        <a
+          aria-disabled={eventDisabled}
+          href={event.formUrl}
+          target="_blank"
+          className={cn(
+            eventDisabled ? "" : "btn hover:bg-black hover:text-white",
+            "border border-black px-10 py-3 text-sm duration-300 ease-in-out aria-disabled:opacity-50",
+          )}
+        >
+          {eventDisabled ? "Unavailable" : `Register - $${event.price}`}
+        </a>
+      </div>
     </div>
   );
 }

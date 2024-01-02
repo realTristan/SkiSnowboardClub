@@ -8,8 +8,8 @@ interface MemberCardProps {
 }
 export default function MemberCard(props: MemberCardProps): JSX.Element {
     return (
-        <div className="flex flex-col items-center justify-center gap-4 w-96 h-[30rem] backdrop-blur-2xl border-white/30 border p-10 hover:scale-105 duration-300 ease-in-out">
-            <Image src={props.image} alt={props.name} className="w-60 h-60 rounded-full" width={500} height={500} />
+        <div className="flex flex-col items-center justify-center gap-4 w-80 h-96 sm:w-96 sm:h-[30rem] backdrop-blur-2xl border-white/30 border p-10 hover:scale-105 duration-300 ease-in-out">
+            <Image src={props.image} alt={props.name} className="w-40 h-40 sm:w-60 sm:h-60 rounded-full" width={500} height={500} />
             <div className="flex flex-col items-center justify-center text-center">
                 <p className="text-2xl font-bold text-white">{props.name}</p>
                 <p className="text-lg font-light text-white">{props.role}</p>
