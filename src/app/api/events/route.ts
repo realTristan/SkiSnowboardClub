@@ -7,6 +7,7 @@ import { genId } from "@/lib/crypto";
 import { put } from "@vercel/blob";
 import { imgb64ToFile } from "@/lib/utils/images";
 import { EVENT_DEFAULT_IMAGE } from "@/lib/constants";
+import { isValidEventData } from "./_utils/checks";
 
 /**
  * Get all events
@@ -26,7 +27,12 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   // Get the request body parameters
   const { event } = await req.json();
-  if (event.date === undefined || event.price === undefined || !event.formUrl) {
+  if (!event.date || event.price === undefined || !event.formUrl) {
+    return NextResponse.json(Response.InvalidBody, { status: 400 });
+  }
+
+  // If the event is invalid, return an error
+  if (!isValidEventData(event)) {
     return NextResponse.json(Response.InvalidBody, { status: 400 });
   }
 

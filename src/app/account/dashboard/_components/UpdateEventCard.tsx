@@ -93,6 +93,7 @@ export default function UpdateEventCard(props: UpdateEventCardProps): JSX.Elemen
         </label>
         <input
           type="text"
+          maxLength={50}
           onChange={(e) => setTitle(e.target.value)}
           className="w-full border border-gray-300 px-5 py-3 text-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-black"
           defaultValue={event.title}
@@ -104,7 +105,7 @@ export default function UpdateEventCard(props: UpdateEventCardProps): JSX.Elemen
         </label>
         <textarea
           id="description"
-          maxLength={50}
+          maxLength={100}
           onChange={(e) => setDescription(e.target.value)}
           className="w-full border border-gray-300 px-5 py-3 text-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-black"
           defaultValue={event.description}

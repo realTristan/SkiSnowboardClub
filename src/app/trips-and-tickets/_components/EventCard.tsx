@@ -17,7 +17,7 @@ export default function EventCard(props: { event: ClubEvent }): JSX.Element {
       />
 
       <h2 className="mt-4 text-2xl font-extrabold uppercase">{event.title}</h2>
-      <p className="text-sm">{event.description}</p>
+      <p className="text-sm mb-4">{event.description}</p>
       <p className="text-xs">{new Date(event.date).toDateString()}</p>
       <p className="text-xs">{event.location}</p>
 

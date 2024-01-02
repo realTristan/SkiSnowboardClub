@@ -7,6 +7,7 @@ import { del, put } from '@vercel/blob';
 import { genId } from "@/lib/crypto";
 import { imgb64ToFile } from "@/lib/utils/images";
 import { EVENT_DEFAULT_IMAGE } from "@/lib/constants";
+import { isValidEventData } from "../../_utils/checks";
 
 /**
  * Get an event from the database
@@ -91,6 +92,11 @@ export async function PUT(req: NextRequest, { params }: any) {
 
   // Get the request body parameters
   const { event } = await req.json();
+
+  // If the event is invalid, return an error
+  if (!isValidEventData(event)) {
+    return NextResponse.json(Response.InvalidBody, { status: 400 });
+  }
 
   // Get the user's bearer token from the headers
   const secret = req.headers.get("Authorization");

@@ -49,7 +49,7 @@ export default function EventCard(props: EventCardProps): JSX.Element {
             className="rounded-none"
           />
           <h2 className="mt-4 text-3xl font-extrabold">{event.title}</h2>
-          <p className="text-sm ">{event.description}</p>
+          <p className="text-sm mb-4">{event.description}</p>
           <p className="text-xs">{new Date(event.date).toDateString()}</p>
           <p className="text-xs">{event.location}</p>
 
