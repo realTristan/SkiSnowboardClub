@@ -33,51 +33,6 @@ export async function GET({ params }: any) {
 }
 
 /**
- * Delete an event from the database and blob storage
- * @param req The request object
- * @returns The response object
- */
-export async function DELETE(req: NextRequest, { params }: any) {
-  // Check the event ID from the URL query
-  if (!params.id || typeof params.id !== "string") {
-    return NextResponse.json(Response.InvalidQuery, { status: 400 });
-  }
-
-  // Get the user's bearer token from the headers
-  const secret = req.headers.get("Authorization");
-  if (!secret) {
-    return NextResponse.json(Response.InvalidHeaders, { status: 400 });
-  }
-
-  // Verify that the user has the correct permissions
-  const user = await Prisma.getUser(secret);
-  if (!user) {
-    return NextResponse.json(Response.InvalidAuthorization, { status: 400 });
-  }
-
-  if (!hasPermissions(user.permissions, [Permission.DELETE_EVENT])) {
-    return NextResponse.json(Response.InvalidAuthorization, { status: 400 });
-  }
-
-  // Delete the banner blob
-  const event = await Prisma.getEventById(params.id);
-  if (!event) {
-    return NextResponse.json(Response.InvalidQuery, { status: 400 });
-  }
-
-  await del(event.image);
-
-  // Delete the event
-  return Prisma.deleteEvent(params.id)
-    .then((_) => {
-      return NextResponse.json({ ...Response.Success, event }, { status: 200 });
-    })
-    .catch((_) => {
-      return NextResponse.json(Response.InternalError, { status: 500 });
-    });
-}
-
-/**
  * Update an event in the database
  * @param req The request object
  * @returns The response object
@@ -150,6 +105,53 @@ export async function PUT(req: NextRequest, { params }: any) {
   })
     .then((event) => {
       return NextResponse.json({ event, ...Response.Success }, { status: 200 });
+    })
+    .catch((_) => {
+      return NextResponse.json(Response.InternalError, { status: 500 });
+    });
+}
+
+/**
+ * Delete an event from the database and blob storage
+ * @param req The request object
+ * @returns The response object
+ */
+export async function DELETE(req: NextRequest, { params }: any) {
+  // Check the event ID from the URL query
+  if (!params.id || typeof params.id !== "string") {
+    return NextResponse.json(Response.InvalidQuery, { status: 400 });
+  }
+
+  // Get the user's bearer token from the headers
+  const secret = req.headers.get("Authorization");
+  if (!secret) {
+    return NextResponse.json(Response.InvalidHeaders, { status: 400 });
+  }
+
+  // Verify that the user has the correct permissions
+  const user = await Prisma.getUser(secret);
+  if (!user) {
+    return NextResponse.json(Response.InvalidAuthorization, { status: 400 });
+  }
+
+  if (!hasPermissions(user.permissions, [Permission.DELETE_EVENT])) {
+    return NextResponse.json(Response.InvalidAuthorization, { status: 400 });
+  }
+
+  // Delete the banner blob
+  const event = await Prisma.getEventById(params.id);
+  if (!event) {
+    return NextResponse.json(Response.InvalidQuery, { status: 400 });
+  }
+
+  if (event.image !== EVENT_DEFAULT_IMAGE) {
+    await del(event.image);
+  }
+
+  // Delete the event
+  return Prisma.deleteEvent(params.id)
+    .then((_) => {
+      return NextResponse.json({ ...Response.Success, event }, { status: 200 });
     })
     .catch((_) => {
       return NextResponse.json(Response.InternalError, { status: 500 });

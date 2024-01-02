@@ -9,14 +9,6 @@ import { imgb64ToFile } from "@/app/api/events/_utils/images";
 import { EVENT_DEFAULT_IMAGE } from "@/lib/constants";
 import { isValidEventData } from "./_utils/checks";
 
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: "5mb"
-    }
-  }
-}
-
 /**
  * Get all events
  * @param req The request object
