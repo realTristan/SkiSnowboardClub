@@ -148,7 +148,7 @@ export async function DELETE(req: NextRequest, { params }: any) {
     await del(event.image);
   }
 
-  // Delete the event
+  // Delete the event from the database
   return Prisma.deleteEvent(params.id)
     .then((_) => {
       return NextResponse.json({ ...Response.Success, event }, { status: 200 });
