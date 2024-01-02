@@ -42,7 +42,7 @@ export default function TripsAndTicketsPage() {
         className="fixed left-6 top-6 z-50 lg:left-auto lg:right-10 lg:top-10"
       />
 
-      <MainWrapper className="gap-7 px-16 pb-20 pt-40 lg:gap-12">
+      <MainWrapper className="gap-7 px-16 pb-20 pt-40 lg:gap-12 items-start justify-start">
         {events.map((event) => <EventCard key={event.id} event={event} />)}
       </MainWrapper>
 

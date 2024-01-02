@@ -44,6 +44,18 @@ export default function AboutUsPage() {
       <ImageCollage/>
       <DarkOverlay className="bg-black" />
 
+      {/*
+      <Image
+        src="/images/team-background-2.png"
+        alt="..."
+        layout="fill"
+        objectFit="cover"
+        objectPosition="center"
+        quality={100}
+        className="fixed inset-0 -z-50 brightness-[.15]"
+      />
+      */}
+
       <MainWrapper  className="gap-4 p-20 pt-32">
         <div className="flex flex-row flex-wrap justify-center items-center gap-12">
         {TEAM_MEMBERS.map((member) => (
