@@ -57,15 +57,15 @@ export async function POST(req: NextRequest) {
   if (event.image) {
     const file = await imgb64ToFile(event.image, "event-image");
     const fileId = await genId();
-    const blob = await put(fileId, file, {
-      access: "public",
-    });
+    try {
+      const blob = await put(fileId, file, {
+        access: "public",
+      });
 
-    if (!blob?.url) {
+      imageUrl = blob.url;
+    } catch (e) {
       return NextResponse.json(Response.InternalError, { status: 500 });
     }
-
-    imageUrl = blob.url;
   }
 
   // Create the event
