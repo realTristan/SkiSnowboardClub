@@ -2,7 +2,6 @@
 
 import Navbar from "../components/Navbar/Navbar";
 import CustomCursor from "../components/dynamic/CustomerCursor";
-import Image from "next/image";
 import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMediaLogos from "@/components/logos/SocialMediaLogos";
 import DarkOverlay from "@/components/DarkOverlay";
