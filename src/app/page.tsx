@@ -16,15 +16,16 @@ export default function Home() {
       <GuelphLogo className="fixed left-10 top-10 z-50 block lg:hidden xl:left-auto xl:right-10 xl:block" />
       <SocialMediaLogos />
 
-      <Image
-        alt="..."
-        src="/images/hero-background.png"
-        layout="fill"
-        className="fixed -z-50 h-max w-full object-cover object-center"
-        quality={100}
-        priority
-      />
-      <DarkOverlay />
+      <MainWrapper
+        className="fixed -z-10 flex-col gap-4 bg-fixed p-20 pt-32"
+        style={{
+          backgroundImage: "url('/images/hero-background.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <DarkOverlay />
+      </MainWrapper>
 
       <MainWrapper className="flex-col p-10 md:p-24">
         <h1 className="text-center font-tangerine text-7xl font-black text-white sm:text-8xl lg:text-9xl">
