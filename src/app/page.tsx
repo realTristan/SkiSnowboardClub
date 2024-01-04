@@ -28,7 +28,7 @@ export default function Home() {
 
       <MainWrapper className="flex-col p-10 md:p-24">
         <h1 className="text-center font-tangerine text-7xl font-black text-white sm:text-8xl lg:text-9xl">
-          Conquer the slopes
+          Conquer the Slopes
         </h1>
 
         <p className="mt-7 w-full text-center text-base font-light text-white md:w-[37rem] lg:text-lg">
