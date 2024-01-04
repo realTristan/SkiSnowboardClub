@@ -20,7 +20,7 @@ export default function Home() {
         alt="..."
         src="/images/hero-background.png"
         layout="fill"
-        className="-z-50 h-max w-full object-cover object-center"
+        className="fixed -z-50 h-max w-full object-cover object-center"
         quality={100}
         priority
       />

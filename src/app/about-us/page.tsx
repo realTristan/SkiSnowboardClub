@@ -6,8 +6,6 @@ import CustomCursor from "@/components/dynamic/CustomerCursor";
 import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import MemberCard from "./_component/MemberCard";
-import ImageCollage from "./_component/ImageCollage";
-import DarkOverlay from "@/components/DarkOverlay";
 import Image from "next/image";
 
 const TEAM_MEMBERS = [
@@ -45,9 +43,6 @@ export default function AboutUsPage() {
         className="fixed left-6 top-6 z-50 lg:left-auto lg:right-10 lg:top-10"
       />
 
-      <ImageCollage />
-      <DarkOverlay className="hidden bg-black sm:flex" />
-
       <Image
         src="/images/team-background.png"
         alt="..."
@@ -55,7 +50,7 @@ export default function AboutUsPage() {
         objectFit="cover"
         objectPosition="center"
         quality={100}
-        className="fixed inset-0 -z-50 brightness-[0.2] sm:hidden"
+        className="fixed inset-0 -z-50 brightness-[0.2]"
       />
 
       <MainWrapper className="flex-col gap-4 p-20 pt-32">

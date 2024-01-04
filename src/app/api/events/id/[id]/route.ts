@@ -66,34 +66,36 @@ export async function PUT(req: NextRequest, { params }: any) {
     return NextResponse.json(Response.InvalidAuthorization, { status: 400 });
   }
 
-  // Store the image in a mutable variable
-  let eventImageUrl = event.image || EVENT_DEFAULT_IMAGE;
-
   // Get the current event from the database and delete the old image
   const prev = await Prisma.getEventById(eventId);
   if (!prev) {
     return NextResponse.json(Response.InvalidQuery, { status: 400 });
   }
 
-  try {
-    // Delete the old image if it exists
-    if (prev.image !== EVENT_DEFAULT_IMAGE) {
-      await del(prev.image);
-    }
+  // Store the image in a mutable variable
+  let eventImageUrl = event.image || prev.image;
 
-    // If the image is new, add it to the blob storage
-    if (eventImageUrl && eventImageUrl !== EVENT_DEFAULT_IMAGE) {
-      // Add the new image to the blob storage
-      const file = await imgb64ToFile(eventImageUrl, "event-image");
-      const fileId = await genId();
-      const blob = await put(fileId, file, {
-        access: "public",
-      });
+  if (event.image) {
+    try {
+      // Delete the old image if it exists
+      if (prev.image !== EVENT_DEFAULT_IMAGE) {
+        await del(prev.image);
+      }
 
-      eventImageUrl = blob.url;
+      // If the image is new, add it to the blob storage
+      if (eventImageUrl && eventImageUrl !== EVENT_DEFAULT_IMAGE) {
+        // Add the new image to the blob storage
+        const file = await imgb64ToFile(eventImageUrl, "event-image");
+        const fileId = await genId();
+        const blob = await put(fileId, file, {
+          access: "public",
+        });
+
+        eventImageUrl = blob.url;
+      }
+    } catch (e) {
+      return NextResponse.json(Response.InternalError, { status: 500 });
     }
-  } catch (e) {
-    return NextResponse.json(Response.InternalError, { status: 500 });
   }
 
   // Update the event in the database
