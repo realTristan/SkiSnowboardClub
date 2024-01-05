@@ -46,7 +46,17 @@ function Main(): JSX.Element {
       return;
     }
 
-    fetch("/api/events")
+    if (!session?.user) {
+      return;
+    }
+
+    fetch("/api/events", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: session.user.secret,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setEvents(data.events);

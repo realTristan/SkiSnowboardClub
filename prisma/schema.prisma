@@ -19,6 +19,7 @@ model Event {
   date        String
   location    String
   price       Int
+  visible     Boolean  @default(true)
 }
 
 model User {

@@ -2,6 +2,7 @@ import Button from "@/components/buttons/Button";
 import ErrorMessage from "@/components/ErrorMessage";
 import { LoadingRelative } from "@/components/Loading";
 import { type ClubEvent, Status } from "@/types/types";
+import { Checkbox } from "@nextui-org/react";
 import { type User } from "next-auth";
 import {
   type Dispatch,
@@ -28,6 +29,8 @@ export default function UpdateEventCard(
   const [location, setLocation] = useState(event.location);
   const [date, setDate] = useState(event.date);
   const [price, setPrice] = useState(event.price);
+  const [visible, setVisible] = useState<boolean>(event.visible);
+  const [formUrl, setFormUrl] = useState(event.formUrl);
   const [updateStatus, setUpdateStatus] = useState<Status>(Status.IDLE);
   const imageRef = useRef<HTMLInputElement>(null);
 
@@ -54,6 +57,8 @@ export default function UpdateEventCard(
           location,
           date,
           price,
+          visible,
+          formUrl,
         } as ClubEvent;
 
         if (imageRef.current?.files) {
@@ -161,6 +166,24 @@ export default function UpdateEventCard(
           className="w-full border border-gray-300 px-5 py-3 text-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-black"
         />
       </div>
+      <div className="flex flex-col space-y-1">
+        <label htmlFor="formUrl" className="text-sm font-bold">
+          Form URL
+        </label>
+        <input
+          type="text"
+          onChange={(e) => setFormUrl(e.target.value)}
+          className="w-full border border-gray-300 px-5 py-3 text-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-black"
+          defaultValue={event.formUrl}
+        />
+      </div>
+
+      <Checkbox
+        defaultSelected={visible}
+        onChange={(e) => setVisible(e.target.checked)}
+      >
+        Visible to all users
+      </Checkbox>
 
       <Button dark={true} type="submit">
         Update
