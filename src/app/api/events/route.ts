@@ -6,7 +6,13 @@ import { Prisma } from "@/lib/prisma";
 import { genId } from "@/lib/crypto";
 import { put } from "@vercel/blob";
 import { imgb64ToFile } from "@/app/api/events/_utils/images";
-import { EVENT_DEFAULT_IMAGE } from "@/lib/constants";
+import {
+  EVENT_DEFAULT_DESCRIPTION,
+  EVENT_DEFAULT_IMAGE,
+  EVENT_DEFAULT_LOCATION,
+  EVENT_DEFAULT_NAME,
+  EVENT_DEFAULT_VISIBLE,
+} from "@/lib/constants";
 import { isValidEventData } from "./_utils/checks";
 
 /**
@@ -14,9 +20,32 @@ import { isValidEventData } from "./_utils/checks";
  * @param req The request object
  * @returns The response object
  */
-export async function GET() {
+export async function GET(req: NextRequest) {
   const events = await Prisma.getEvents();
-  return NextResponse.json({ events, ...Response.Success }, { status: 200 });
+
+  // If there's an authorization header, check if the user has the correct permissions
+  const secret = req.headers.get("Authorization");
+  if (secret) {
+    const user = await Prisma.getUser(secret);
+
+    if (
+      !user ||
+      !hasPermissions(user.permissions, [
+        Permission.POST_EVENT,
+        Permission.EDIT_EVENT,
+        Permission.DELETE_EVENT,
+      ])
+    ) {
+      return NextResponse.json(Response.InvalidAuthorization, { status: 400 });
+    }
+
+    return NextResponse.json({ events, ...Response.Success }, { status: 200 });
+  }
+
+  return NextResponse.json(
+    { events: events.filter((event) => event.visible), ...Response.Success },
+    { status: 200 },
+  );
 }
 
 /**
@@ -73,12 +102,13 @@ export async function POST(req: NextRequest) {
   const _event: ClubEvent = {
     id,
     image: imageUrl,
-    title: event.title || "New Event",
-    description: event.description || "No description provided.",
-    location: event.location || "No location provided.",
+    title: event.title || EVENT_DEFAULT_NAME,
+    description: event.description || EVENT_DEFAULT_DESCRIPTION,
+    location: event.location || EVENT_DEFAULT_LOCATION,
     date: event.date,
     price: event.price,
     formUrl: event.formUrl,
+    visible: event.visible || EVENT_DEFAULT_VISIBLE,
   };
 
   return await Prisma.createEvent(_event)

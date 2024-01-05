@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import Button from "@/components/buttons/Button";
 import ErrorMessage from "@/components/ErrorMessage";
 import MainWrapper from "@/components/MainWrapper";
+import { Checkbox, NextUIProvider } from "@nextui-org/react";
 
 export default function DashboardNewEventage() {
   return (
@@ -29,7 +30,9 @@ export default function DashboardNewEventage() {
       />
 
       <SessionProvider>
-        <Main />
+        <NextUIProvider>
+          <Main />
+        </NextUIProvider>
       </SessionProvider>
     </>
   );
@@ -41,6 +44,7 @@ function Main(): JSX.Element {
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState(0);
+  const [visible, setVisible] = useState<boolean>(true);
   const [formUrl, setFormUrl] = useState("");
   const [creationStatus, setCreationStatus] = useState<Status>(Status.IDLE);
   const imageRef = useRef<HTMLInputElement>(null);
@@ -92,6 +96,7 @@ function Main(): JSX.Element {
             const event = {
               title,
               description,
+              visible,
               date,
               location,
               price,
@@ -187,6 +192,12 @@ function Main(): JSX.Element {
               ref={imageRef}
             />
           </label>
+          <Checkbox
+            defaultSelected={visible}
+            onChange={(e) => setVisible(e.target.checked)}
+          >
+            Visible to all users
+          </Checkbox>
           <Button dark={true} type="submit">
             Create Event
           </Button>
