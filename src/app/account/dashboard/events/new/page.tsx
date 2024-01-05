@@ -45,6 +45,7 @@ function Main(): JSX.Element {
   const [location, setLocation] = useState("");
   const [price, setPrice] = useState(0);
   const [visible, setVisible] = useState<boolean>(true);
+  const [allowRegistration, setAllowRegistration] = useState<boolean>(true);
   const [formUrl, setFormUrl] = useState("");
   const [creationStatus, setCreationStatus] = useState<Status>(Status.IDLE);
   const imageRef = useRef<HTMLInputElement>(null);
@@ -192,12 +193,21 @@ function Main(): JSX.Element {
               ref={imageRef}
             />
           </label>
-          <Checkbox
-            defaultSelected={visible}
-            onChange={(e) => setVisible(e.target.checked)}
-          >
-            Visible to all users
-          </Checkbox>
+          <div className="flex flex-wrap gap-2">
+            <Checkbox
+              defaultSelected={visible}
+              onChange={(e) => setVisible(e.target.checked)}
+            >
+              Visible to all users
+            </Checkbox>
+            <Checkbox
+              defaultSelected={allowRegistration}
+              onChange={(e) => setAllowRegistration(e.target.checked)}
+            >
+              Allow registration
+            </Checkbox>
+          </div>
+
           <Button dark={true} type="submit">
             Create Event
           </Button>

@@ -9,17 +9,18 @@ datasource db {
 }
 
 model Event {
-  id          String   @id @unique @default(uuid())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  title       String
-  description String
-  formUrl     String
-  image       String
-  date        String
-  location    String
-  price       Int
-  visible     Boolean  @default(true)
+  id                String   @id @unique @default(uuid())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  title             String
+  description       String
+  formUrl           String
+  image             String
+  date              String
+  location          String
+  price             Int
+  visible           Boolean  @default(true)
+  allowRegistration Boolean  @default(true)
 }
 
 model User {

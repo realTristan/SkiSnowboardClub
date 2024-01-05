@@ -30,6 +30,9 @@ export default function UpdateEventCard(
   const [date, setDate] = useState(event.date);
   const [price, setPrice] = useState(event.price);
   const [visible, setVisible] = useState<boolean>(event.visible);
+  const [allowRegistration, setAllowRegistration] = useState<boolean>(
+    event.allowRegistration,
+  );
   const [formUrl, setFormUrl] = useState(event.formUrl);
   const [updateStatus, setUpdateStatus] = useState<Status>(Status.IDLE);
   const imageRef = useRef<HTMLInputElement>(null);
@@ -58,6 +61,7 @@ export default function UpdateEventCard(
           date,
           price,
           visible,
+          allowRegistration,
           formUrl,
         } as ClubEvent;
 
@@ -178,12 +182,20 @@ export default function UpdateEventCard(
         />
       </div>
 
-      <Checkbox
-        defaultSelected={visible}
-        onChange={(e) => setVisible(e.target.checked)}
-      >
-        Visible to all users
-      </Checkbox>
+      <div className="flex flex-wrap gap-2">
+        <Checkbox
+          defaultSelected={visible}
+          onChange={(e) => setVisible(e.target.checked)}
+        >
+          Visible to all users
+        </Checkbox>
+        <Checkbox
+          defaultSelected={allowRegistration}
+          onChange={(e) => setAllowRegistration(e.target.checked)}
+        >
+          Allow registration
+        </Checkbox>
+      </div>
 
       <Button dark={true} type="submit">
         Update

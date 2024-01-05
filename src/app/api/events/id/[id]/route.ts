@@ -1,7 +1,7 @@
 import { Response } from "@/lib/responses";
 import { type NextRequest, NextResponse } from "next/server";
 import { Prisma } from "@/lib/prisma";
-import { Permission } from "@/types/types";
+import { type ClubEvent, Permission } from "@/types/types";
 import { hasPermissions } from "@/lib/utils/permissions";
 import { del, put } from "@vercel/blob";
 import { genId } from "@/lib/crypto";
@@ -43,7 +43,8 @@ export async function PUT(req: NextRequest, { params }: any) {
   }
 
   // Get the request body parameters
-  const { event } = await req.json();
+  const json = await req.json();
+  const event = json.event as ClubEvent;
 
   // If the event is invalid, return an error
   if (!isValidEventData(event)) {

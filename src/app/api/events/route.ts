@@ -12,6 +12,7 @@ import {
   EVENT_DEFAULT_LOCATION,
   EVENT_DEFAULT_NAME,
   EVENT_DEFAULT_VISIBLE,
+  EVENT_DEFAULT_REGISTRATION,
 } from "@/lib/constants";
 import { isValidEventData } from "./_utils/checks";
 
@@ -42,8 +43,18 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ events, ...Response.Success }, { status: 200 });
   }
 
+  // Remove events that aren't visible
+  const filteredEvents = events.filter((event) => event.visible);
+
+  // If allowRegistration is false, remove the formUrl
+  filteredEvents.forEach((event) => {
+    if (!event.allowRegistration) {
+      event.formUrl = "/";
+    }
+  });
+
   return NextResponse.json(
-    { events: events.filter((event) => event.visible), ...Response.Success },
+    { events: filteredEvents, ...Response.Success },
     { status: 200 },
   );
 }
@@ -55,7 +66,9 @@ export async function GET(req: NextRequest) {
  */
 export async function POST(req: NextRequest) {
   // Get the request body parameters
-  const { event } = await req.json();
+  const json = await req.json();
+
+  const event = json.event as ClubEvent;
   if (!event.date || event.price === undefined || !event.formUrl) {
     return NextResponse.json(Response.InvalidBody, { status: 400 });
   }
@@ -109,6 +122,7 @@ export async function POST(req: NextRequest) {
     price: event.price,
     formUrl: event.formUrl,
     visible: event.visible || EVENT_DEFAULT_VISIBLE,
+    allowRegistration: event.allowRegistration || EVENT_DEFAULT_REGISTRATION,
   };
 
   return await Prisma.createEvent(_event)
