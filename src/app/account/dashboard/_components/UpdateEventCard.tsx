@@ -61,6 +61,7 @@ export default function UpdateEventCard(
           date,
           price,
           visible,
+          allowRegistration,
           formUrl,
         } as ClubEvent;
 
