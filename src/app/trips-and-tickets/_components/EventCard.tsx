@@ -23,10 +23,12 @@ export default function EventCard(props: { event: ClubEvent }): JSX.Element {
       <p className="text-xs">{event.location}</p>
       <a
         aria-disabled={eventDisabled}
-        href={event.formUrl}
+        href={eventDisabled ? "#" : event.formUrl}
         target="_blank"
         className={cn(
-          eventDisabled ? "" : "btn hover:bg-black hover:text-white",
+          eventDisabled
+            ? "cursor-not-allowed"
+            : "btn hover:bg-black hover:text-white",
           "mt-4 border border-black px-10 py-3 text-sm duration-300 ease-in-out aria-disabled:opacity-50",
         )}
       >
