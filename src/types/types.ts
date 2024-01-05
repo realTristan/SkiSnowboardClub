@@ -8,6 +8,7 @@ export interface ClubEvent {
   date: string;
   price: number;
   visible: boolean;
+  allowRegistration: boolean;
 }
 
 export enum Permission {

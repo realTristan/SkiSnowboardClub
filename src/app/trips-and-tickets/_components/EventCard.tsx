@@ -4,7 +4,8 @@ import Image from "next/image";
 
 export default function EventCard(props: { event: ClubEvent }): JSX.Element {
   const event: ClubEvent = props.event;
-  const eventDisabled = new Date(event.date).getTime() < new Date().getTime();
+  const beyondDate = new Date(event.date).getTime() < new Date().getTime();
+  const eventDisabled = beyondDate || !event.allowRegistration;
 
   return (
     <div className="relative flex h-fit w-full flex-col items-start justify-start gap-1 border border-black bg-white p-7 duration-300 ease-in-out hover:scale-105 xs:w-96">
