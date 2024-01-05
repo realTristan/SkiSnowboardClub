@@ -134,7 +134,12 @@ export default function UpdateEventCard(
           Date
         </label>
         <input
-          onChange={(e) => setDate(e.target.value)}
+          onChange={(e) => {
+            // Increase the date by 1 day (fix bug)
+            const date = new Date(e.target.value);
+            date.setDate(date.getDate() + 1);
+            setDate(date.toDateString());
+          }}
           type="date"
           className="w-full border border-gray-300 px-5 py-3 text-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-black"
           defaultValue={event.date}
