@@ -78,7 +78,7 @@ function Main(): JSX.Element {
   );
 
   // Required
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date());
   const [price, setPrice] = useState(0);
   const [formUrl, setFormUrl] = useState("");
   const imageRef = useRef<HTMLInputElement>(null);
@@ -128,7 +128,7 @@ function Main(): JSX.Element {
       title,
       description,
       visible,
-      date,
+      date: date.toDateString(),
       location,
       price,
       allowRegistration,
@@ -197,22 +197,6 @@ function Main(): JSX.Element {
             ></textarea>
           </label>
 
-          {/* Date */}
-          <label className="flex flex-col gap-1">
-            <span className="text-sm text-black">Event Date (required)</span>
-            <input
-              type="date"
-              value={date}
-              className="border border-black p-3 text-sm focus:outline-black"
-              onChange={(e) => {
-                // Increase the date by 1 day (fix bug)
-                const date = new Date(e.target.value);
-                date.setDate(date.getDate() + 1);
-                setDate(date.toDateString());
-              }}
-            />
-          </label>
-
           {/* Location */}
           <label className="flex flex-col gap-1">
             <span className="text-sm text-black">Event Location</span>
@@ -222,6 +206,32 @@ function Main(): JSX.Element {
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               className="border border-black p-3 text-sm focus:outline-black"
+            />
+          </label>
+
+          {/* Image */}
+          <label className="flex flex-col gap-1">
+            <span className="text-sm text-black">Event Image</span>
+            <input
+              type="file"
+              accept="image/*"
+              className="border border-black p-3 text-sm focus:outline-black"
+              ref={imageRef}
+            />
+          </label>
+
+          {/* Date */}
+          <label className="flex flex-col gap-1">
+            <span className="text-sm text-black">Event Date (required)</span>
+            <input
+              type="date"
+              className="border border-black p-3 text-sm focus:outline-black"
+              onChange={(e) => {
+                // Increase the date by 1 day (fix bug)
+                const date = new Date(e.target.value);
+                date.setDate(date.getDate() + 1);
+                setDate(date);
+              }}
             />
           </label>
 
@@ -246,17 +256,6 @@ function Main(): JSX.Element {
               value={formUrl}
               className="border border-black p-3 text-sm focus:outline-black"
               onChange={(e) => setFormUrl(e.target.value)}
-            />
-          </label>
-
-          {/* Image */}
-          <label className="flex flex-col gap-1">
-            <span className="text-sm text-black">Event Image</span>
-            <input
-              type="file"
-              accept="image/*"
-              className="border border-black p-3 text-sm focus:outline-black"
-              ref={imageRef}
             />
           </label>
 

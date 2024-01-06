@@ -51,7 +51,7 @@ export default function EventCard(props: EventCardProps): JSX.Element {
         {deletionStatus === Status.LOADING ? (
           <LoadingRelative className="h-5 w-5" />
         ) : (
-          <CheckmarkSvg className="fill-black group-hover:fill-white" />
+          <CheckmarkSvg className="fill-black group-enabled:group-hover:fill-white" />
         )}
       </button>
     );
@@ -97,7 +97,7 @@ export default function EventCard(props: EventCardProps): JSX.Element {
                   onClick={() => setConfirmDeleteEvent(false)}
                   className="btn group flex flex-row items-center justify-center gap-2 rounded-none border border-black px-10 py-3 text-sm text-black duration-300 ease-in-out enabled:hover:bg-black enabled:hover:text-white disabled:opacity-50"
                 >
-                  <XSvg className="fill-black group-hover:fill-white" />
+                  <XSvg className="fill-black group-enabled:group-hover:fill-white" />
                 </button>
               </div>
             ) : (

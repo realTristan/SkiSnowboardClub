@@ -27,7 +27,7 @@ export default function UpdateEventCard(
   const [title, setTitle] = useState(event.title);
   const [description, setDescription] = useState(event.description);
   const [location, setLocation] = useState(event.location);
-  const [date, setDate] = useState(event.date);
+  const [date, setDate] = useState(new Date(event.date));
   const [price, setPrice] = useState(event.price);
   const [visible, setVisible] = useState<boolean>(event.visible);
   const [allowRegistration, setAllowRegistration] = useState<boolean>(
@@ -58,7 +58,7 @@ export default function UpdateEventCard(
           title,
           description,
           location,
-          date,
+          date: date.toDateString(),
           price,
           visible,
           allowRegistration,
@@ -142,7 +142,7 @@ export default function UpdateEventCard(
             // Increase the date by 1 day (fix bug)
             const date = new Date(e.target.value);
             date.setDate(date.getDate() + 1);
-            setDate(date.toDateString());
+            setDate(date);
           }}
           type="date"
           className="w-full border border-gray-300 px-5 py-3 text-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-black"
