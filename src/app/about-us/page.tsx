@@ -48,24 +48,20 @@ export default function AboutUsPage() {
       />
 
       <MainWrapper
-        className="z-10 flex-col gap-4 p-20 px-10 pt-32"
+        className="bg-cover-all bg-fixed-all bg-center-all z-10 flex flex-row flex-wrap items-center justify-center gap-12 p-20 px-10 pt-40"
         style={{
           backgroundImage: "url('/images/team-background.png')",
-          backgroundSize: "cover",
-          backgroundAttachment: "fixed",
         }}
       >
-        <div className="flex flex-row flex-wrap items-center justify-center gap-12">
-          {TEAM_MEMBERS.map((member) => (
-            <MemberCard
-              key={Math.random()}
-              name={member.name}
-              role={member.role}
-              image={member.image}
-              description={member.description}
-            />
-          ))}
-        </div>
+        {TEAM_MEMBERS.map((member) => (
+          <MemberCard
+            key={Math.random()}
+            name={member.name}
+            role={member.role}
+            image={member.image}
+            description={member.description}
+          />
+        ))}
       </MainWrapper>
     </>
   );
