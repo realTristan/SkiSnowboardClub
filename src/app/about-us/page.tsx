@@ -6,6 +6,7 @@ import CustomCursor from "@/components/dynamic/CustomerCursor";
 import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import MemberCard from "./_component/MemberCard";
+import { BrowserView } from "react-device-detect";
 
 const TEAM_MEMBERS = [
   {
@@ -35,7 +36,11 @@ export default function AboutUsPage() {
   return (
     <>
       <Navbar dark={false} centered={true} />
-      <CustomCursor />
+
+      <BrowserView>
+        <CustomCursor />
+      </BrowserView>
+
       <SocialMedia dark={false} />
       <GuelphLogo
         dark={false}
@@ -51,7 +56,7 @@ export default function AboutUsPage() {
         }}
       ></MainWrapper>
 
-      <MainWrapper className="z-10 flex-col gap-4 bg-fixed p-20 pt-32">
+      <MainWrapper className="z-10 flex-col gap-4 bg-fixed p-20 px-10 pt-32">
         <div className="flex flex-row flex-wrap items-center justify-center gap-12">
           {TEAM_MEMBERS.map((member) => (
             <MemberCard

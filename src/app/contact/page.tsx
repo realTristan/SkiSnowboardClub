@@ -7,6 +7,7 @@ import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMedia from "@/components/logos/SocialMediaLogos";
 import ExternalSVG from "@/components/svgs/External";
 import MainWrapper from "@/components/MainWrapper";
+import { BrowserView } from "react-device-detect";
 
 export default function ContactPage() {
   const contactEmail = "skiandboard@uoguelph.ca";
@@ -14,7 +15,11 @@ export default function ContactPage() {
   return (
     <>
       <Navbar dark={true} centered={false} className="bg-white" />
-      <CustomCursor />
+
+      <BrowserView>
+        <CustomCursor />
+      </BrowserView>
+
       <SocialMedia dark={true} />
       <GuelphLogo
         dark={true}

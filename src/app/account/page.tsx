@@ -12,12 +12,17 @@ import InvalidSession from "@/components/InvalidSession";
 import MainWrapper from "@/components/MainWrapper";
 import Button from "@/components/buttons/Button";
 import UserHead from "./_components/UserHead";
+import { BrowserView } from "react-device-detect";
 
 export default function AccountPage(): JSX.Element {
   return (
     <>
       <Navbar dark={true} centered={false} className="bg-white" />
-      <CustomCursor />
+
+      <BrowserView>
+        <CustomCursor />
+      </BrowserView>
+
       <SocialMedia dark={true} />
       <GuelphLogo
         dark={true}

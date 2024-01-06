@@ -21,12 +21,17 @@ import BackButton from "./_components/BackButton";
 import MainWrapper from "@/components/MainWrapper";
 import ErrorMessage from "@/components/ErrorMessage";
 import { updateUserPermissions } from "./_utils/permissions";
+import { BrowserView } from "react-device-detect";
 
 export default function DashboardPage() {
   return (
     <>
       <Navbar dark={true} centered={false} className="bg-white" />
-      <CustomCursor />
+
+      <BrowserView>
+        <CustomCursor />
+      </BrowserView>
+
       <SocialMedia dark={true} />
       <GuelphLogo
         dark={true}

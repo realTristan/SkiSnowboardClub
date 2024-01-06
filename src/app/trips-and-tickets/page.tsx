@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import LoadingCenter from "@/components/Loading";
 import EmptyEvents from "./_components/EmptyEvents";
 import MainWrapper from "@/components/MainWrapper";
+import { BrowserView } from "react-device-detect";
 
 export default function TripsAndTicketsPage() {
   const [events, setEvents] = useState<ClubEvent[]>([]);
@@ -36,7 +37,11 @@ export default function TripsAndTicketsPage() {
   return (
     <>
       <Navbar dark={true} centered={false} className="bg-white" />
-      <CustomCursor />
+
+      <BrowserView>
+        <CustomCursor />
+      </BrowserView>
+
       <GuelphLogo
         dark={true}
         className="fixed left-6 top-6 z-50 lg:left-auto lg:right-10 lg:top-10"
