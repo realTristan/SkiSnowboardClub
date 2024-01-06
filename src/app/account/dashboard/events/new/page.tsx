@@ -106,6 +106,7 @@ function Main(): JSX.Element {
               date,
               location,
               price,
+              allowRegistration,
               formUrl,
             } as ClubEvent;
 
