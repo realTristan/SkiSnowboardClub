@@ -47,15 +47,14 @@ export default function AboutUsPage() {
         className="fixed left-6 top-6 z-50 lg:left-auto lg:right-10 lg:top-10"
       />
 
-      <div
-        className="fixed z-0 min-h-screen w-screen min-w-full bg-fixed brightness-50"
+      <MainWrapper
+        className="z-10 flex-col gap-4 p-20 px-10 pt-32"
         style={{
           backgroundImage: "url('/images/team-background.png')",
           backgroundSize: "cover",
+          backgroundAttachment: "fixed",
         }}
-      />
-
-      <MainWrapper className="z-10 flex-col gap-4 bg-fixed p-20 px-10 pt-32">
+      >
         <div className="flex flex-row flex-wrap items-center justify-center gap-12">
           {TEAM_MEMBERS.map((member) => (
             <MemberCard
