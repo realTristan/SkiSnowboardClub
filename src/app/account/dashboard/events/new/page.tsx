@@ -18,6 +18,13 @@ import ErrorMessage from "@/components/ErrorMessage";
 import MainWrapper from "@/components/MainWrapper";
 import { Checkbox, NextUIProvider } from "@nextui-org/react";
 import { BrowserView } from "react-device-detect";
+import {
+  EVENT_DEFAULT_DESCRIPTION,
+  EVENT_DEFAULT_LOCATION,
+  EVENT_DEFAULT_REGISTRATION,
+  EVENT_DEFAULT_TITLE,
+  EVENT_DEFAULT_VISIBLE,
+} from "@/lib/constants";
 
 export default function DashboardNewEventage() {
   return (
@@ -44,17 +51,25 @@ export default function DashboardNewEventage() {
 }
 
 function Main(): JSX.Element {
-  const [date, setDate] = useState(new Date().toDateString());
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
+  // Not required
+  const [title, setTitle] = useState(EVENT_DEFAULT_TITLE);
+  const [description, setDescription] = useState(EVENT_DEFAULT_DESCRIPTION);
+  const [location, setLocation] = useState(EVENT_DEFAULT_LOCATION);
+  const [visible, setVisible] = useState<boolean>(EVENT_DEFAULT_VISIBLE);
+  const [allowRegistration, setAllowRegistration] = useState<boolean>(
+    EVENT_DEFAULT_REGISTRATION,
+  );
+
+  // Required
+  const [date, setDate] = useState("");
   const [price, setPrice] = useState(0);
-  const [visible, setVisible] = useState<boolean>(true);
-  const [allowRegistration, setAllowRegistration] = useState<boolean>(true);
   const [formUrl, setFormUrl] = useState("");
+
+  // Status and image
   const [creationStatus, setCreationStatus] = useState<Status>(Status.IDLE);
   const imageRef = useRef<HTMLInputElement>(null);
 
+  // Session and router
   const { data: session, status } = useSession();
   const router = useRouter();
 
