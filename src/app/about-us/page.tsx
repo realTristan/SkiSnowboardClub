@@ -47,14 +47,13 @@ export default function AboutUsPage() {
         className="fixed left-6 top-6 z-50 lg:left-auto lg:right-10 lg:top-10"
       />
 
-      <MainWrapper
-        className="fixed z-0 flex-col gap-4 bg-fixed p-20 pt-32 brightness-50"
+      <div
+        className="fixed z-0 min-h-screen w-screen min-w-full bg-fixed brightness-50"
         style={{
           backgroundImage: "url('/images/team-background.png')",
           backgroundSize: "cover",
-          backgroundPosition: "center",
         }}
-      ></MainWrapper>
+      />
 
       <MainWrapper className="z-10 flex-col gap-4 bg-fixed p-20 px-10 pt-32">
         <div className="flex flex-row flex-wrap items-center justify-center gap-12">
