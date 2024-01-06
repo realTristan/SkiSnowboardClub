@@ -10,7 +10,7 @@ import {
   EVENT_DEFAULT_DESCRIPTION,
   EVENT_DEFAULT_IMAGE,
   EVENT_DEFAULT_LOCATION,
-  EVENT_DEFAULT_NAME,
+  EVENT_DEFAULT_TITLE,
   EVENT_DEFAULT_VISIBLE,
   EVENT_DEFAULT_REGISTRATION,
 } from "@/lib/constants";
@@ -115,7 +115,7 @@ export async function POST(req: NextRequest) {
   const _event: ClubEvent = {
     id,
     image: imageUrl,
-    title: event.title || EVENT_DEFAULT_NAME,
+    title: event.title || EVENT_DEFAULT_TITLE,
     description: event.description || EVENT_DEFAULT_DESCRIPTION,
     location: event.location || EVENT_DEFAULT_LOCATION,
     date: event.date,

@@ -51,7 +51,7 @@ export default function EventCard(props: EventCardProps): JSX.Element {
         {deletionStatus === Status.LOADING ? (
           <LoadingRelative className="h-5 w-5" />
         ) : (
-          <CheckmarkSvg />
+          <CheckmarkSvg className="fill-black group-enabled:group-hover:fill-white" />
         )}
       </button>
     );
@@ -97,7 +97,7 @@ export default function EventCard(props: EventCardProps): JSX.Element {
                   onClick={() => setConfirmDeleteEvent(false)}
                   className="btn group flex flex-row items-center justify-center gap-2 rounded-none border border-black px-10 py-3 text-sm text-black duration-300 ease-in-out enabled:hover:bg-black enabled:hover:text-white disabled:opacity-50"
                 >
-                  <XSvg />
+                  <XSvg className="fill-black group-enabled:group-hover:fill-white" />
                 </button>
               </div>
             ) : (
@@ -122,15 +122,15 @@ export default function EventCard(props: EventCardProps): JSX.Element {
   );
 }
 
-function CheckmarkSvg(): JSX.Element {
+function CheckmarkSvg({ className }: { className?: string }): JSX.Element {
   return (
     <svg
-      fill="#000"
       height="15px"
       width="15px"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 17.837 17.837"
+      className={className}
     >
       <g>
         <path
@@ -143,15 +143,15 @@ function CheckmarkSvg(): JSX.Element {
   );
 }
 
-function XSvg(): JSX.Element {
+function XSvg({ className }: { className?: string }): JSX.Element {
   return (
     <svg
-      fill="#000"
       height="15px"
       width="15px"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 460.775 460.775"
+      className={className}
     >
       <path
         d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55
