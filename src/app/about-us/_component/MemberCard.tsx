@@ -8,7 +8,7 @@ interface MemberCardProps {
 }
 export default function MemberCard(props: MemberCardProps): JSX.Element {
   return (
-    <div className="flex h-96 w-60 flex-col items-center justify-center gap-4 border border-white/30 p-6 backdrop-blur-2xl duration-300 ease-in-out hover:scale-105 xs:h-96 xs:w-80 xs:p-10 sm:h-[30rem] sm:w-96">
+    <div className="flex h-96 w-72 flex-col items-center justify-center gap-4 border border-white/30 p-6 backdrop-blur-2xl duration-300 ease-in-out hover:scale-105 xs:h-96 xs:w-80 xs:p-10 sm:h-[30rem] sm:w-96">
       <Image
         src={props.image}
         alt={props.name}

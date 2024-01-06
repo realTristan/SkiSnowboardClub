@@ -17,12 +17,17 @@ import Button from "@/components/buttons/Button";
 import ErrorMessage from "@/components/ErrorMessage";
 import MainWrapper from "@/components/MainWrapper";
 import { Checkbox, NextUIProvider } from "@nextui-org/react";
+import { BrowserView } from "react-device-detect";
 
 export default function DashboardNewEventage() {
   return (
     <>
       <Navbar dark={true} />
-      <CustomCursor />
+
+      <BrowserView>
+        <CustomCursor />
+      </BrowserView>
+
       <SocialMedia dark={true} />
       <GuelphLogo
         dark={true}

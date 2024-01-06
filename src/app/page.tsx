@@ -6,12 +6,17 @@ import GuelphLogo from "@/components/logos/GuelphLogo";
 import SocialMediaLogos from "@/components/logos/SocialMediaLogos";
 import DarkOverlay from "@/components/DarkOverlay";
 import MainWrapper from "@/components/MainWrapper";
+import { BrowserView } from "react-device-detect";
 
 export default function Home() {
   return (
     <>
       <Navbar centered={true} />
-      <CustomCursor />
+
+      <BrowserView>
+        <CustomCursor />
+      </BrowserView>
+
       <GuelphLogo className="fixed left-10 top-10 z-50 block lg:hidden xl:left-auto xl:right-10 xl:block" />
       <SocialMediaLogos />
 
